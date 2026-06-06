@@ -5,25 +5,23 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>WorldGate AI — 世界门 | Global Opportunity Intelligence</title>
 <meta name="description" content="AI-powered global opportunity intelligence. Invest, study, trade or relocate anywhere in the world. Available in 25 languages.">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; min-height: 100vh; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f7; color: #1d1d1f; }
 .header { background: #fff; border-bottom: 1px solid #e5e5ea; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
-.logo { font-size: 20px; font-weight: 600; color: #1d1d1f; }
+.logo { font-size: 20px; font-weight: 700; color: #1d1d1f; }
 .logo span { color: #1D9E75; }
-.logo small { font-size: 11px; color: #8e8e93; font-weight: 400; margin-left: 4px; }
-.lang-select { padding: 6px 12px; border: 1px solid #e5e5ea; border-radius: 8px; background: #f5f5f7; color: #1d1d1f; font-size: 13px; cursor: pointer; outline: none; }
-.hero { background: linear-gradient(135deg, #085041 0%, #1D9E75 100%); padding: 48px 24px; text-align: center; color: white; }
-.hero h1 { font-size: 28px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
-.hero p { font-size: 15px; opacity: 0.9; margin-bottom: 28px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6; }
+.logo small { font-size: 11px; color: #8e8e93; font-weight: 400; margin-left: 6px; }
+.lang-select { padding: 7px 14px; border: 1px solid #e5e5ea; border-radius: 8px; background: #f5f5f7; color: #1d1d1f; font-size: 13px; cursor: pointer; outline: none; }
+.hero { background: linear-gradient(135deg, #085041 0%, #1D9E75 100%); padding: 48px 24px 40px; text-align: center; color: white; }
+.hero h1 { font-size: 26px; font-weight: 700; margin-bottom: 12px; }
+.hero p { font-size: 15px; opacity: 0.9; margin-bottom: 24px; max-width: 500px; margin-left: auto; margin-right: auto; line-height: 1.6; }
 .type-grid { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-bottom: 22px; }
-.type-btn { padding: 8px 18px; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.5); background: transparent; color: white; font-size: 13px; cursor: pointer; transition: all 0.2s; font-weight: 500; }
+.type-btn { padding: 8px 18px; border-radius: 20px; border: 1.5px solid rgba(255,255,255,0.6); background: transparent; color: white; font-size: 13px; cursor: pointer; font-weight: 500; transition: all 0.2s; }
 .type-btn.active, .type-btn:hover { background: white; color: #085041; border-color: white; }
 .search-row { display: flex; max-width: 500px; margin: 0 auto; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
-.search-row input { flex: 1; padding: 13px 16px; border: none; font-size: 14px; outline: none; color: #1d1d1f; }
-.search-row button { padding: 13px 22px; background: #0F6E56; color: white; border: none; cursor: pointer; font-size: 14px; font-weight: 600; transition: background 0.2s; }
-.search-row button:hover { background: #085041; }
+.search-row input { flex: 1; padding: 14px 16px; border: none; font-size: 14px; outline: none; color: #1d1d1f; }
+.search-row button { padding: 14px 22px; background: #085041; color: white; border: none; cursor: pointer; font-size: 14px; font-weight: 600; }
 .stats-bar { display: flex; justify-content: center; gap: 32px; padding: 16px 24px; background: white; border-bottom: 1px solid #e5e5ea; flex-wrap: wrap; }
 .stat { text-align: center; }
 .stat-num { font-size: 20px; font-weight: 700; color: #1D9E75; }
@@ -32,16 +30,16 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .sec-title { font-size: 16px; font-weight: 600; margin-bottom: 14px; color: #1d1d1f; }
 .cont-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; margin-bottom: 28px; }
 .cont-card { background: white; border: 1.5px solid #e5e5ea; border-radius: 12px; padding: 16px 10px; text-align: center; cursor: pointer; transition: all 0.2s; }
-.cont-card:hover { border-color: #1D9E75; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(29,158,117,0.15); }
+.cont-card:hover { border-color: #1D9E75; transform: translateY(-2px); }
 .cont-card.active { border-color: #1D9E75; background: #E8F8F3; }
 .cont-icon { font-size: 26px; margin-bottom: 7px; }
-.cont-name { font-size: 12px; font-weight: 600; color: #1d1d1f; }
+.cont-name { font-size: 12px; font-weight: 600; }
 .cont-count { font-size: 11px; color: #8e8e93; margin-top: 2px; }
 .opp-header-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
 .free-badge { background: #E8F8F3; color: #085041; font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 .opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 28px; }
 .opp-card { background: white; border: 1.5px solid #e5e5ea; border-radius: 12px; padding: 16px; cursor: pointer; transition: all 0.2s; }
-.opp-card:hover { border-color: #1D9E75; box-shadow: 0 4px 16px rgba(29,158,117,0.12); transform: translateY(-1px); }
+.opp-card:hover { border-color: #1D9E75; transform: translateY(-1px); box-shadow: 0 4px 16px rgba(29,158,117,0.12); }
 .opp-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
 .opp-tag { font-size: 11px; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
 .ti { background: #E8F8F3; color: #085041; }
@@ -49,7 +47,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .tt { background: #FEF3E2; color: #633806; }
 .tl { background: #FBEAF0; color: #4B1528; }
 .opp-score { font-size: 12px; color: #1D9E75; font-weight: 600; }
-.opp-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; color: #1d1d1f; }
+.opp-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
 .opp-desc { font-size: 12px; color: #6e6e73; line-height: 1.5; margin-bottom: 12px; }
 .opp-foot { display: flex; justify-content: space-between; align-items: center; }
 .opp-ctry { font-size: 11px; color: #8e8e93; }
@@ -58,24 +56,22 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 .paywall h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
 .paywall p { font-size: 14px; color: #6e6e73; margin-bottom: 20px; line-height: 1.5; }
 .price-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
-.price-card { border: 1.5px solid #e5e5ea; border-radius: 12px; padding: 14px 22px; min-width: 120px; cursor: pointer; transition: all 0.2s; }
-.price-card:hover { border-color: #1D9E75; }
+.price-card { border: 1.5px solid #e5e5ea; border-radius: 12px; padding: 14px 22px; min-width: 120px; cursor: pointer; }
 .price-card.feat { border: 2px solid #1D9E75; background: #E8F8F3; }
-.p-amt { font-size: 24px; font-weight: 700; color: #1d1d1f; }
+.p-amt { font-size: 24px; font-weight: 700; }
 .p-per { font-size: 12px; color: #8e8e93; }
 .p-lbl { font-size: 11px; color: #1D9E75; font-weight: 600; margin-top: 4px; }
-.pay-btn { background: #1D9E75; color: white; border: none; border-radius: 10px; padding: 14px 36px; font-size: 15px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-.pay-btn:hover { background: #085041; }
+.pay-btn { background: #1D9E75; color: white; border: none; border-radius: 10px; padding: 14px 36px; font-size: 15px; font-weight: 600; cursor: pointer; }
 .ai-box { background: white; border: 1.5px solid #e5e5ea; border-radius: 12px; padding: 20px; margin-bottom: 28px; display: none; }
-.ai-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid #e5e5ea; }
+.ai-head { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding-bottom: 12px; border-bottom: 1px solid #e5e5ea; }
 .ai-title { font-size: 14px; font-weight: 600; flex: 1; }
 .ai-badge { background: #E8F8F3; color: #085041; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; }
-.ai-body { font-size: 13px; line-height: 1.8; color: #1d1d1f; }
+.ai-body { font-size: 13px; line-height: 1.8; }
 .hl { background: #E8F8F3; padding: 1px 6px; border-radius: 4px; color: #085041; font-weight: 600; }
-.share-btn { margin-top: 14px; background: #f5f5f7; border: 1px solid #e5e5ea; border-radius: 8px; padding: 10px 18px; font-size: 13px; cursor: pointer; color: #1d1d1f; font-weight: 500; transition: all 0.2s; }
-.share-btn:hover { background: #e5e5ea; }
+.share-btn { margin-top: 14px; background: #f5f5f7; border: 1px solid #e5e5ea; border-radius: 8px; padding: 10px 18px; font-size: 13px; cursor: pointer; font-weight: 500; }
 .footer { background: #1d1d1f; color: #8e8e93; text-align: center; padding: 24px; font-size: 12px; margin-top: 40px; }
-.footer span { color: #1D9E75; }
+.footer a { color: #1D9E75; text-decoration: none; }
+.loading { color: #8e8e93; font-style: italic; }
 </style>
 </head>
 <body>
@@ -99,229 +95,270 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; b
 </div>
 
 <div class="hero">
-  <h1 id="hTitle"></h1>
-  <p id="hSub"></p>
+  <h1 id="hTitle">Your Gateway to Global Opportunities</h1>
+  <p id="hSub">AI-powered intelligence for every country on earth. Invest, study, trade, or relocate — in your language.</p>
   <div class="type-grid" id="typeGrid"></div>
   <div class="search-row">
-    <input type="text" id="searchInput" />
-    <button id="exploreBtn" onclick="doSearch()"></button>
+    <input type="text" id="searchInput" placeholder="Search any country, city, or opportunity..." />
+    <button id="exploreBtn" onclick="doSearch()">Explore</button>
   </div>
 </div>
 
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">195</div><div class="stat-label" id="s1"></div></div>
-  <div class="stat"><div class="stat-num">7</div><div class="stat-label" id="s2"></div></div>
-  <div class="stat"><div class="stat-num">25+</div><div class="stat-label" id="s3"></div></div>
-  <div class="stat"><div class="stat-num">50+</div><div class="stat-label" id="s4"></div></div>
+  <div class="stat"><div class="stat-num">195</div><div class="stat-label" id="s1">Countries covered</div></div>
+  <div class="stat"><div class="stat-num">7</div><div class="stat-label" id="s2">Continents</div></div>
+  <div class="stat"><div class="stat-num">25+</div><div class="stat-label" id="s3">Languages</div></div>
+  <div class="stat"><div class="stat-num">50+</div><div class="stat-label" id="s4">Opportunity types</div></div>
 </div>
 
 <div class="main">
-  <div class="sec-title" id="secCont"></div>
+  <div class="sec-title" id="secCont">Explore by continent</div>
   <div class="cont-grid" id="contGrid"></div>
   <div id="oppSection">
     <div class="opp-header-row">
-      <div class="sec-title" id="oppTitle" style="margin:0"></div>
-      <span class="free-badge" id="freeBadge"></span>
+      <div class="sec-title" id="oppTitle" style="margin:0">Top opportunities in Africa</div>
+      <span class="free-badge" id="freeBadge">3 free today</span>
     </div>
     <div class="opp-grid" id="oppGrid"></div>
   </div>
   <div class="paywall" id="paywall">
-    <h3 id="pwTitle"></h3>
-    <p id="pwSub"></p>
+    <h3 id="pwTitle">Unlock full access to WorldGate AI</h3>
+    <p id="pwSub">You've used your 3 free searches. Upgrade for unlimited reports, AI briefings, and expert consultations.</p>
     <div class="price-row">
-      <div class="price-card"><div class="p-amt">$9</div><div class="p-per" id="pwPer1"></div><div class="p-lbl" id="pwLbl1"></div></div>
-      <div class="price-card feat"><div class="p-amt">$19</div><div class="p-per" id="pwPer2"></div><div class="p-lbl" id="pwLbl2"></div></div>
-      <div class="price-card"><div class="p-amt">$299</div><div class="p-per" id="pwPer3"></div><div class="p-lbl" id="pwLbl3"></div></div>
+      <div class="price-card"><div class="p-amt">$9</div><div class="p-per" id="pwPer1">one report</div><div class="p-lbl" id="pwLbl1">Single access</div></div>
+      <div class="price-card feat"><div class="p-amt">$19</div><div class="p-per" id="pwPer2">per month</div><div class="p-lbl" id="pwLbl2">⭐ Most popular</div></div>
+      <div class="price-card"><div class="p-amt">$299</div><div class="p-per" id="pwPer3">per month</div><div class="p-lbl" id="pwLbl3">Corporate</div></div>
     </div>
-    <button class="pay-btn" id="payBtn" onclick="window.open('https://pesapal.com','_blank')"></button>
+    <button class="pay-btn" id="payBtn" onclick="window.open('https://www.pesapal.com','_blank')">Pay via Pesapal / M-Pesa / Card</button>
   </div>
   <div class="ai-box" id="aiBox">
     <div class="ai-head">
-      <i class="ti ti-robot" style="font-size:20px;color:#1D9E75"></i>
-      <span class="ai-title" id="aiBriefLabel"></span>
-      <span class="ai-badge" id="aiLiveLabel"></span>
+      <span style="font-size:20px">🤖</span>
+      <span class="ai-title" id="aiBriefLabel">AI Intelligence Briefing</span>
+      <span class="ai-badge" id="aiLiveLabel">Live AI</span>
     </div>
     <div class="ai-body" id="aiBody"></div>
-    <button class="share-btn" id="shareBtn" onclick="doShare()"></button>
+    <button class="share-btn" id="shareBtn" onclick="doShare()">📤 Share to WeChat / WhatsApp</button>
   </div>
 </div>
 
 <div class="footer">
-  <p>© 2025 <span>WorldGate AI</span> · 世界门 · Built by Nowells, Nairobi Kenya · Powering global opportunity for everyone</p>
+  <p>© 2025 <a href="#">WorldGate AI</a> · 世界门 · Built by Nowells, Nairobi Kenya · Powering global opportunity for everyone</p>
 </div>
 
 <script>
-const GEMINI_API_KEY = AQ.Ab8RN6ISeJohafKyIwN4HCQqms5KLIwjL94Z1XmJ8Axg8Vcw8w;
+var GEMINI_KEY = 'AQ.Ab8RN6ISeJohafKyIwN4HCQqms5KLIwjL94Z1XmJ8Axg8Vcw8w';
 
-const T = {
-  en:{hTitle:"Your Gateway to Global Opportunities",hSub:"AI-powered intelligence for every country on earth. Invest, study, trade, or relocate — in your language.",types:["Investor","Student","Trader","Teacher","Traveler"],searchPH:"Search any country, city, or opportunity...",exploreBtn:"Explore",s1:"Countries covered",s2:"Continents",s3:"Languages",s4:"Opportunity types",secCont:"Explore by continent",continents:["Africa","Asia","Europe","Americas","Middle East","Oceania"],contCounts:["54 countries","48 countries","44 countries","35 countries","17 countries","14 countries"],oppIn:"Top opportunities in",free:"3 free today",fullReport:"Full report →",pwTitle:"Unlock full access to WorldGate AI",pwSub:"You've used your 3 free searches. Upgrade for unlimited reports, AI briefings, and expert consultations.",pwPer1:"one report",pwLbl1:"Single access",pwPer2:"per month",pwLbl2:"⭐ Most popular",pwPer3:"per month",pwLbl3:"Corporate",payBtn:"Pay via Pesapal / M-Pesa / Card",aiBriefLabel:"AI Intelligence Briefing",aiLiveLabel:"Live AI",shareBtn:"📤 Share to WeChat / WhatsApp",tagI:"Invest",tagS:"Study",tagT:"Trade",tagL:"Live",aiIntro:"Our AI has analyzed",aiFor:"based on your profile as a",aiScore:"Opportunity score",aiHigh:"high-priority opportunity",aiWhy:"Why this fits you",aiSteps:"Entry steps",aiStep:"(1) Register interest (2) Due diligence (3) Connect local expert (4) Execute",aiRisk:"Risk level",aiLow:"Low–Medium",aiTime:"Time to returns",aiMin:"Min. entry"},
-  zh:{hTitle:"您通往全球机遇的门户",hSub:"为地球上每个国家提供AI驱动的智能服务。投资、学习、贸易或移居——用您的语言。",types:["投资者","学生","贸易商","教师","旅行者"],searchPH:"搜索任何国家、城市或机会...",exploreBtn:"探索",s1:"覆盖国家",s2:"洲",s3:"语言",s4:"机会类型",secCont:"按大洲探索",continents:["非洲","亚洲","欧洲","美洲","中东","大洋洲"],contCounts:["54个国家","48个国家","44个国家","35个国家","17个国家","14个国家"],oppIn:"顶级机遇在",free:"今日3次免费",fullReport:"完整报告 →",pwTitle:"解锁WorldGate AI完整访问权限",pwSub:"您已使用3次免费搜索。升级以获得无限报告、AI简报和专家咨询。",pwPer1:"单次报告",pwLbl1:"单次访问",pwPer2:"每月",pwLbl2:"⭐ 最受欢迎",pwPer3:"每月",pwLbl3:"企业版",payBtn:"通过Pesapal / M-Pesa / 银行卡支付",aiBriefLabel:"AI智能简报",aiLiveLabel:"实时AI",shareBtn:"📤 分享到微信 / WhatsApp",tagI:"投资",tagS:"学习",tagT:"贸易",tagL:"居住",aiIntro:"我们的AI已分析了",aiFor:"根据您作为",aiScore:"机会评分",aiHigh:"高优先级机会",aiWhy:"为什么适合您",aiSteps:"入场步骤",aiStep:"(1) 登记兴趣 (2) 尽职调查 (3) 联系当地专家 (4) 执行",aiRisk:"风险等级",aiLow:"低至中等",aiTime:"回报时间",aiMin:"最低入场"},
-  fr:{hTitle:"Votre porte vers les opportunités mondiales",hSub:"Intelligence IA pour chaque pays du monde. Investissez, étudiez, commercez ou déménagez.",types:["Investisseur","Étudiant","Commerçant","Enseignant","Voyageur"],searchPH:"Rechercher un pays, une ville ou une opportunité...",exploreBtn:"Explorer",s1:"Pays couverts",s2:"Continents",s3:"Langues",s4:"Types d'opportunités",secCont:"Explorer par continent",continents:["Afrique","Asie","Europe","Amériques","Moyen-Orient","Océanie"],contCounts:["54 pays","48 pays","44 pays","35 pays","17 pays","14 pays"],oppIn:"Meilleures opportunités en",free:"3 gratuites aujourd'hui",fullReport:"Rapport complet →",pwTitle:"Débloquez l'accès complet à WorldGate AI",pwSub:"Vous avez utilisé vos 3 recherches gratuites. Passez à la version Pro.",pwPer1:"un rapport",pwLbl1:"Accès unique",pwPer2:"par mois",pwLbl2:"⭐ Plus populaire",pwPer3:"par mois",pwLbl3:"Entreprise",payBtn:"Payer via Pesapal / M-Pesa / Carte",aiBriefLabel:"Briefing Intelligence IA",aiLiveLabel:"IA en direct",shareBtn:"📤 Partager sur WeChat / WhatsApp",tagI:"Investir",tagS:"Étudier",tagT:"Commerce",tagL:"Vivre",aiIntro:"Notre IA a analysé",aiFor:"selon votre profil en tant que",aiScore:"Score d'opportunité",aiHigh:"opportunité hautement prioritaire",aiWhy:"Pourquoi cela vous convient",aiSteps:"Étapes d'entrée",aiStep:"(1) Enregistrer l'intérêt (2) Diligence raisonnable (3) Connecter expert local (4) Exécuter",aiRisk:"Niveau de risque",aiLow:"Faible–Moyen",aiTime:"Délai de retour",aiMin:"Entrée min."},
-  es:{hTitle:"Tu puerta a las oportunidades globales",hSub:"Inteligencia impulsada por IA para cada país del mundo.",types:["Inversor","Estudiante","Comerciante","Profesor","Viajero"],searchPH:"Buscar cualquier país, ciudad u oportunidad...",exploreBtn:"Explorar",s1:"Países cubiertos",s2:"Continentes",s3:"Idiomas",s4:"Tipos de oportunidades",secCont:"Explorar por continente",continents:["África","Asia","Europa","Américas","Oriente Medio","Oceanía"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Mejores oportunidades en",free:"3 gratis hoy",fullReport:"Informe completo →",pwTitle:"Desbloquea acceso completo a WorldGate AI",pwSub:"Has usado tus 3 búsquedas gratuitas.",pwPer1:"un informe",pwLbl1:"Acceso único",pwPer2:"por mes",pwLbl2:"⭐ Más popular",pwPer3:"por mes",pwLbl3:"Corporativo",payBtn:"Pagar via Pesapal / M-Pesa / Tarjeta",aiBriefLabel:"Briefing de Inteligencia IA",aiLiveLabel:"IA en vivo",shareBtn:"📤 Compartir en WeChat / WhatsApp",tagI:"Invertir",tagS:"Estudiar",tagT:"Comercio",tagL:"Vivir",aiIntro:"Nuestra IA ha analizado",aiFor:"según tu perfil como",aiScore:"Puntuación de oportunidad",aiHigh:"oportunidad de alta prioridad",aiWhy:"Por qué te conviene",aiSteps:"Pasos de entrada",aiStep:"(1) Registrar interés (2) Due diligence (3) Conectar experto local (4) Ejecutar",aiRisk:"Nivel de riesgo",aiLow:"Bajo–Medio",aiTime:"Tiempo de retorno",aiMin:"Entrada mín."},
-  ar:{hTitle:"بوابتك للفرص العالمية",hSub:"ذكاء اصطناعي لكل دولة في العالم.",types:["مستثمر","طالب","تاجر","معلم","مسافر"],searchPH:"ابحث عن أي دولة أو مدينة أو فرصة...",exploreBtn:"استكشف",s1:"الدول المشمولة",s2:"القارات",s3:"اللغات",s4:"أنواع الفرص",secCont:"استكشف حسب القارة",continents:["أفريقيا","آسيا","أوروبا","الأمريكتان","الشرق الأوسط","أوقيانوسيا"],contCounts:["54 دولة","48 دولة","44 دولة","35 دولة","17 دولة","14 دولة"],oppIn:"أفضل الفرص في",free:"3 مجانية اليوم",fullReport:"التقرير الكامل →",pwTitle:"افتح الوصول الكامل إلى WorldGate AI",pwSub:"لقد استخدمت 3 عمليات بحث مجانية.",pwPer1:"تقرير واحد",pwLbl1:"وصول فردي",pwPer2:"شهرياً",pwLbl2:"⭐ الأكثر شعبية",pwPer3:"شهرياً",pwLbl3:"مؤسسي",payBtn:"الدفع عبر Pesapal / M-Pesa / بطاقة",aiBriefLabel:"إحاطة الذكاء الاصطناعي",aiLiveLabel:"ذكاء اصطناعي مباشر",shareBtn:"📤 مشاركة على WeChat / WhatsApp",tagI:"استثمار",tagS:"دراسة",tagT:"تجارة",tagL:"إقامة",aiIntro:"حلل ذكاؤنا الاصطناعي",aiFor:"بناءً على ملفك الشخصي كـ",aiScore:"نتيجة الفرصة",aiHigh:"فرصة ذات أولوية عالية",aiWhy:"لماذا يناسبك هذا",aiSteps:"خطوات الدخول",aiStep:"(1) تسجيل الاهتمام (2) العناية الواجبة (3) التواصل مع خبير محلي (4) التنفيذ",aiRisk:"مستوى المخاطرة",aiLow:"منخفض–متوسط",aiTime:"وقت العوائد",aiMin:"الحد الأدنى للدخول"},
-  sw:{hTitle:"Lango Lako kwa Fursa za Kimataifa",hSub:"Akili bandia kwa kila nchi duniani.",types:["Mwekezaji","Mwanafunzi","Mfanyabiashara","Mwalimu","Msafiri"],searchPH:"Tafuta nchi, mji, au fursa yoyote...",exploreBtn:"Chunguza",s1:"Nchi zilizofunikwa",s2:"Mabara",s3:"Lugha",s4:"Aina za fursa",secCont:"Chunguza kwa bara",continents:["Afrika","Asia","Ulaya","Amerika","Mashariki ya Kati","Oceania"],contCounts:["Nchi 54","Nchi 48","Nchi 44","Nchi 35","Nchi 17","Nchi 14"],oppIn:"Fursa bora katika",free:"3 bure leo",fullReport:"Ripoti kamili →",pwTitle:"Fungua ufikiaji kamili wa WorldGate AI",pwSub:"Umetumia utafutaji wako 3 wa bure.",pwPer1:"ripoti moja",pwLbl1:"Ufikiaji mmoja",pwPer2:"kwa mwezi",pwLbl2:"⭐ Maarufu zaidi",pwPer3:"kwa mwezi",pwLbl3:"Kampuni",payBtn:"Lipa kupitia Pesapal / M-Pesa / Kadi",aiBriefLabel:"Taarifa ya Akili Bandia",aiLiveLabel:"AI ya Moja kwa Moja",shareBtn:"📤 Shiriki kwenye WeChat / WhatsApp",tagI:"Wekeza",tagS:"Soma",tagT:"Biashara",tagL:"Ishi",aiIntro:"AI yetu imechambua",aiFor:"kulingana na wasifu wako kama",aiScore:"Alama ya fursa",aiHigh:"fursa ya kipaumbele cha juu",aiWhy:"Kwa nini inakufaa",aiSteps:"Hatua za kuingia",aiStep:"(1) Sajili nia (2) Ukaguzi (3) Unganisha mtaalamu wa ndani (4) Tekeleza",aiRisk:"Kiwango cha hatari",aiLow:"Chini–Kati",aiTime:"Muda wa mapato",aiMin:"Kuingia kwa kiwango cha chini"},
-  pt:{hTitle:"Sua porta para oportunidades globais",hSub:"Inteligência de IA para cada país do mundo.",types:["Investidor","Estudante","Comerciante","Professor","Viajante"],searchPH:"Pesquisar país, cidade ou oportunidade...",exploreBtn:"Explorar",s1:"Países cobertos",s2:"Continentes",s3:"Idiomas",s4:"Tipos de oportunidades",secCont:"Explorar por continente",continents:["África","Ásia","Europa","Américas","Oriente Médio","Oceania"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Melhores oportunidades em",free:"3 grátis hoje",fullReport:"Relatório completo →",pwTitle:"Desbloqueie acesso completo ao WorldGate AI",pwSub:"Você usou suas 3 pesquisas gratuitas.",pwPer1:"um relatório",pwLbl1:"Acesso único",pwPer2:"por mês",pwLbl2:"⭐ Mais popular",pwPer3:"por mês",pwLbl3:"Corporativo",payBtn:"Pagar via Pesapal / M-Pesa / Cartão",aiBriefLabel:"Briefing de Inteligência IA",aiLiveLabel:"IA ao vivo",shareBtn:"📤 Compartilhar no WeChat / WhatsApp",tagI:"Investir",tagS:"Estudar",tagT:"Comércio",tagL:"Morar",aiIntro:"Nossa IA analisou",aiFor:"com base no seu perfil como",aiScore:"Pontuação de oportunidade",aiHigh:"oportunidade de alta prioridade",aiWhy:"Por que isso te convém",aiSteps:"Passos de entrada",aiStep:"(1) Registrar interesse (2) Due diligence (3) Conectar especialista local (4) Executar",aiRisk:"Nível de risco",aiLow:"Baixo–Médio",aiTime:"Tempo de retorno",aiMin:"Entrada mín."},
-  hi:{hTitle:"वैश्विक अवसरों का आपका द्वार",hSub:"पृथ्वी के हर देश के लिए AI-संचालित बुद्धिमत्ता।",types:["निवेशक","छात्र","व्यापारी","शिक्षक","यात्री"],searchPH:"कोई भी देश, शहर या अवसर खोजें...",exploreBtn:"अन्वेषण करें",s1:"देश शामिल",s2:"महाद्वीप",s3:"भाषाएं",s4:"अवसर प्रकार",secCont:"महाद्वीप द्वारा अन्वेषण करें",continents:["अफ्रीका","एशिया","यूरोप","अमेरिका","मध्य पूर्व","ओशिनिया"],contCounts:["54 देश","48 देश","44 देश","35 देश","17 देश","14 देश"],oppIn:"शीर्ष अवसर",free:"आज 3 मुफ्त",fullReport:"पूरी रिपोर्ट →",pwTitle:"WorldGate AI का पूर्ण एक्सेस अनलॉक करें",pwSub:"आपने 3 मुफ्त खोज उपयोग कर लिए हैं।",pwPer1:"एक रिपोर्ट",pwLbl1:"एकल एक्सेस",pwPer2:"प्रति माह",pwLbl2:"⭐ सबसे लोकप्रिय",pwPer3:"प्रति माह",pwLbl3:"कॉर्पोरेट",payBtn:"Pesapal / M-Pesa / कार्ड से भुगतान करें",aiBriefLabel:"AI इंटेलिजेंस ब्रीफिंग",aiLiveLabel:"लाइव AI",shareBtn:"📤 WeChat / WhatsApp पर शेयर करें",tagI:"निवेश",tagS:"अध्ययन",tagT:"व्यापार",tagL:"रहना",aiIntro:"हमारे AI ने विश्लेषण किया",aiFor:"आपकी प्रोफ़ाइल के आधार पर",aiScore:"अवसर स्कोर",aiHigh:"उच्च प्राथमिकता अवसर",aiWhy:"यह आपके लिए क्यों उपयुक्त है",aiSteps:"प्रवेश चरण",aiStep:"(1) रुचि दर्ज करें (2) उचित परिश्रम (3) स्थानीय विशेषज्ञ से जुड़ें (4) निष्पादित करें",aiRisk:"जोखिम स्तर",aiLow:"निम्न–मध्यम",aiTime:"रिटर्न का समय",aiMin:"न्यूनतम प्रवेश"},
-  ja:{hTitle:"グローバルな機会へのゲートウェイ",hSub:"地球上のすべての国のAI搭載インテリジェンス。",types:["投資家","学生","トレーダー","教師","旅行者"],searchPH:"国、都市、機会を検索...",exploreBtn:"探索する",s1:"対象国数",s2:"大陸",s3:"言語",s4:"機会の種類",secCont:"大陸別に探索",continents:["アフリカ","アジア","ヨーロッパ","アメリカ","中東","オセアニア"],contCounts:["54カ国","48カ国","44カ国","35カ国","17カ国","14カ国"],oppIn:"トップの機会",free:"今日3回無料",fullReport:"詳細レポート →",pwTitle:"WorldGate AIへの完全アクセスを解除",pwSub:"3回の無料検索を使用しました。",pwPer1:"1レポート",pwLbl1:"単回アクセス",pwPer2:"月額",pwLbl2:"⭐ 最も人気",pwPer3:"月額",pwLbl3:"法人向け",payBtn:"Pesapal / M-Pesa / カードで支払う",aiBriefLabel:"AIインテリジェンスブリーフィング",aiLiveLabel:"ライブAI",shareBtn:"📤 WeChat / WhatsAppでシェア",tagI:"投資",tagS:"留学",tagT:"貿易",tagL:"移住",aiIntro:"AIが分析しました",aiFor:"あなたのプロフィールに基づき",aiScore:"機会スコア",aiHigh:"高優先度の機会",aiWhy:"なぜあなたに向いているか",aiSteps:"参入ステップ",aiStep:"(1) 関心を登録 (2) デューデリジェンス (3) 地域専門家と連絡 (4) 実行",aiRisk:"リスクレベル",aiLow:"低〜中",aiTime:"リターンまでの期間",aiMin:"最低参入額"},
-  ko:{hTitle:"글로벌 기회로 가는 관문",hSub:"지구상 모든 국가를 위한 AI 기반 인텔리전스.",types:["투자자","학생","트레이더","교사","여행자"],searchPH:"국가, 도시 또는 기회 검색...",exploreBtn:"탐색",s1:"국가 수",s2:"대륙",s3:"언어",s4:"기회 유형",secCont:"대륙별 탐색",continents:["아프리카","아시아","유럽","아메리카","중동","오세아니아"],contCounts:["54개국","48개국","44개국","35개국","17개국","14개국"],oppIn:"주요 기회",free:"오늘 3회 무료",fullReport:"전체 보고서 →",pwTitle:"WorldGate AI 전체 이용권 잠금 해제",pwSub:"3번의 무료 검색을 사용했습니다.",pwPer1:"보고서 1건",pwLbl1:"단일 이용",pwPer2:"월",pwLbl2:"⭐ 가장 인기",pwPer3:"월",pwLbl3:"기업용",payBtn:"Pesapal / M-Pesa / 카드로 결제",aiBriefLabel:"AI 인텔리전스 브리핑",aiLiveLabel:"실시간 AI",shareBtn:"📤 WeChat / WhatsApp에 공유",tagI:"투자",tagS:"학습",tagT:"무역",tagL:"거주",aiIntro:"AI가 분석했습니다",aiFor:"귀하의 프로필 기준",aiScore:"기회 점수",aiHigh:"고우선순위 기회",aiWhy:"왜 적합한가",aiSteps:"진입 단계",aiStep:"(1) 관심 등록 (2) 실사 (3) 현지 전문가 연결 (4) 실행",aiRisk:"위험 수준",aiLow:"낮음–중간",aiTime:"수익 기간",aiMin:"최소 진입"},
-  de:{hTitle:"Ihr Tor zu globalen Chancen",hSub:"KI-gestützte Intelligenz für jedes Land der Erde.",types:["Investor","Student","Händler","Lehrer","Reisender"],searchPH:"Land, Stadt oder Chance suchen...",exploreBtn:"Erkunden",s1:"Abgedeckte Länder",s2:"Kontinente",s3:"Sprachen",s4:"Chance-Typen",secCont:"Nach Kontinent erkunden",continents:["Afrika","Asien","Europa","Amerika","Naher Osten","Ozeanien"],contCounts:["54 Länder","48 Länder","44 Länder","35 Länder","17 Länder","14 Länder"],oppIn:"Top-Chancen in",free:"Heute 3 kostenlos",fullReport:"Vollständiger Bericht →",pwTitle:"Vollzugriff auf WorldGate AI freischalten",pwSub:"Sie haben Ihre 3 kostenlosen Suchen aufgebraucht.",pwPer1:"ein Bericht",pwLbl1:"Einzelzugang",pwPer2:"pro Monat",pwLbl2:"⭐ Am beliebtesten",pwPer3:"pro Monat",pwLbl3:"Unternehmen",payBtn:"Bezahlen via Pesapal / M-Pesa / Karte",aiBriefLabel:"KI-Intelligenz-Briefing",aiLiveLabel:"Live KI",shareBtn:"📤 Auf WeChat / WhatsApp teilen",tagI:"Investieren",tagS:"Studium",tagT:"Handel",tagL:"Leben",aiIntro:"Unsere KI hat analysiert",aiFor:"basierend auf Ihrem Profil als",aiScore:"Chancenbewertung",aiHigh:"hochpriorisierte Chance",aiWhy:"Warum das zu Ihnen passt",aiSteps:"Einstiegsschritte",aiStep:"(1) Interesse anmelden (2) Due Diligence (3) Lokalen Experten kontaktieren (4) Umsetzen",aiRisk:"Risikoniveau",aiLow:"Niedrig–Mittel",aiTime:"Zeit bis zur Rendite",aiMin:"Mindesteinlage"},
-  ru:{hTitle:"Ваши ворота в мировые возможности",hSub:"ИИ-аналитика для каждой страны мира.",types:["Инвестор","Студент","Трейдер","Преподаватель","Путешественник"],searchPH:"Поиск страны, города или возможности...",exploreBtn:"Исследовать",s1:"Стран охвачено",s2:"Континенты",s3:"Языки",s4:"Типы возможностей",secCont:"Исследовать по континенту",continents:["Африка","Азия","Европа","Америка","Ближний Восток","Океания"],contCounts:["54 страны","48 стран","44 страны","35 стран","17 стран","14 стран"],oppIn:"Лучшие возможности в",free:"3 бесплатно сегодня",fullReport:"Полный отчёт →",pwTitle:"Разблокировать полный доступ к WorldGate AI",pwSub:"Вы использовали 3 бесплатных поиска.",pwPer1:"один отчёт",pwLbl1:"Разовый доступ",pwPer2:"в месяц",pwLbl2:"⭐ Самый популярный",pwPer3:"в месяц",pwLbl3:"Корпоративный",payBtn:"Оплатить через Pesapal / M-Pesa / Карта",aiBriefLabel:"ИИ-брифинг",aiLiveLabel:"Живой ИИ",shareBtn:"📤 Поделиться в WeChat / WhatsApp",tagI:"Инвестиции",tagS:"Учёба",tagT:"Торговля",tagL:"Проживание",aiIntro:"Наш ИИ проанализировал",aiFor:"на основе вашего профиля как",aiScore:"Оценка возможности",aiHigh:"высокоприоритетная возможность",aiWhy:"Почему это вам подходит",aiSteps:"Шаги входа",aiStep:"(1) Зарегистрировать интерес (2) Due diligence (3) Связаться с местным экспертом (4) Выполнить",aiRisk:"Уровень риска",aiLow:"Низкий–Средний",aiTime:"Срок окупаемости",aiMin:"Мин. вложение"}
+var T = {
+  en:{hTitle:"Your Gateway to Global Opportunities",hSub:"AI-powered intelligence for every country on earth. Invest, study, trade, or relocate — in your language.",types:["Investor","Student","Trader","Teacher","Traveler"],searchPH:"Search any country, city, or opportunity...",exploreBtn:"Explore",s1:"Countries covered",s2:"Continents",s3:"Languages",s4:"Opportunity types",secCont:"Explore by continent",continents:["Africa","Asia","Europe","Americas","Middle East","Oceania"],contCounts:["54 countries","48 countries","44 countries","35 countries","17 countries","14 countries"],oppIn:"Top opportunities in",free:"3 free today",fullReport:"Full report →",pwTitle:"Unlock full access to WorldGate AI",pwSub:"You've used your 3 free searches. Upgrade for unlimited reports, AI briefings, and expert consultations.",pwPer1:"one report",pwLbl1:"Single access",pwPer2:"per month",pwLbl2:"⭐ Most popular",pwPer3:"per month",pwLbl3:"Corporate",payBtn:"Pay via Pesapal / M-Pesa / Card",aiBriefLabel:"AI Intelligence Briefing",aiLiveLabel:"Live AI",shareBtn:"📤 Share to WeChat / WhatsApp",tagI:"Invest",tagS:"Study",tagT:"Trade",tagL:"Live"},
+  zh:{hTitle:"您通往全球机遇的门户",hSub:"为地球上每个国家提供AI驱动的智能服务。投资、学习、贸易或移居——用您的语言。",types:["投资者","学生","贸易商","教师","旅行者"],searchPH:"搜索任何国家、城市或机会...",exploreBtn:"探索",s1:"覆盖国家",s2:"洲",s3:"语言",s4:"机会类型",secCont:"按大洲探索",continents:["非洲","亚洲","欧洲","美洲","中东","大洋洲"],contCounts:["54个国家","48个国家","44个国家","35个国家","17个国家","14个国家"],oppIn:"顶级机遇在",free:"今日3次免费",fullReport:"完整报告 →",pwTitle:"解锁WorldGate AI完整访问权限",pwSub:"您已使用3次免费搜索。升级以获得无限报告。",pwPer1:"单次报告",pwLbl1:"单次访问",pwPer2:"每月",pwLbl2:"⭐ 最受欢迎",pwPer3:"每月",pwLbl3:"企业版",payBtn:"通过Pesapal / M-Pesa / 银行卡支付",aiBriefLabel:"AI智能简报",aiLiveLabel:"实时AI",shareBtn:"📤 分享到微信 / WhatsApp",tagI:"投资",tagS:"学习",tagT:"贸易",tagL:"居住"},
+  fr:{hTitle:"Votre porte vers les opportunités mondiales",hSub:"Intelligence IA pour chaque pays du monde.",types:["Investisseur","Étudiant","Commerçant","Enseignant","Voyageur"],searchPH:"Rechercher un pays, une ville ou une opportunité...",exploreBtn:"Explorer",s1:"Pays couverts",s2:"Continents",s3:"Langues",s4:"Types d'opportunités",secCont:"Explorer par continent",continents:["Afrique","Asie","Europe","Amériques","Moyen-Orient","Océanie"],contCounts:["54 pays","48 pays","44 pays","35 pays","17 pays","14 pays"],oppIn:"Meilleures opportunités en",free:"3 gratuites aujourd'hui",fullReport:"Rapport complet →",pwTitle:"Débloquez l'accès complet",pwSub:"Vous avez utilisé vos 3 recherches gratuites.",pwPer1:"un rapport",pwLbl1:"Accès unique",pwPer2:"par mois",pwLbl2:"⭐ Plus populaire",pwPer3:"par mois",pwLbl3:"Entreprise",payBtn:"Payer via Pesapal / M-Pesa / Carte",aiBriefLabel:"Briefing Intelligence IA",aiLiveLabel:"IA en direct",shareBtn:"📤 Partager sur WeChat / WhatsApp",tagI:"Investir",tagS:"Étudier",tagT:"Commerce",tagL:"Vivre"},
+  es:{hTitle:"Tu puerta a las oportunidades globales",hSub:"Inteligencia impulsada por IA para cada país del mundo.",types:["Inversor","Estudiante","Comerciante","Profesor","Viajero"],searchPH:"Buscar cualquier país, ciudad u oportunidad...",exploreBtn:"Explorar",s1:"Países cubiertos",s2:"Continentes",s3:"Idiomas",s4:"Tipos de oportunidades",secCont:"Explorar por continente",continents:["África","Asia","Europa","Américas","Oriente Medio","Oceanía"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Mejores oportunidades en",free:"3 gratis hoy",fullReport:"Informe completo →",pwTitle:"Desbloquea acceso completo",pwSub:"Has usado tus 3 búsquedas gratuitas.",pwPer1:"un informe",pwLbl1:"Acceso único",pwPer2:"por mes",pwLbl2:"⭐ Más popular",pwPer3:"por mes",pwLbl3:"Corporativo",payBtn:"Pagar via Pesapal / M-Pesa / Tarjeta",aiBriefLabel:"Briefing de Inteligencia IA",aiLiveLabel:"IA en vivo",shareBtn:"📤 Compartir en WeChat / WhatsApp",tagI:"Invertir",tagS:"Estudiar",tagT:"Comercio",tagL:"Vivir"},
+  ar:{hTitle:"بوابتك للفرص العالمية",hSub:"ذكاء اصطناعي لكل دولة في العالم.",types:["مستثمر","طالب","تاجر","معلم","مسافر"],searchPH:"ابحث عن أي دولة أو مدينة أو فرصة...",exploreBtn:"استكشف",s1:"الدول المشمولة",s2:"القارات",s3:"اللغات",s4:"أنواع الفرص",secCont:"استكشف حسب القارة",continents:["أفريقيا","آسيا","أوروبا","الأمريكتان","الشرق الأوسط","أوقيانوسيا"],contCounts:["54 دولة","48 دولة","44 دولة","35 دولة","17 دولة","14 دولة"],oppIn:"أفضل الفرص في",free:"3 مجانية اليوم",fullReport:"التقرير الكامل →",pwTitle:"افتح الوصول الكامل",pwSub:"لقد استخدمت 3 عمليات بحث مجانية.",pwPer1:"تقرير واحد",pwLbl1:"وصول فردي",pwPer2:"شهرياً",pwLbl2:"⭐ الأكثر شعبية",pwPer3:"شهرياً",pwLbl3:"مؤسسي",payBtn:"الدفع عبر Pesapal / M-Pesa / بطاقة",aiBriefLabel:"إحاطة الذكاء الاصطناعي",aiLiveLabel:"ذكاء اصطناعي مباشر",shareBtn:"📤 مشاركة على WeChat / WhatsApp",tagI:"استثمار",tagS:"دراسة",tagT:"تجارة",tagL:"إقامة"},
+  sw:{hTitle:"Lango Lako kwa Fursa za Kimataifa",hSub:"Akili bandia kwa kila nchi duniani.",types:["Mwekezaji","Mwanafunzi","Mfanyabiashara","Mwalimu","Msafiri"],searchPH:"Tafuta nchi, mji, au fursa yoyote...",exploreBtn:"Chunguza",s1:"Nchi zilizofunikwa",s2:"Mabara",s3:"Lugha",s4:"Aina za fursa",secCont:"Chunguza kwa bara",continents:["Afrika","Asia","Ulaya","Amerika","Mashariki ya Kati","Oceania"],contCounts:["Nchi 54","Nchi 48","Nchi 44","Nchi 35","Nchi 17","Nchi 14"],oppIn:"Fursa bora katika",free:"3 bure leo",fullReport:"Ripoti kamili →",pwTitle:"Fungua ufikiaji kamili",pwSub:"Umetumia utafutaji wako 3 wa bure.",pwPer1:"ripoti moja",pwLbl1:"Ufikiaji mmoja",pwPer2:"kwa mwezi",pwLbl2:"⭐ Maarufu zaidi",pwPer3:"kwa mwezi",pwLbl3:"Kampuni",payBtn:"Lipa kupitia Pesapal / M-Pesa / Kadi",aiBriefLabel:"Taarifa ya Akili Bandia",aiLiveLabel:"AI ya Moja kwa Moja",shareBtn:"📤 Shiriki kwenye WeChat / WhatsApp",tagI:"Wekeza",tagS:"Soma",tagT:"Biashara",tagL:"Ishi"},
+  pt:{hTitle:"Sua porta para oportunidades globais",hSub:"Inteligência de IA para cada país do mundo.",types:["Investidor","Estudante","Comerciante","Professor","Viajante"],searchPH:"Pesquisar país, cidade ou oportunidade...",exploreBtn:"Explorar",s1:"Países cobertos",s2:"Continentes",s3:"Idiomas",s4:"Tipos de oportunidades",secCont:"Explorar por continente",continents:["África","Ásia","Europa","Américas","Oriente Médio","Oceania"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Melhores oportunidades em",free:"3 grátis hoje",fullReport:"Relatório completo →",pwTitle:"Desbloqueie acesso completo",pwSub:"Você usou suas 3 pesquisas gratuitas.",pwPer1:"um relatório",pwLbl1:"Acesso único",pwPer2:"por mês",pwLbl2:"⭐ Mais popular",pwPer3:"por mês",pwLbl3:"Corporativo",payBtn:"Pagar via Pesapal / M-Pesa / Cartão",aiBriefLabel:"Briefing de Inteligência IA",aiLiveLabel:"IA ao vivo",shareBtn:"📤 Compartilhar no WeChat / WhatsApp",tagI:"Investir",tagS:"Estudar",tagT:"Comércio",tagL:"Morar"},
+  hi:{hTitle:"वैश्विक अवसरों का आपका द्वार",hSub:"पृथ्वी के हर देश के लिए AI-संचालित बुद्धिमत्ता।",types:["निवेशक","छात्र","व्यापारी","शिक्षक","यात्री"],searchPH:"कोई भी देश, शहर या अवसर खोजें...",exploreBtn:"अन्वेषण करें",s1:"देश शामिल",s2:"महाद्वीप",s3:"भाषाएं",s4:"अवसर प्रकार",secCont:"महाद्वीप द्वारा अन्वेषण करें",continents:["अफ्रीका","एशिया","यूरोप","अमेरिका","मध्य पूर्व","ओशिनिया"],contCounts:["54 देश","48 देश","44 देश","35 देश","17 देश","14 देश"],oppIn:"शीर्ष अवसर",free:"आज 3 मुफ्त",fullReport:"पूरी रिपोर्ट →",pwTitle:"पूर्ण एक्सेस अनलॉक करें",pwSub:"आपने 3 मुफ्त खोज उपयोग कर लिए हैं।",pwPer1:"एक रिपोर्ट",pwLbl1:"एकल एक्सेस",pwPer2:"प्रति माह",pwLbl2:"⭐ सबसे लोकप्रिय",pwPer3:"प्रति माह",pwLbl3:"कॉर्पोरेट",payBtn:"Pesapal / M-Pesa / कार्ड से भुगतान करें",aiBriefLabel:"AI इंटेलिजेंस ब्रीफिंग",aiLiveLabel:"लाइव AI",shareBtn:"📤 WeChat / WhatsApp पर शेयर करें",tagI:"निवेश",tagS:"अध्ययन",tagT:"व्यापार",tagL:"रहना"},
+  ja:{hTitle:"グローバルな機会へのゲートウェイ",hSub:"地球上のすべての国のAI搭載インテリジェンス。",types:["投資家","学生","トレーダー","教師","旅行者"],searchPH:"国、都市、機会を検索...",exploreBtn:"探索する",s1:"対象国数",s2:"大陸",s3:"言語",s4:"機会の種類",secCont:"大陸別に探索",continents:["アフリカ","アジア","ヨーロッパ","アメリカ","中東","オセアニア"],contCounts:["54カ国","48カ国","44カ国","35カ国","17カ国","14カ国"],oppIn:"トップの機会",free:"今日3回無料",fullReport:"詳細レポート →",pwTitle:"完全アクセスを解除",pwSub:"3回の無料検索を使用しました。",pwPer1:"1レポート",pwLbl1:"単回アクセス",pwPer2:"月額",pwLbl2:"⭐ 最も人気",pwPer3:"月額",pwLbl3:"法人向け",payBtn:"Pesapal / M-Pesa / カードで支払う",aiBriefLabel:"AIインテリジェンスブリーフィング",aiLiveLabel:"ライブAI",shareBtn:"📤 WeChat / WhatsAppでシェア",tagI:"投資",tagS:"留学",tagT:"貿易",tagL:"移住"},
+  ko:{hTitle:"글로벌 기회로 가는 관문",hSub:"지구상 모든 국가를 위한 AI 기반 인텔리전스.",types:["투자자","학생","트레이더","교사","여행자"],searchPH:"국가, 도시 또는 기회 검색...",exploreBtn:"탐색",s1:"국가 수",s2:"대륙",s3:"언어",s4:"기회 유형",secCont:"대륙별 탐색",continents:["아프리카","아시아","유럽","아메리카","중동","오세아니아"],contCounts:["54개국","48개국","44개국","35개국","17개국","14개국"],oppIn:"주요 기회",free:"오늘 3회 무료",fullReport:"전체 보고서 →",pwTitle:"전체 이용권 잠금 해제",pwSub:"3번의 무료 검색을 사용했습니다.",pwPer1:"보고서 1건",pwLbl1:"단일 이용",pwPer2:"월",pwLbl2:"⭐ 가장 인기",pwPer3:"월",pwLbl3:"기업용",payBtn:"Pesapal / M-Pesa / 카드로 결제",aiBriefLabel:"AI 인텔리전스 브리핑",aiLiveLabel:"실시간 AI",shareBtn:"📤 WeChat / WhatsApp에 공유",tagI:"투자",tagS:"학습",tagT:"무역",tagL:"거주"},
+  de:{hTitle:"Ihr Tor zu globalen Chancen",hSub:"KI-gestützte Intelligenz für jedes Land der Erde.",types:["Investor","Student","Händler","Lehrer","Reisender"],searchPH:"Land, Stadt oder Chance suchen...",exploreBtn:"Erkunden",s1:"Abgedeckte Länder",s2:"Kontinente",s3:"Sprachen",s4:"Chance-Typen",secCont:"Nach Kontinent erkunden",continents:["Afrika","Asien","Europa","Amerika","Naher Osten","Ozeanien"],contCounts:["54 Länder","48 Länder","44 Länder","35 Länder","17 Länder","14 Länder"],oppIn:"Top-Chancen in",free:"Heute 3 kostenlos",fullReport:"Vollständiger Bericht →",pwTitle:"Vollzugriff freischalten",pwSub:"Sie haben Ihre 3 kostenlosen Suchen aufgebraucht.",pwPer1:"ein Bericht",pwLbl1:"Einzelzugang",pwPer2:"pro Monat",pwLbl2:"⭐ Am beliebtesten",pwPer3:"pro Monat",pwLbl3:"Unternehmen",payBtn:"Bezahlen via Pesapal / M-Pesa / Karte",aiBriefLabel:"KI-Intelligenz-Briefing",aiLiveLabel:"Live KI",shareBtn:"📤 Auf WeChat / WhatsApp teilen",tagI:"Investieren",tagS:"Studium",tagT:"Handel",tagL:"Leben"},
+  ru:{hTitle:"Ваши ворота в мировые возможности",hSub:"ИИ-аналитика для каждой страны мира.",types:["Инвестор","Студент","Трейдер","Преподаватель","Путешественник"],searchPH:"Поиск страны, города или возможности...",exploreBtn:"Исследовать",s1:"Стран охвачено",s2:"Континенты",s3:"Языки",s4:"Типы возможностей",secCont:"Исследовать по континенту",continents:["Африка","Азия","Европа","Америка","Ближний Восток","Океания"],contCounts:["54 страны","48 стран","44 страны","35 стран","17 стран","14 стран"],oppIn:"Лучшие возможности в",free:"3 бесплатно сегодня",fullReport:"Полный отчёт →",pwTitle:"Разблокировать полный доступ",pwSub:"Вы использовали 3 бесплатных поиска.",pwPer1:"один отчёт",pwLbl1:"Разовый доступ",pwPer2:"в месяц",pwLbl2:"⭐ Самый популярный",pwPer3:"в месяц",pwLbl3:"Корпоративный",payBtn:"Оплатить через Pesapal / M-Pesa / Карта",aiBriefLabel:"ИИ-брифинг",aiLiveLabel:"Живой ИИ",shareBtn:"📤 Поделиться в WeChat / WhatsApp",tagI:"Инвестиции",tagS:"Учёба",tagT:"Торговля",tagL:"Проживание"}
 };
 
-const oppData = {
-  Africa:[{tagKey:'tagI',cls:'ti',score:'9.2',titleKey:'Kenya Real Estate 2025',descKey:'Nairobi property market growing 14% annually. Entry from $15,000. High rental yields in Westlands and Kilimani.',ctry:'🇰🇪 Kenya'},{tagKey:'tagT',cls:'tt',score:'8.8',titleKey:'Ethiopian Coffee Export',descKey:'Ethiopia produces 3.5M metric tons of coffee yearly. Premium prices in Asian markets.',ctry:'🇪🇹 Ethiopia'},{tagKey:'tagI',cls:'ti',score:'8.5',titleKey:'Rwanda Tech Hub',descKey:'Kigali ranked #1 business city in Africa. Government incentives. 0% tax on tech companies.',ctry:'🇷🇼 Rwanda'},{tagKey:'tagS',cls:'ts',score:'9.0',titleKey:'African Scholarships 2025',descKey:'Over 2,400 scholarships across 12 African universities for international students.',ctry:'🌍 Pan-Africa'},{tagKey:'tagT',cls:'tt',score:'8.3',titleKey:'South Africa Mining',descKey:'Platinum, gold, and diamond opportunities. Government-backed trade programs.',ctry:'🇿🇦 South Africa'},{tagKey:'tagI',cls:'ti',score:'8.7',titleKey:'Ghana Agribusiness',descKey:'Cocoa, palm oil, and cashew sectors open to foreign investment.',ctry:'🇬🇭 Ghana'}],
-  Asia:[{tagKey:'tagI',cls:'ti',score:'9.1',titleKey:'Vietnam Manufacturing',descKey:'Labour costs 60% lower than China. 15 free trade zones. Electronics booming.',ctry:'🇻🇳 Vietnam'},{tagKey:'tagS',cls:'ts',score:'9.4',titleKey:'Singapore Universities',descKey:'NUS and NTU rank top 15 globally. Scholarships up to $50,000/year.',ctry:'🇸🇬 Singapore'},{tagKey:'tagT',cls:'tt',score:'8.9',titleKey:'India Pharma Export',descKey:'India supplies 40% of global generic medicines. Import licenses available.',ctry:'🇮🇳 India'},{tagKey:'tagI',cls:'ti',score:'8.6',titleKey:'Indonesia Tourism',descKey:'Bali property returns 18% annually. Tourism growing 22% post-pandemic.',ctry:'🇮🇩 Indonesia'}],
-  Europe:[{tagKey:'tagL',cls:'tl',score:'9.3',titleKey:'Portugal Golden Visa',descKey:'Invest €280,000 and get EU residency. Path to citizenship in 5 years.',ctry:'🇵🇹 Portugal'},{tagKey:'tagS',cls:'ts',score:'9.5',titleKey:'Germany Free Universities',descKey:'37 public universities with zero tuition. Engineering programs in English.',ctry:'🇩🇪 Germany'},{tagKey:'tagI',cls:'ti',score:'8.7',titleKey:'Poland Tech Ecosystem',descKey:'Warsaw emerging as EU tech hub. 50% lower costs. EU grants available.',ctry:'🇵🇱 Poland'},{tagKey:'tagT',cls:'tt',score:'8.4',titleKey:'Netherlands Trade Hub',descKey:"Rotterdam is Europe's largest port. Strategic for Africa-Europe trade.",ctry:'🇳🇱 Netherlands'}],
-  Americas:[{tagKey:'tagS',cls:'ts',score:'9.6',titleKey:'Canada Study Permit',descKey:'1,200+ scholarships for international students. Path to PR after graduation.',ctry:'🇨🇦 Canada'},{tagKey:'tagI',cls:'ti',score:'8.8',titleKey:'Brazil Agriculture',descKey:"World's largest soy and beef exporter. Land investment returns 25% over 5 years.",ctry:'🇧🇷 Brazil'},{tagKey:'tagT',cls:'tt',score:'8.5',titleKey:'Mexico Manufacturing',descKey:'USMCA creates massive trade opportunities. Auto and electronics growing.',ctry:'🇲🇽 Mexico'},{tagKey:'tagL',cls:'tl',score:'8.9',titleKey:'Colombia Digital Nomad',descKey:'New digital nomad visa. Medellin ranked top remote work city globally.',ctry:'🇨🇴 Colombia'}],
-  'Middle East':[{tagKey:'tagI',cls:'ti',score:'9.0',titleKey:'UAE Business Setup',descKey:'0% corporate tax in free zones. 100% foreign ownership. Setup in 3 days.',ctry:'🇦🇪 UAE'},{tagKey:'tagT',cls:'tt',score:'8.7',titleKey:'Saudi Vision 2030',descKey:'$500B NEOM project creating supplier opportunities. 200+ sectors open.',ctry:'🇸🇦 Saudi Arabia'},{tagKey:'tagI',cls:'ti',score:'8.5',titleKey:'Qatar Infrastructure',descKey:'Post-World Cup boom. Construction and hospitality need foreign investment.',ctry:'🇶🇦 Qatar'}],
-  Oceania:[{tagKey:'tagL',cls:'tl',score:'9.4',titleKey:'Australia Skilled Visa',descKey:'189 visa for skilled workers. 500+ occupations shortage. Path to citizenship.',ctry:'🇦🇺 Australia'},{tagKey:'tagI',cls:'ti',score:'8.9',titleKey:'New Zealand Agriculture',descKey:'Dairy and wine export opportunities. Government-backed agri programs.',ctry:'🇳🇿 New Zealand'}]
+var oppData = {
+  Africa:[{tagKey:'tagI',cls:'ti',score:'9.2',title:'Kenya Real Estate 2025',desc:'Nairobi property market growing 14% annually. Entry from $15,000. High rental yields in Westlands and Kilimani.',ctry:'🇰🇪 Kenya'},{tagKey:'tagT',cls:'tt',score:'8.8',title:'Ethiopian Coffee Export',desc:'Ethiopia produces 3.5M metric tons of coffee yearly. Premium prices in Asian markets. Direct supplier connections available.',ctry:'🇪🇹 Ethiopia'},{tagKey:'tagI',cls:'ti',score:'8.5',title:'Rwanda Tech Hub',desc:'Kigali ranked #1 business city in Africa. Government incentives for foreign investors. 0% tax on tech companies.',ctry:'🇷🇼 Rwanda'},{tagKey:'tagS',cls:'ts',score:'9.0',title:'African Scholarships 2025',desc:'Over 2,400 scholarships across 12 African universities for international students. Deadline March 2025.',ctry:'🌍 Pan-Africa'},{tagKey:'tagT',cls:'tt',score:'8.3',title:'South Africa Mining',desc:'Platinum, gold, and diamond opportunities. Government-backed trade programs for foreign companies.',ctry:'🇿🇦 South Africa'},{tagKey:'tagI',cls:'ti',score:'8.7',title:'Ghana Agribusiness',desc:'Cocoa, palm oil, and cashew sectors open to foreign investment. World Bank-backed infrastructure projects.',ctry:'🇬🇭 Ghana'}],
+  Asia:[{tagKey:'tagI',cls:'ti',score:'9.1',title:'Vietnam Manufacturing',desc:'Labour costs 60% lower than China. 15 free trade zones. Electronics and textile sectors booming.',ctry:'🇻🇳 Vietnam'},{tagKey:'tagS',cls:'ts',score:'9.4',title:'Singapore Universities',desc:'NUS and NTU rank top 15 globally. Scholarships up to $50,000/year for international students.',ctry:'🇸🇬 Singapore'},{tagKey:'tagT',cls:'tt',score:'8.9',title:'India Pharma Export',desc:'India supplies 40% of global generic medicines. Direct import licenses available for registered businesses.',ctry:'🇮🇳 India'},{tagKey:'tagI',cls:'ti',score:'8.6',title:'Indonesia Tourism',desc:'Bali property investment returns 18% annually. Tourism growing 22% post-pandemic.',ctry:'🇮🇩 Indonesia'}],
+  Europe:[{tagKey:'tagL',cls:'tl',score:'9.3',title:'Portugal Golden Visa',desc:'Invest €280,000 and get EU residency. Path to citizenship in 5 years. No minimum stay required.',ctry:'🇵🇹 Portugal'},{tagKey:'tagS',cls:'ts',score:'9.5',title:'Germany Free Universities',desc:'37 public universities with zero tuition fees. Engineering and medicine programs in English available.',ctry:'🇩🇪 Germany'},{tagKey:'tagI',cls:'ti',score:'8.7',title:'Poland Tech Ecosystem',desc:'Warsaw emerging as EU tech hub. 50% lower costs than Western Europe. EU grants available.',ctry:'🇵🇱 Poland'},{tagKey:'tagT',cls:'tt',score:'8.4',title:'Netherlands Trade Hub',desc:"Rotterdam is Europe's largest port. Strategic location for Africa-Europe trade routes.",ctry:'🇳🇱 Netherlands'}],
+  Americas:[{tagKey:'tagS',cls:'ts',score:'9.6',title:'Canada Study Permit',desc:'1,200+ scholarships for international students. Path to permanent residency after graduation.',ctry:'🇨🇦 Canada'},{tagKey:'tagI',cls:'ti',score:'8.8',title:'Brazil Agriculture',desc:"World's largest soy and beef exporter. Land investment returns 25% over 5 years.",ctry:'🇧🇷 Brazil'},{tagKey:'tagT',cls:'tt',score:'8.5',title:'Mexico Manufacturing',desc:'USMCA agreement creates massive trade opportunities. Auto and electronics sectors growing fast.',ctry:'🇲🇽 Mexico'},{tagKey:'tagL',cls:'tl',score:'8.9',title:'Colombia Digital Nomad',desc:'New digital nomad visa. Medellin ranked top remote work city globally. Cost of living 70% below US.',ctry:'🇨🇴 Colombia'}],
+  'Middle East':[{tagKey:'tagI',cls:'ti',score:'9.0',title:'UAE Business Setup',desc:'0% corporate tax in free zones. 100% foreign ownership. Setup in 3 days from $3,000.',ctry:'🇦🇪 UAE'},{tagKey:'tagT',cls:'tt',score:'8.7',title:'Saudi Vision 2030',desc:'$500B NEOM project creating massive supplier opportunities. 200+ sectors open to foreign business.',ctry:'🇸🇦 Saudi Arabia'},{tagKey:'tagI',cls:'ti',score:'8.5',title:'Qatar Infrastructure',desc:'Post-World Cup infrastructure boom. Construction and hospitality sectors need foreign investment.',ctry:'🇶🇦 Qatar'}],
+  Oceania:[{tagKey:'tagL',cls:'tl',score:'9.4',title:'Australia Skilled Visa',desc:'189 visa for skilled workers. 500+ occupations on shortage list. Path to citizenship in 4 years.',ctry:'🇦🇺 Australia'},{tagKey:'tagI',cls:'ti',score:'8.9',title:'New Zealand Agriculture',desc:'Dairy and wine export opportunities. Government-backed programs for foreign agri-investors.',ctry:'🇳🇿 New Zealand'}]
 };
 
-let lang='en', curType=0, curContinent='Africa', searchCount=0;
+var lang = 'en';
+var curType = 0;
+var curContinent = 'Africa';
+var searchCount = 0;
+var contKeys = ['Africa','Asia','Europe','Americas','Middle East','Oceania'];
+var contIcons = ['🌍','🌏','🌍','🌎','🕌','🌊'];
 
-function applyLang(l){
-  lang=l;
-  const t=T[l];
-  document.getElementById('hTitle').textContent=t.hTitle;
-  document.getElementById('hSub').textContent=t.hSub;
-  document.getElementById('searchInput').placeholder=t.searchPH;
-  document.getElementById('exploreBtn').textContent=t.exploreBtn;
-  document.getElementById('s1').textContent=t.s1;
-  document.getElementById('s2').textContent=t.s2;
-  document.getElementById('s3').textContent=t.s3;
-  document.getElementById('s4').textContent=t.s4;
-  document.getElementById('secCont').textContent=t.secCont;
-  document.getElementById('freeBadge').textContent=t.free;
-  document.getElementById('pwTitle').textContent=t.pwTitle;
-  document.getElementById('pwSub').textContent=t.pwSub;
-  document.getElementById('pwPer1').textContent=t.pwPer1;
-  document.getElementById('pwLbl1').textContent=t.pwLbl1;
-  document.getElementById('pwPer2').textContent=t.pwPer2;
-  document.getElementById('pwLbl2').textContent=t.pwLbl2;
-  document.getElementById('pwPer3').textContent=t.pwPer3;
-  document.getElementById('pwLbl3').textContent=t.pwLbl3;
-  document.getElementById('payBtn').textContent=t.payBtn;
-  document.getElementById('aiBriefLabel').textContent=t.aiBriefLabel;
-  document.getElementById('aiLiveLabel').textContent=t.aiLiveLabel;
-  document.getElementById('shareBtn').textContent=t.shareBtn;
-  renderTypeButtons();
+function applyLang(l) {
+  lang = l;
+  var t = T[l];
+  document.getElementById('hTitle').textContent = t.hTitle;
+  document.getElementById('hSub').textContent = t.hSub;
+  document.getElementById('searchInput').placeholder = t.searchPH;
+  document.getElementById('exploreBtn').textContent = t.exploreBtn;
+  document.getElementById('s1').textContent = t.s1;
+  document.getElementById('s2').textContent = t.s2;
+  document.getElementById('s3').textContent = t.s3;
+  document.getElementById('s4').textContent = t.s4;
+  document.getElementById('secCont').textContent = t.secCont;
+  document.getElementById('freeBadge').textContent = t.free;
+  document.getElementById('pwTitle').textContent = t.pwTitle;
+  document.getElementById('pwSub').textContent = t.pwSub;
+  document.getElementById('pwPer1').textContent = t.pwPer1;
+  document.getElementById('pwLbl1').textContent = t.pwLbl1;
+  document.getElementById('pwPer2').textContent = t.pwPer2;
+  document.getElementById('pwLbl2').textContent = t.pwLbl2;
+  document.getElementById('pwPer3').textContent = t.pwPer3;
+  document.getElementById('pwLbl3').textContent = t.pwLbl3;
+  document.getElementById('payBtn').textContent = t.payBtn;
+  document.getElementById('aiBriefLabel').textContent = t.aiBriefLabel;
+  document.getElementById('aiLiveLabel').textContent = t.aiLiveLabel;
+  document.getElementById('shareBtn').textContent = t.shareBtn;
+  renderTypes();
   renderContinents();
   renderOpps(curContinent);
-  const idx=['Africa','Asia','Europe','Americas','Middle East','Oceania'].indexOf(curContinent);
-  document.getElementById('oppTitle').textContent=t.oppIn+' '+(t.continents[idx]||curContinent);
+  var idx = contKeys.indexOf(curContinent);
+  document.getElementById('oppTitle').textContent = t.oppIn + ' ' + (t.continents[idx] || curContinent);
 }
 
-function renderTypeButtons(){
-  const t=T[lang];
-  document.getElementById('typeGrid').innerHTML=t.types.map((tp,i)=>
-    `<button class="type-btn${i===curType?' active':''}" onclick="setType(${i})">${tp}</button>`
-  ).join('');
+function renderTypes() {
+  var t = T[lang];
+  var html = '';
+  for (var i = 0; i < t.types.length; i++) {
+    html += '<button class="type-btn' + (i === curType ? ' active' : '') + '" onclick="setType(' + i + ')">' + t.types[i] + '</button>';
+  }
+  document.getElementById('typeGrid').innerHTML = html;
 }
 
-function setType(i){curType=i;renderTypeButtons();}
-
-function renderContinents(){
-  const t=T[lang];
-  const keys=['Africa','Asia','Europe','Americas','Middle East','Oceania'];
-  const icons=['🌍','🌏','🌍','🌎','🕌','🌊'];
-  document.getElementById('contGrid').innerHTML=keys.map((k,i)=>
-    `<div class="cont-card${k===curContinent?' active':''}" onclick="selCont('${k}',${i})">
-      <div class="cont-icon">${icons[i]}</div>
-      <div class="cont-name">${t.continents[i]}</div>
-      <div class="cont-count">${t.contCounts[i]}</div>
-    </div>`
-  ).join('');
+function setType(i) {
+  curType = i;
+  renderTypes();
 }
 
-function selCont(k,i){
-  curContinent=k;
-  const t=T[lang];
-  document.getElementById('oppTitle').textContent=t.oppIn+' '+t.continents[i];
-  document.getElementById('paywall').style.display='none';
-  document.getElementById('aiBox').style.display='none';
+function renderContinents() {
+  var t = T[lang];
+  var html = '';
+  for (var i = 0; i < contKeys.length; i++) {
+    var k = contKeys[i];
+    html += '<div class="cont-card' + (k === curContinent ? ' active' : '') + '" onclick="selCont(\'' + k + '\',' + i + ')">';
+    html += '<div class="cont-icon">' + contIcons[i] + '</div>';
+    html += '<div class="cont-name">' + t.continents[i] + '</div>';
+    html += '<div class="cont-count">' + t.contCounts[i] + '</div>';
+    html += '</div>';
+  }
+  document.getElementById('contGrid').innerHTML = html;
+}
+
+function selCont(k, i) {
+  curContinent = k;
+  var t = T[lang];
+  document.getElementById('oppTitle').textContent = t.oppIn + ' ' + t.continents[i];
+  document.getElementById('paywall').style.display = 'none';
+  document.getElementById('aiBox').style.display = 'none';
   renderContinents();
   renderOpps(k);
 }
 
-function renderOpps(continent){
-  const t=T[lang];
-  const opps=oppData[continent]||oppData['Africa'];
-  document.getElementById('oppGrid').innerHTML=opps.map((o,i)=>
-    `<div class="opp-card" onclick="viewOpp(${i},'${continent}')">
-      <div class="opp-top"><span class="opp-tag ${o.cls}">${t[o.tagKey]}</span><span class="opp-score">⭐ ${o.score}/10</span></div>
-      <div class="opp-title">${o.titleKey}</div>
-      <div class="opp-desc">${o.descKey}</div>
-      <div class="opp-foot"><span class="opp-ctry">${o.ctry}</span><button class="opp-btn">${t.fullReport}</button></div>
-    </div>`
-  ).join('');
+function renderOpps(continent) {
+  var t = T[lang];
+  var opps = oppData[continent] || oppData['Africa'];
+  var html = '';
+  for (var i = 0; i < opps.length; i++) {
+    var o = opps[i];
+    html += '<div class="opp-card" onclick="viewOpp(' + i + ',\'' + continent + '\')">';
+    html += '<div class="opp-top"><span class="opp-tag ' + o.cls + '">' + t[o.tagKey] + '</span><span class="opp-score">⭐ ' + o.score + '/10</span></div>';
+    html += '<div class="opp-title">' + o.title + '</div>';
+    html += '<div class="opp-desc">' + o.desc + '</div>';
+    html += '<div class="opp-foot"><span class="opp-ctry">' + o.ctry + '</span><button class="opp-btn">' + t.fullReport + '</button></div>';
+    html += '</div>';
+  }
+  document.getElementById('oppGrid').innerHTML = html;
 }
 
-async function viewOpp(i,continent){
+function viewOpp(i, continent) {
   searchCount++;
-  if(searchCount>3){
-    document.getElementById('paywall').style.display='block';
+  if (searchCount > 3) {
+    document.getElementById('paywall').style.display = 'block';
     document.getElementById('paywall').scrollIntoView({behavior:'smooth'});
     return;
   }
-  const t=T[lang];
-  const o=oppData[continent][i];
-  const typeName=t.types[curType];
-  const box=document.getElementById('aiBox');
-  box.style.display='block';
-  document.getElementById('aiBriefLabel').textContent=o.titleKey+' — '+t.aiBriefLabel;
-  document.getElementById('aiBody').innerHTML='<p style="color:#8e8e93">⏳ Generating AI briefing...</p>';
+  var t = T[lang];
+  var o = oppData[continent][i];
+  var typeName = t.types[curType];
+  var box = document.getElementById('aiBox');
+  box.style.display = 'block';
+  document.getElementById('aiBriefLabel').textContent = o.title + ' — ' + t.aiBriefLabel;
+  document.getElementById('aiBody').innerHTML = '<p class="loading">⏳ Generating AI briefing...</p>';
   box.scrollIntoView({behavior:'smooth'});
-  try {
-    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:`You are WorldGate AI, a global opportunity intelligence platform. A ${typeName} is asking about: ${o.titleKey} in ${o.ctry}. Generate a concise, professional opportunity briefing in ${lang==='en'?'English':lang==='zh'?'Chinese':lang==='fr'?'French':lang==='es'?'Spanish':lang==='ar'?'Arabic':lang==='sw'?'Swahili':lang==='pt'?'Portuguese':lang==='hi'?'Hindi':lang==='ja'?'Japanese':lang==='ko'?'Korean':lang==='de'?'German':'Russian'} covering: 1) Why this opportunity is ideal for a ${typeName}, 2) Key entry steps, 3) Expected returns or outcomes, 4) Risk level, 5) One insider tip from Africa. Keep it under 150 words. Be specific and actionable.`}]}]})
-    });
-    const data=await res.json();
-    const text=data.candidates?.[0]?.content?.parts?.[0]?.text||'AI briefing generated successfully.';
-    document.getElementById('aiBody').innerHTML=`<p style="line-height:1.8">${text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</p>`;
-  } catch(e){
-    const t2=T[lang];
-    document.getElementById('aiBody').innerHTML=`
-      <p style="margin-bottom:9px">${t2.aiIntro} <span class="hl">${o.titleKey}</span> ${t2.aiFor} <span class="hl">${typeName}</span>.</p>
-      <p style="margin-bottom:9px"><strong>${t2.aiScore}:</strong> <span class="hl">${o.score}/10</span> — ${t2.aiHigh}.</p>
-      <p style="margin-bottom:9px"><strong>${t2.aiWhy}:</strong> ${o.descKey}</p>
-      <p style="margin-bottom:9px"><strong>${t2.aiSteps}:</strong> ${t2.aiStep}</p>
-      <p><strong>${t2.aiRisk}:</strong> <span style="color:#1D9E75;font-weight:600">${t2.aiLow}</span> · <strong>${t2.aiTime}:</strong> 6–18 months · <strong>${t2.aiMin}:</strong> $5,000+</p>`;
-  }
+  var langName = {en:'English',zh:'Chinese',fr:'French',es:'Spanish',ar:'Arabic',sw:'Swahili',pt:'Portuguese',hi:'Hindi',ja:'Japanese',ko:'Korean',de:'German',ru:'Russian'}[lang] || 'English';
+  var prompt = 'You are WorldGate AI, a global opportunity intelligence platform. A ' + typeName + ' wants to know about: ' + o.title + ' in ' + o.ctry + '. Write a concise professional opportunity briefing in ' + langName + ' covering: why this suits a ' + typeName + ', key entry steps, expected returns, risk level, and one insider tip. Under 120 words. Be specific and actionable.';
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({contents:[{parts:[{text: prompt}]}]})
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : '';
+    if (text) {
+      text = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+      document.getElementById('aiBody').innerHTML = '<p style="line-height:1.8">' + text + '</p>';
+    } else {
+      showFallback(o, typeName, t);
+    }
+  })
+  .catch(function(){showFallback(o, typeName, t);});
 }
 
-async function doSearch(){
-  const q=document.getElementById('searchInput').value;
-  if(!q)return;
+function showFallback(o, typeName, t) {
+  document.getElementById('aiBody').innerHTML =
+    '<p style="margin-bottom:9px">' + t.aiBriefLabel + ': <span class="hl">' + o.title + '</span></p>' +
+    '<p style="margin-bottom:9px"><strong>Score:</strong> <span class="hl">' + o.score + '/10</span></p>' +
+    '<p style="margin-bottom:9px">' + o.desc + '</p>' +
+    '<p><strong>Entry:</strong> Register interest → Due diligence → Connect local expert → Execute</p>';
+}
+
+function doSearch() {
+  var q = document.getElementById('searchInput').value;
+  if (!q) return;
   searchCount++;
-  if(searchCount>3){document.getElementById('paywall').style.display='block';return;}
-  const t=T[lang];
-  const box=document.getElementById('aiBox');
-  box.style.display='block';
-  document.getElementById('aiBriefLabel').textContent=q+' — '+t.aiBriefLabel;
-  document.getElementById('aiBody').innerHTML='<p style="color:#8e8e93">⏳ Searching WorldGate AI...</p>';
+  if (searchCount > 3) {
+    document.getElementById('paywall').style.display = 'block';
+    return;
+  }
+  var t = T[lang];
+  var box = document.getElementById('aiBox');
+  box.style.display = 'block';
+  document.getElementById('aiBriefLabel').textContent = '"' + q + '" — ' + t.aiBriefLabel;
+  document.getElementById('aiBody').innerHTML = '<p class="loading">⏳ Searching WorldGate AI for "' + q + '"...</p>';
   box.scrollIntoView({behavior:'smooth'});
-  try {
-    const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({contents:[{parts:[{text:`You are WorldGate AI. A user searched for: "${q}". Generate a helpful global opportunity briefing about this topic in ${lang==='en'?'English':lang==='zh'?'Chinese':lang==='fr'?'French':lang==='es'?'Spanish':lang==='ar'?'Arabic':lang==='sw'?'Swahili':lang==='pt'?'Portuguese':lang==='hi'?'Hindi':lang==='ja'?'Japanese':lang==='ko'?'Korean':lang==='de'?'German':'Russian'}. Cover opportunities, risks, entry requirements, and expected outcomes. Under 150 words. Be specific.`}]}]})
+  var langName = {en:'English',zh:'Chinese',fr:'French',es:'Spanish',ar:'Arabic',sw:'Swahili',pt:'Portuguese',hi:'Hindi',ja:'Japanese',ko:'Korean',de:'German',ru:'Russian'}[lang] || 'English';
+  var prompt = 'You are WorldGate AI. A user searched for: "' + q + '". Generate a helpful global opportunity briefing in ' + langName + ' covering opportunities, risks, entry requirements, and expected outcomes related to this search. Under 120 words. Be specific.';
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=' + GEMINI_KEY, {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({contents:[{parts:[{text: prompt}]}]})
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var text = data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] ? data.candidates[0].content.parts[0].text : '';
+    if (text) {
+      text = text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+      document.getElementById('aiBody').innerHTML = '<p style="line-height:1.8">' + text + '</p>';
+    } else {
+      document.getElementById('aiBody').innerHTML = '<p>' + t.pwSub + '</p>';
+    }
+  })
+  .catch(function(){
+    document.getElementById('aiBody').innerHTML = '<p>Search complete. Upgrade to Pro for full AI-powered results.</p>';
+  });
+}
+
+function doShare() {
+  var url = window.location.href;
+  if (navigator.share) {
+    navigator.share({title:'WorldGate AI — Global Opportunity Intelligence', url: url});
+  } else {
+    navigator.clipboard.writeText(url).then(function(){
+      alert('Link copied! Share on WeChat or WhatsApp: ' + url);
     });
-    const data=await res.json();
-    const text=data.candidates?.[0]?.content?.parts?.[0]?.text||'Results found.';
-    document.getElementById('aiBody').innerHTML=`<p style="line-height:1.8">${text.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>')}</p>`;
-  } catch(e){
-    document.getElementById('aiBody').innerHTML=`<p>${t.pwSub}</p>`;
   }
 }
 
-function doShare(){
-  if(navigator.share){navigator.share({title:'WorldGate AI Opportunity',text:'Check out this global opportunity I found on WorldGate AI!',url:window.location.href});}
-  else{navigator.clipboard.writeText(window.location.href);alert('Link copied! Share on WeChat or WhatsApp.');}
-}
-
-applyLang('en');
+window.onload = function() {
+  applyLang('en');
+};
 </script>
 </body>
 </html>

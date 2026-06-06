@@ -7,109 +7,170 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f7;color:#1d1d1f}
-.header{background:#fff;border-bottom:1px solid #e5e5ea;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.06)}
-.logo{font-size:20px;font-weight:700}.logo span{color:#1D9E75}.logo small{font-size:11px;color:#8e8e93;font-weight:400;margin-left:6px}
-.hright{display:flex;align-items:center;gap:10px}
-.owner-badge{background:#1D9E75;color:white;font-size:11px;font-weight:600;padding:5px 12px;border-radius:20px;display:none}
-.lang-select{padding:7px 12px;border:1px solid #e5e5ea;border-radius:8px;background:#f5f5f7;color:#1d1d1f;font-size:13px;cursor:pointer;outline:none}
-.hero{background:linear-gradient(135deg,#085041 0%,#1D9E75 100%);padding:44px 24px 36px;text-align:center;color:white}
-.hero h1{font-size:26px;font-weight:700;margin-bottom:12px}
-.hero p{font-size:15px;opacity:.9;margin-bottom:22px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.6}
-.type-grid{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
-.type-btn{padding:8px 18px;border-radius:20px;border:1.5px solid rgba(255,255,255,.6);background:transparent;color:white;font-size:13px;cursor:pointer;font-weight:500;transition:all .2s}
-.type-btn.active,.type-btn:hover{background:white;color:#085041;border-color:white}
-.search-row{display:flex;max-width:500px;margin:0 auto;border-radius:10px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.2)}
-.search-row input{flex:1;padding:14px 16px;border:none;font-size:14px;outline:none;color:#1d1d1f}
-.search-row button{padding:14px 22px;background:#085041;color:white;border:none;cursor:pointer;font-size:14px;font-weight:600}
-.owner-login{margin-top:14px}
-.owner-login button{background:rgba(255,255,255,.15);color:white;border:1px solid rgba(255,255,255,.3);border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer}
-.stats-bar{display:flex;justify-content:center;gap:28px;padding:14px 24px;background:white;border-bottom:1px solid #e5e5ea;flex-wrap:wrap}
-.stat{text-align:center}.stat-num{font-size:20px;font-weight:700;color:#1D9E75}.stat-label{font-size:11px;color:#8e8e93;margin-top:2px}
-.main{padding:24px;max-width:960px;margin:0 auto}
-.sec-title{font-size:16px;font-weight:600;margin-bottom:14px}
-.cont-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:24px}
-.cont-card{background:white;border:1.5px solid #e5e5ea;border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s}
-.cont-card:hover{border-color:#1D9E75;transform:translateY(-2px)}
-.cont-card.active{border-color:#1D9E75;background:#E8F8F3}
-.cont-icon{font-size:24px;margin-bottom:6px}.cont-name{font-size:12px;font-weight:600}.cont-count{font-size:10px;color:#8e8e93;margin-top:2px}
-.opp-header-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
-.free-badge{background:#E8F8F3;color:#085041;font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600}
-.opp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:14px;margin-bottom:24px}
-.opp-card{background:white;border:1.5px solid #e5e5ea;border-radius:12px;padding:18px;cursor:pointer;transition:all .2s}
+
+/* HEADER */
+.header{background:white;border-bottom:1px solid #e5e5ea;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:200;box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.logo-wrap{display:flex;align-items:center;gap:10px}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#085041,#1D9E75);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 2px 8px rgba(8,80,65,.3)}
+.logo-text{font-size:18px;font-weight:800;letter-spacing:-.5px}.logo-text span{color:#1D9E75}
+.logo-sub{font-size:10px;color:#8e8e93;font-weight:400;display:block;margin-top:-2px}
+.hright{display:flex;align-items:center;gap:8px}
+.owner-badge{background:linear-gradient(135deg,#1D9E75,#085041);color:white;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;display:none;box-shadow:0 2px 8px rgba(29,158,117,.3)}
+.lang-select{padding:7px 12px;border:1.5px solid #e5e5ea;border-radius:8px;background:#f9f9f9;color:#1d1d1f;font-size:13px;cursor:pointer;outline:none;font-weight:500}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#052e22 0%,#085041 40%,#1D9E75 100%);padding:40px 20px 36px;text-align:center;color:white;position:relative;overflow:hidden}
+.hero::before{content:'世界门';position:absolute;font-size:120px;font-weight:900;opacity:.04;top:50%;left:50%;transform:translate(-50%,-50%);color:white;pointer-events:none}
+.hero h1{font-size:24px;font-weight:800;margin-bottom:10px;letter-spacing:-.5px;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+.hero p{font-size:14px;opacity:.9;margin-bottom:20px;max-width:460px;margin-left:auto;margin-right:auto;line-height:1.6}
+.type-grid{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.type-btn{padding:7px 16px;border-radius:20px;border:1.5px solid rgba(255,255,255,.5);background:transparent;color:white;font-size:12px;cursor:pointer;font-weight:600;transition:all .2s}
+.type-btn.active,.type-btn:hover{background:white;color:#085041;border-color:white;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.search-row{display:flex;max-width:480px;margin:0 auto;border-radius:12px;overflow:hidden;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.search-row input{flex:1;padding:13px 16px;border:none;font-size:14px;outline:none;color:#1d1d1f}
+.search-row button{padding:13px 20px;background:#085041;color:white;border:none;cursor:pointer;font-size:14px;font-weight:700;transition:background .2s}
+.search-row button:hover{background:#052e22}
+.owner-login{margin-top:12px}
+.owner-login button{background:rgba(255,255,255,.12);color:white;border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:5px 12px;font-size:11px;cursor:pointer;transition:all .2s}
+
+/* STATS */
+.stats-bar{display:flex;justify-content:center;gap:24px;padding:14px 20px;background:white;border-bottom:1px solid #e5e5ea;flex-wrap:wrap}
+.stat{text-align:center}.stat-num{font-size:18px;font-weight:800;color:#1D9E75}.stat-label{font-size:10px;color:#8e8e93;margin-top:1px;font-weight:500}
+
+/* MAIN */
+.main{padding:20px;max-width:960px;margin:0 auto}
+.sec-title{font-size:15px;font-weight:700;margin-bottom:12px;color:#1d1d1f}
+.cont-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(105px,1fr));gap:8px;margin-bottom:22px}
+.cont-card{background:white;border:1.5px solid #e5e5ea;border-radius:12px;padding:14px 8px;text-align:center;cursor:pointer;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.cont-card:hover{border-color:#1D9E75;transform:translateY(-2px);box-shadow:0 4px 12px rgba(29,158,117,.12)}
+.cont-card.active{border-color:#1D9E75;background:linear-gradient(135deg,#E8F8F3,#f0fdf8)}
+.cont-icon{font-size:24px;margin-bottom:5px}.cont-name{font-size:11px;font-weight:700}.cont-count{font-size:10px;color:#8e8e93;margin-top:1px}
+.opp-row-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.free-badge{background:linear-gradient(135deg,#E8F8F3,#d1f5e8);color:#085041;font-size:11px;padding:4px 12px;border-radius:20px;font-weight:700;border:1px solid #c8f0dc}
+.opp-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:22px}
+.opp-card{background:white;border:1.5px solid #e5e5ea;border-radius:12px;padding:16px;cursor:pointer;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.04)}
 .opp-card:hover{border-color:#1D9E75;transform:translateY(-1px);box-shadow:0 4px 16px rgba(29,158,117,.12)}
-.opp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.opp-tag{font-size:11px;padding:3px 10px;border-radius:20px;font-weight:600}
+.opp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.opp-tag{font-size:11px;padding:3px 9px;border-radius:20px;font-weight:700}
 .ti{background:#E8F8F3;color:#085041}.ts{background:#E6F1FB;color:#0C447C}.tt{background:#FEF3E2;color:#633806}.tl{background:#FBEAF0;color:#4B1528}
-.opp-score{font-size:12px;color:#1D9E75;font-weight:600}
-.opp-title{font-size:14px;font-weight:600;margin-bottom:6px}
-.opp-desc{font-size:12px;color:#6e6e73;line-height:1.5;margin-bottom:12px}
+.opp-score{font-size:12px;color:#1D9E75;font-weight:700}
+.opp-title{font-size:13px;font-weight:700;margin-bottom:5px}
+.opp-desc{font-size:12px;color:#6e6e73;line-height:1.5;margin-bottom:10px}
 .opp-foot{display:flex;justify-content:space-between;align-items:center}
-.opp-ctry{font-size:11px;color:#8e8e93}
-.opp-btn{font-size:12px;color:#1D9E75;font-weight:600;border:none;background:none;cursor:pointer;text-decoration:underline}
+.opp-ctry{font-size:11px;color:#8e8e93;font-weight:500}
+.opp-btn{font-size:11px;color:#1D9E75;font-weight:700;border:none;background:none;cursor:pointer;padding:4px 10px;border:1px solid #1D9E75;border-radius:6px;transition:all .2s}
+.opp-btn:hover{background:#1D9E75;color:white}
+
 /* PAYWALL */
-.paywall{background:white;border:2px solid #1D9E75;border-radius:16px;padding:28px;text-align:center;margin-bottom:24px;display:none}
-.paywall h3{font-size:20px;font-weight:700;margin-bottom:8px}
-.paywall p{font-size:14px;color:#6e6e73;margin-bottom:20px;line-height:1.5}
-.price-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
-.price-card{border:1.5px solid #e5e5ea;border-radius:14px;padding:16px 22px;min-width:140px;cursor:pointer;transition:all .2s;text-align:center}
-.price-card:hover,.price-card.feat{border:2px solid #1D9E75;background:#E8F8F3}
-.p-amt{font-size:28px;font-weight:700}.p-per{font-size:12px;color:#8e8e93;margin-top:2px}.p-lbl{font-size:11px;color:#1D9E75;font-weight:600;margin-top:6px}
-.gbtn{display:inline-block;border:none;border-radius:10px;padding:13px 32px;font-size:14px;font-weight:600;cursor:pointer;margin:5px;transition:all .2s}
-.gbtn-green{background:#1D9E75;color:white}.gbtn-green:hover{background:#085041}
-.gbtn-dark{background:#085041;color:white}.gbtn-dark:hover{background:#063328}
-.curr-note{font-size:12px;color:#8e8e93;margin-top:10px}
+.paywall{background:white;border:2px solid #1D9E75;border-radius:16px;padding:24px;text-align:center;margin-bottom:22px;display:none;box-shadow:0 4px 20px rgba(29,158,117,.1)}
+.paywall h3{font-size:18px;font-weight:800;margin-bottom:8px}
+.paywall p{font-size:13px;color:#6e6e73;margin-bottom:18px;line-height:1.5}
+.price-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.price-card{border:1.5px solid #e5e5ea;border-radius:14px;padding:14px 20px;min-width:130px;cursor:pointer;transition:all .2s;text-align:center}
+.price-card:hover,.price-card.feat{border:2px solid #1D9E75;background:linear-gradient(135deg,#E8F8F3,#f0fdf8)}
+.p-amt{font-size:26px;font-weight:800;color:#1d1d1f}.p-per{font-size:11px;color:#8e8e93;margin-top:2px}.p-lbl{font-size:11px;color:#1D9E75;font-weight:700;margin-top:5px}
+.gbtn{display:inline-block;border:none;border-radius:10px;padding:12px 28px;font-size:13px;font-weight:700;cursor:pointer;margin:4px;transition:all .2s}
+.gbtn-green{background:linear-gradient(135deg,#1D9E75,#085041);color:white;box-shadow:0 4px 12px rgba(29,158,117,.3)}
+.gbtn-green:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(29,158,117,.4)}
+.gbtn-dark{background:linear-gradient(135deg,#085041,#052e22);color:white;box-shadow:0 4px 12px rgba(8,80,65,.3)}
+.curr-note{font-size:11px;color:#8e8e93;margin-top:8px}
+
 /* MODAL */
-.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.55);z-index:1000;align-items:center;justify-content:center}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:1000;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
 .modal-overlay.active{display:flex}
-.modal{background:white;border-radius:20px;padding:28px;max-width:420px;width:92%;text-align:center}
-.modal h3{font-size:18px;font-weight:700;margin-bottom:6px}
-.modal p{font-size:13px;color:#6e6e73;margin-bottom:14px}
-.modal-amt{font-size:40px;font-weight:700;color:#1D9E75;margin:12px 0}
-.modal-amt small{font-size:14px;color:#8e8e93;font-weight:400}
-.pm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
-.pm-item{border:1.5px solid #e5e5ea;border-radius:10px;padding:10px 6px;cursor:pointer;font-size:12px;font-weight:500;transition:all .2s}
+.modal{background:white;border-radius:20px;padding:28px;max-width:400px;width:92%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.modal h3{font-size:18px;font-weight:800;margin-bottom:6px}
+.modal p{font-size:12px;color:#6e6e73;margin-bottom:12px}
+.modal-amt{font-size:38px;font-weight:800;color:#1D9E75;margin:10px 0}
+.modal-amt small{font-size:13px;color:#8e8e93;font-weight:400}
+.pm-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.pm-item{border:1.5px solid #e5e5ea;border-radius:10px;padding:10px 6px;cursor:pointer;font-size:12px;font-weight:600;transition:all .2s}
 .pm-item:hover{border-color:#1D9E75;background:#E8F8F3}
 .pm-icon{font-size:20px;margin-bottom:3px}
-.pesapal-btn{background:#1D9E75;color:white;border:none;border-radius:10px;padding:13px;font-size:14px;font-weight:600;cursor:pointer;width:100%;margin-bottom:8px}
-.modal-close{background:#f5f5f7;border:1px solid #e5e5ea;border-radius:8px;padding:9px 18px;cursor:pointer;font-size:13px;color:#6e6e73}
+.pesapal-btn{background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:10px;padding:13px;font-size:14px;font-weight:700;cursor:pointer;width:100%;margin-bottom:8px;box-shadow:0 4px 12px rgba(29,158,117,.3)}
+.modal-close{background:#f5f5f7;border:1px solid #e5e5ea;border-radius:8px;padding:8px 16px;cursor:pointer;font-size:12px;color:#6e6e73}
+
 /* COUNTRY PAGE */
 .country-wrap{display:none}
-.back-btn{background:#f5f5f7;border:1px solid #e5e5ea;border-radius:8px;padding:8px 16px;font-size:13px;cursor:pointer;margin-bottom:18px;font-weight:500;color:#1d1d1f;display:inline-flex;align-items:center;gap:6px}
-.c-header{background:white;border-radius:14px;padding:22px;margin-bottom:14px;display:flex;align-items:center;gap:16px;border:1.5px solid #e5e5ea}
-.c-flag{font-size:50px}
-.c-info h2{font-size:22px;font-weight:700}
-.c-info p{font-size:13px;color:#6e6e73;margin-top:4px}
-.c-score{margin-left:auto;text-align:center;background:#E8F8F3;border-radius:12px;padding:12px 18px;min-width:80px}
-.c-score-num{font-size:28px;font-weight:700;color:#1D9E75}.c-score-lbl{font-size:10px;color:#085041;font-weight:600;margin-top:2px}
-/* SECTIONS GRID */
-.sections-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:14px}
-.sec-card{background:white;border-radius:12px;padding:18px;border:1px solid #e5e5ea}
-.sec-card h3{font-size:14px;font-weight:700;color:#085041;margin-bottom:12px;display:flex;align-items:center;gap:8px;border-bottom:2px solid #E8F8F3;padding-bottom:8px}
-.sec-card .row{display:flex;justify-content:space-between;align-items:flex-start;padding:6px 0;border-bottom:1px solid #f0f0f0;font-size:13px}
+.back-btn{background:white;border:1.5px solid #e5e5ea;border-radius:10px;padding:8px 16px;font-size:13px;cursor:pointer;margin-bottom:16px;font-weight:600;color:#1d1d1f;display:inline-flex;align-items:center;gap:6px;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.back-btn:hover{border-color:#1D9E75;color:#1D9E75}
+
+/* COUNTRY HEADER */
+.c-header{background:white;border-radius:14px;padding:20px;margin-bottom:12px;display:flex;align-items:center;gap:14px;border:1.5px solid #e5e5ea;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.c-flag{font-size:48px;line-height:1}
+.c-info h2{font-size:20px;font-weight:800}
+.c-info p{font-size:12px;color:#6e6e73;margin-top:3px}
+.c-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.c-tag{background:#E8F8F3;color:#085041;font-size:10px;font-weight:700;padding:3px 8px;border-radius:12px}
+.c-score{margin-left:auto;text-align:center;background:linear-gradient(135deg,#E8F8F3,#d1f5e8);border-radius:12px;padding:12px 16px;min-width:72px;border:1px solid #c8f0dc}
+.c-score-num{font-size:26px;font-weight:800;color:#1D9E75}.c-score-lbl{font-size:9px;color:#085041;font-weight:700;margin-top:1px}
+
+/* QUICK STATS */
+.quick-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px}
+.qs-card{background:white;border-radius:10px;padding:12px;border:1px solid #e5e5ea;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.qs-icon{font-size:20px;margin-bottom:4px}
+.qs-label{font-size:10px;color:#8e8e93;font-weight:500}
+.qs-value{font-size:12px;font-weight:700;color:#1d1d1f;margin-top:2px}
+
+/* LINKS BAR */
+.links-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.link-btn{display:inline-flex;align-items:center;gap:5px;background:white;border:1.5px solid #e5e5ea;border-radius:8px;padding:7px 12px;font-size:12px;font-weight:600;color:#1d1d1f;text-decoration:none;cursor:pointer;transition:all .2s;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.link-btn:hover{border-color:#1D9E75;color:#1D9E75;background:#E8F8F3}
+
+/* DATA SECTIONS */
+.sections-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:12px}
+.sec-card{background:white;border-radius:12px;padding:16px;border:1px solid #e5e5ea;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.sec-card h3{font-size:13px;font-weight:700;color:#085041;margin-bottom:10px;display:flex;align-items:center;gap:7px;border-bottom:2px solid #E8F8F3;padding-bottom:7px}
+.sec-card .row{display:flex;justify-content:space-between;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f5f5f7;font-size:12px}
 .sec-card .row:last-child{border-bottom:none}
-.sec-card .row .lbl{color:#6e6e73;font-weight:500;flex:1}
-.sec-card .row .val{color:#1d1d1f;font-weight:600;text-align:right;flex:1.2}
-.sec-card .val.green{color:#1D9E75}
-.sec-card .val.red{color:#e53e3e}
-.sec-card .val.orange{color:#d97706}
-.sec-card ul{list-style:none}
-.sec-card ul li{font-size:12px;color:#3a3a3a;padding:5px 0;border-bottom:1px solid #f5f5f7;line-height:1.5}
-.sec-card ul li:last-child{border-bottom:none}
-.sec-card ul li::before{content:"✓ ";color:#1D9E75;font-weight:700}
-/* AI REPORT BOX */
-.ai-report-box{background:linear-gradient(135deg,#085041,#1D9E75);border-radius:14px;padding:22px;color:white;margin-bottom:14px}
-.ai-report-box h3{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
-.ai-report-content{font-size:13px;line-height:1.9;opacity:.97}
-.ai-report-content h4{font-size:14px;font-weight:700;margin:14px 0 6px;border-bottom:1px solid rgba(255,255,255,.3);padding-bottom:4px}
+.sec-card .row .lbl{color:#6e6e73;font-weight:500;flex:1;padding-right:8px}
+.sec-card .row .val{color:#1d1d1f;font-weight:700;text-align:right;flex:1.2}
+.sec-card .val.green{color:#1D9E75}.sec-card .val.orange{color:#d97706}.sec-card .val.red{color:#e53e3e}
+
+/* AI REPORT */
+.ai-report-box{background:linear-gradient(135deg,#052e22,#085041,#1D9E75);border-radius:14px;padding:20px;color:white;margin-bottom:12px;box-shadow:0 4px 20px rgba(8,80,65,.3)}
+.ai-report-box h3{font-size:14px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:10px}
+.ai-report-content{font-size:13px;line-height:1.9}
+.ai-report-content h4{font-size:13px;font-weight:700;margin:12px 0 5px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:4px}
 .ai-report-content strong,.ai-report-content b{font-weight:700}
-.ai-report-content p{margin-bottom:8px}
-.action-box{background:white;border:2px solid #1D9E75;border-radius:14px;padding:22px;text-align:center;margin-bottom:14px}
-.action-box h3{font-size:16px;font-weight:700;margin-bottom:6px}
-.action-box p{font-size:13px;color:#6e6e73;margin-bottom:14px;line-height:1.5}
-.footer{background:#1d1d1f;color:#8e8e93;text-align:center;padding:22px;font-size:12px;margin-top:40px}
+.ai-report-content p{margin-bottom:8px;opacity:.95}
+.ai-report-content a{color:#a8f0d8;text-decoration:underline}
+
+/* CHATBOT */
+.chatbot-wrap{background:white;border-radius:14px;border:1.5px solid #e5e5ea;margin-bottom:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,.06)}
+.chatbot-header{background:linear-gradient(135deg,#085041,#1D9E75);padding:12px 16px;display:flex;align-items:center;gap:10px;color:white;cursor:pointer}
+.chatbot-header h3{font-size:13px;font-weight:700;flex:1}
+.chatbot-avatar{width:32px;height:32px;background:rgba(255,255,255,.2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px}
+.chatbot-status{font-size:10px;opacity:.8;display:flex;align-items:center;gap:4px}
+.dot-online{width:6px;height:6px;background:#4ade80;border-radius:50%;display:inline-block}
+.chatbot-body{display:none;flex-direction:column;height:320px}
+.chatbot-body.open{display:flex}
+.chat-messages{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:8px;background:#f9f9f9}
+.msg{max-width:80%;padding:8px 12px;border-radius:12px;font-size:12px;line-height:1.5}
+.msg.bot{background:white;border:1px solid #e5e5ea;align-self:flex-start;border-radius:4px 12px 12px 12px;color:#1d1d1f}
+.msg.user{background:linear-gradient(135deg,#1D9E75,#085041);color:white;align-self:flex-end;border-radius:12px 4px 12px 12px}
+.chat-input-row{display:flex;border-top:1px solid #e5e5ea;background:white}
+.chat-input-row input{flex:1;padding:10px 14px;border:none;outline:none;font-size:13px}
+.chat-send{padding:10px 16px;background:#1D9E75;color:white;border:none;cursor:pointer;font-size:13px;font-weight:700}
+.quick-questions{display:flex;gap:6px;flex-wrap:wrap;padding:8px 12px;border-top:1px solid #e5e5ea;background:white}
+.qq-btn{background:#f0fdf8;border:1px solid #c8f0dc;border-radius:12px;padding:4px 10px;font-size:11px;color:#085041;cursor:pointer;font-weight:500;transition:all .2s;white-space:nowrap}
+.qq-btn:hover{background:#1D9E75;color:white;border-color:#1D9E75}
+
+/* ACTION BOX */
+.action-box{background:white;border:2px solid #1D9E75;border-radius:14px;padding:20px;text-align:center;margin-bottom:12px;box-shadow:0 4px 12px rgba(29,158,117,.1)}
+.action-box h3{font-size:15px;font-weight:800;margin-bottom:6px}
+.action-box p{font-size:12px;color:#6e6e73;margin-bottom:14px;line-height:1.5}
+
+/* LOADING */
+.loading-pulse{display:flex;align-items:center;gap:8px;opacity:.8}
+.pulse-dots{display:flex;gap:4px}
+.pulse-dot{width:6px;height:6px;background:rgba(255,255,255,.7);border-radius:50%;animation:pulse .8s ease-in-out infinite}
+.pulse-dot:nth-child(2){animation-delay:.2s}.pulse-dot:nth-child(3){animation-delay:.4s}
+@keyframes pulse{0%,100%{opacity:.3;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+
+.footer{background:#1d1d1f;color:#8e8e93;text-align:center;padding:20px;font-size:11px;margin-top:40px}
 .footer a{color:#1D9E75;text-decoration:none}
-.spin{display:inline-block;animation:spin 1s linear infinite;margin-right:6px}
-@keyframes spin{to{transform:rotate(360deg)}}
+.divider{height:1px;background:#e5e5ea;margin:12px 0}
 </style>
 </head>
 <body>
@@ -118,7 +179,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
     <h3 id="mTitle">Complete Payment</h3>
-    <p id="mDesc">All world currencies accepted · Auto-converted · Instant access</p>
+    <p id="mDesc">All world currencies accepted · Instant access after payment</p>
     <div class="modal-amt" id="mAmt">$40 <small>USD</small></div>
     <button class="pesapal-btn" onclick="goToPesapal()">💳 Pay via Pesapal — Instant Access</button>
     <div class="pm-grid">
@@ -127,15 +188,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <div class="pm-item" onclick="goToPesapal()"><div class="pm-icon">🏦</div>Bank Transfer</div>
       <div class="pm-item" onclick="goToPesapal()"><div class="pm-icon">🌐</div>PayPal/Other</div>
     </div>
-    <p style="font-size:11px;color:#8e8e93;margin-bottom:12px">KES · USD · CNY · EUR · GBP · JPY · AED · INR · and all world currencies</p>
+    <p style="font-size:10px;color:#8e8e93;margin-bottom:12px">KES · USD · CNY · EUR · GBP · JPY · AED · INR · BRL · AUD and all world currencies</p>
     <button class="modal-close" onclick="closeModal()">Cancel</button>
   </div>
 </div>
 
 <div class="header">
-  <div class="logo">World<span>Gate</span> AI <small>世界门</small></div>
+  <div class="logo-wrap">
+    <div class="logo-icon">🌐</div>
+    <div>
+      <div class="logo-text">World<span>Gate</span> AI</div>
+      <span class="logo-sub">世界门 · Global Opportunity Intelligence</span>
+    </div>
+  </div>
   <div class="hright">
-    <span class="owner-badge" id="ownerBadge">👑 Owner — Nowells</span>
+    <span class="owner-badge" id="ownerBadge">👑 Nowells</span>
     <select class="lang-select" id="langSel" onchange="applyLang(this.value)">
       <option value="en">🌐 English</option>
       <option value="zh">🇨🇳 中文</option>
@@ -165,39 +232,34 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </div>
 
 <div class="stats-bar">
-  <div class="stat"><div class="stat-num">195</div><div class="stat-label" id="s1">Countries covered</div></div>
+  <div class="stat"><div class="stat-num">195</div><div class="stat-label" id="s1">Countries</div></div>
   <div class="stat"><div class="stat-num">7</div><div class="stat-label" id="s2">Continents</div></div>
   <div class="stat"><div class="stat-num">25+</div><div class="stat-label" id="s3">Languages</div></div>
-  <div class="stat"><div class="stat-num">50+</div><div class="stat-label" id="s4">Opportunity types</div></div>
+  <div class="stat"><div class="stat-num">50+</div><div class="stat-label" id="s4">Opportunity Types</div></div>
 </div>
 
 <div class="main">
-  <!-- HOME PAGE -->
+  <!-- HOME -->
   <div id="homePage">
     <div class="sec-title" id="secCont">Explore by continent</div>
     <div class="cont-grid" id="contGrid"></div>
-    <div class="opp-header-row">
+    <div class="opp-row-header">
       <div class="sec-title" id="oppTitle" style="margin:0">Top opportunities in Africa</div>
-      <span class="free-badge" id="freeBadge">3 free searches today</span>
+      <span class="free-badge" id="freeBadge">3 free searches</span>
     </div>
     <div class="opp-grid" id="oppGrid"></div>
     <div class="paywall" id="paywall">
       <h3 id="pwTitle">🔓 Unlock Full WorldGate AI Access</h3>
-      <p id="pwSub">You have used your 3 free searches. Subscribe now to continue with unlimited AI-powered country reports in your language.</p>
+      <p id="pwSub">You have used your 3 free searches. Subscribe for unlimited AI reports in your language.</p>
       <div class="price-row">
         <div class="price-card feat" onclick="openPayment('pro')">
-          <div class="p-amt">$40</div>
-          <div class="p-per" id="pwPer1">per month</div>
-          <div class="p-lbl" id="pwLbl1">⭐ Unlimited Reports</div>
+          <div class="p-amt">$40</div><div class="p-per" id="pwPer1">per month</div><div class="p-lbl" id="pwLbl1">⭐ Unlimited Reports</div>
         </div>
         <div class="price-card" onclick="openPayment('consult')">
-          <div class="p-amt">$80</div>
-          <div class="p-per" id="pwPer2">per session</div>
-          <div class="p-lbl" id="pwLbl2">📞 Personal Consultation</div>
+          <div class="p-amt">$80</div><div class="p-per" id="pwPer2">per session</div><div class="p-lbl" id="pwLbl2">📞 Personal Consultation</div>
         </div>
       </div>
-      <button class="gbtn gbtn-green" onclick="openPayment('pro')" id="payBtn">💳 Subscribe — $40/month · Unlimited Access</button>
-      <br>
+      <button class="gbtn gbtn-green" onclick="openPayment('pro')" id="payBtn">💳 Subscribe — $40/month · Unlimited Access</button><br>
       <button class="gbtn gbtn-dark" onclick="openPayment('consult')" id="consultBtn">📞 Book Consultation with Nowells — $80</button>
       <p class="curr-note" id="currNote">M-Pesa · Visa · Mastercard · PayPal · All world currencies · Instant access</p>
     </div>
@@ -207,14 +269,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <div class="country-wrap" id="countryWrap">
     <button class="back-btn" onclick="goBack()" id="backBtn">← Back</button>
     <div class="c-header" id="cHeader"></div>
+    <div class="quick-stats" id="quickStats"></div>
+    <div class="links-bar" id="linksBar"></div>
     <div class="sections-grid" id="sectionsGrid"></div>
     <div class="ai-report-box" id="aiReportBox">
       <h3>🤖 <span id="aiReportTitle">AI Full Intelligence Report</span></h3>
       <div class="ai-report-content" id="aiReportContent">
-        <p><span class="spin">⏳</span> Generating your personalized report... Please wait 15-20 seconds.</p>
+        <div class="loading-pulse"><div class="pulse-dots"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div><span>Generating report...</span></div>
       </div>
     </div>
-    <div class="action-box" id="actionBox">
+    <div class="chatbot-wrap" id="chatbotWrap">
+      <div class="chatbot-header" onclick="toggleChat()">
+        <div class="chatbot-avatar">🤖</div>
+        <div style="flex:1"><h3 id="chatTitle">Ask WorldGate AI Assistant</h3><div class="chatbot-status"><span class="dot-online"></span><span id="chatStatus">Online · Replies instantly</span></div></div>
+        <span id="chatToggleIcon">▼</span>
+      </div>
+      <div class="chatbot-body" id="chatBody">
+        <div class="chat-messages" id="chatMessages"></div>
+        <div class="quick-questions" id="quickQs"></div>
+        <div class="chat-input-row">
+          <input type="text" id="chatInput" placeholder="Ask anything..." onkeypress="if(event.key==='Enter')sendChat()"/>
+          <button class="chat-send" onclick="sendChat()">Send</button>
+        </div>
+      </div>
+    </div>
+    <div class="action-box">
       <h3 id="abTitle">Ready to take action?</h3>
       <p id="abSub">Subscribe for unlimited country reports or book a personal consultation with Nowells in Nairobi, Kenya.</p>
       <button class="gbtn gbtn-green" onclick="openPayment('pro')" id="abPayBtn">💳 Subscribe — $40/month</button>
@@ -222,18 +301,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
       <p class="curr-note">M-Pesa · Visa · Mastercard · PayPal · All world currencies · Instant access after payment</p>
     </div>
     <div class="paywall" id="countryPaywall">
-      <h3 id="cpTitle">Subscribe to Continue Reading</h3>
-      <p id="cpSub">You have used all 3 free searches. Subscribe for $40/month to access unlimited detailed reports for all 195 countries.</p>
+      <h3 id="cpTitle">Subscribe to Continue</h3>
+      <p id="cpSub">Subscribe for $40/month to access unlimited detailed reports for all 195 countries.</p>
       <div class="price-row">
-        <div class="price-card feat" onclick="openPayment('pro')">
-          <div class="p-amt">$40</div><div class="p-per">per month</div><div class="p-lbl">⭐ Unlimited Reports</div>
-        </div>
-        <div class="price-card" onclick="openPayment('consult')">
-          <div class="p-amt">$80</div><div class="p-per">per session</div><div class="p-lbl">📞 Talk to Nowells</div>
-        </div>
+        <div class="price-card feat" onclick="openPayment('pro')"><div class="p-amt">$40</div><div class="p-per">per month</div><div class="p-lbl">⭐ Unlimited</div></div>
+        <div class="price-card" onclick="openPayment('consult')"><div class="p-amt">$80</div><div class="p-per">per session</div><div class="p-lbl">📞 Talk to Nowells</div></div>
       </div>
-      <button class="gbtn gbtn-green" onclick="openPayment('pro')">💳 Pay $40 — Get Unlimited Access Now</button><br>
-      <button class="gbtn gbtn-dark" onclick="openPayment('consult')">📞 Book Nowells Directly — $80</button>
+      <button class="gbtn gbtn-green" onclick="openPayment('pro')">💳 Pay $40 — Unlimited Access Now</button><br>
+      <button class="gbtn gbtn-dark" onclick="openPayment('consult')">📞 Book Nowells — $80</button>
       <p class="curr-note">All world currencies · M-Pesa · Visa · Mastercard · PayPal · Instant access</p>
     </div>
   </div>
@@ -242,7 +317,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="footer"><p>© 2025 <a href="#">WorldGate AI</a> · 世界门 · Built by Nowells, Nairobi Kenya · Powering global opportunity for everyone</p></div>
 
 <script>
-var GEMINI_KEY='AQ.Ab8RN6ISeJohafKylwN4HCQqms5KLIwjL94Z1XmJ8Axg8Vcw8w';
+var GEMINI_KEY='AQ.Ab8RN6ISeJohafKyIwN4HCQqms5KLIwjL94Z1XmJ8Axg8Vcw8w';
 var OWNER_PASS='Nowells2025';
 var PESAPAL='https://www.pesapal.com';
 var isOwner=false;
@@ -251,166 +326,294 @@ var curType=0;
 var curContinent='Africa';
 var searchCount=0;
 var curPay='pro';
+var currentCountry='';
+var chatOpen=false;
+var chatHistory=[];
 var prices={pro:{usd:40,label:'WorldGate AI Monthly Subscription'},consult:{usd:80,label:'Personal Consultation with Nowells'}};
 var contKeys=['Africa','Asia','Europe','Americas','Middle East','Oceania'];
 var contIcons=['🌍','🌏','🌍','🌎','🕌','🌊'];
 
-var T={
-en:{hTitle:"Your Gateway to Global Opportunities",hSub:"AI-powered intelligence for every country on earth. Invest, study, trade, or relocate — in your language.",types:["Investor","Student","Trader","Teacher","Traveler"],searchPH:"Search any country...",exploreBtn:"Explore",s1:"Countries covered",s2:"Continents",s3:"Languages",s4:"Opportunity types",secCont:"Explore by continent",continents:["Africa","Asia","Europe","Americas","Middle East","Oceania"],contCounts:["54 countries","48 countries","44 countries","35 countries","17 countries","14 countries"],oppIn:"Top opportunities in",free:"3 free searches today",fullReport:"View Full Report →",pwTitle:"🔓 Unlock Full WorldGate AI Access",pwSub:"You have used your 3 free searches. Subscribe now for unlimited AI-powered reports.",pwPer1:"per month",pwLbl1:"⭐ Unlimited Reports",pwPer2:"per session",pwLbl2:"📞 Personal Consultation",payBtn:"💳 Subscribe — $40/month · Unlimited Access",consultBtn:"📞 Book Consultation with Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · All world currencies · Instant access",aiReportTitle:"AI Full Intelligence Report",abTitle:"Ready to take action?",abSub:"Subscribe for unlimited country reports or book a personal consultation with Nowells in Nairobi, Kenya.",abPayBtn:"💳 Subscribe — $40/month",abConsultBtn:"📞 Personal Consultation — $80",backBtn:"← Back",cpTitle:"Subscribe to Continue Reading",cpSub:"You have used all 3 free searches. Subscribe for $40/month to access unlimited detailed reports for all 195 countries.",tagI:"Invest",tagS:"Study",tagT:"Trade",tagL:"Live",mDesc:"All world currencies accepted · Auto-converted · Instant access"},
-zh:{hTitle:"您通往全球机遇的门户",hSub:"为地球上每个国家提供AI驱动的智能服务。投资、学习、贸易或移居——用您的语言。",types:["投资者","学生","贸易商","教师","旅行者"],searchPH:"搜索任何国家...",exploreBtn:"探索",s1:"覆盖国家",s2:"洲",s3:"语言",s4:"机会类型",secCont:"按大洲探索",continents:["非洲","亚洲","欧洲","美洲","中东","大洋洲"],contCounts:["54个国家","48个国家","44个国家","35个国家","17个国家","14个国家"],oppIn:"顶级机遇在",free:"今日3次免费搜索",fullReport:"查看完整报告 →",pwTitle:"🔓 解锁WorldGate AI完整访问权限",pwSub:"您已使用3次免费搜索。立即订阅，无限获取各国AI智能报告。",pwPer1:"每月",pwLbl1:"⭐ 无限报告",pwPer2:"每次",pwLbl2:"📞 个人咨询",payBtn:"💳 订阅 — $40/月 · 无限访问",consultBtn:"📞 预约Nowells个人咨询 — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · 接受全球所有货币",aiReportTitle:"AI完整智能报告",abTitle:"准备好采取行动了吗？",abSub:"订阅获取无限国家报告，或直接预约Nowells进行个人咨询。",abPayBtn:"💳 订阅 — $40/月",abConsultBtn:"📞 个人咨询 — $80",backBtn:"← 返回",cpTitle:"订阅以继续阅读",cpSub:"您已使用3次免费搜索。订阅$40/月，访问全球195个国家的无限详细报告。",tagI:"投资",tagS:"学习",tagT:"贸易",tagL:"居住",mDesc:"接受并自动转换全球所有货币"},
-fr:{hTitle:"Votre porte vers les opportunités mondiales",hSub:"Intelligence IA pour chaque pays du monde. Investissez, étudiez, commercez ou déménagez dans votre langue.",types:["Investisseur","Étudiant","Commerçant","Enseignant","Voyageur"],searchPH:"Rechercher un pays...",exploreBtn:"Explorer",s1:"Pays couverts",s2:"Continents",s3:"Langues",s4:"Types d'opportunités",secCont:"Explorer par continent",continents:["Afrique","Asie","Europe","Amériques","Moyen-Orient","Océanie"],contCounts:["54 pays","48 pays","44 pays","35 pays","17 pays","14 pays"],oppIn:"Meilleures opportunités en",free:"3 recherches gratuites aujourd'hui",fullReport:"Voir le rapport complet →",pwTitle:"🔓 Débloquez l'accès complet",pwSub:"Vous avez utilisé vos 3 recherches gratuites. Abonnez-vous pour des rapports illimités.",pwPer1:"par mois",pwLbl1:"⭐ Rapports illimités",pwPer2:"par session",pwLbl2:"📞 Consultation personnelle",payBtn:"💳 S'abonner — $40/mois",consultBtn:"📞 Réserver une consultation — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Toutes les devises mondiales",aiReportTitle:"Rapport complet d'intelligence IA",abTitle:"Prêt à passer à l'action ?",abSub:"Abonnez-vous pour des rapports illimités ou réservez une consultation personnelle avec Nowells.",abPayBtn:"💳 S'abonner — $40/mois",abConsultBtn:"📞 Consultation personnelle — $80",backBtn:"← Retour",cpTitle:"Abonnez-vous pour continuer",cpSub:"Vous avez utilisé vos 3 recherches gratuites. Abonnez-vous à $40/mois.",tagI:"Investir",tagS:"Étudier",tagT:"Commerce",tagL:"Vivre",mDesc:"Toutes les devises mondiales acceptées et converties automatiquement"},
-es:{hTitle:"Tu puerta a las oportunidades globales",hSub:"Inteligencia impulsada por IA para cada país del mundo. Invierte, estudia, comercia o reubícate en tu idioma.",types:["Inversor","Estudiante","Comerciante","Profesor","Viajero"],searchPH:"Buscar cualquier país...",exploreBtn:"Explorar",s1:"Países cubiertos",s2:"Continentes",s3:"Idiomas",s4:"Tipos de oportunidades",secCont:"Explorar por continente",continents:["África","Asia","Europa","Américas","Oriente Medio","Oceanía"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Mejores oportunidades en",free:"3 búsquedas gratuitas hoy",fullReport:"Ver informe completo →",pwTitle:"🔓 Desbloquea acceso completo",pwSub:"Has usado tus 3 búsquedas gratuitas. Suscríbete para informes ilimitados.",pwPer1:"por mes",pwLbl1:"⭐ Informes ilimitados",pwPer2:"por sesión",pwLbl2:"📞 Consulta personal",payBtn:"💳 Suscribirse — $40/mes",consultBtn:"📞 Reservar consulta — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Todas las divisas del mundo",aiReportTitle:"Informe completo de inteligencia IA",abTitle:"¿Listo para actuar?",abSub:"Suscríbete para informes ilimitados o reserva una consulta personal con Nowells.",abPayBtn:"💳 Suscribirse — $40/mes",abConsultBtn:"📞 Consulta personal — $80",backBtn:"← Volver",cpTitle:"Suscríbete para continuar",cpSub:"Has usado tus 3 búsquedas gratuitas. Suscríbete a $40/mes.",tagI:"Invertir",tagS:"Estudiar",tagT:"Comercio",tagL:"Vivir",mDesc:"Todas las divisas mundiales aceptadas y convertidas automáticamente"},
-ar:{hTitle:"بوابتك للفرص العالمية",hSub:"ذكاء اصطناعي لكل دولة في العالم. استثمر، ادرس، تاجر أو انتقل بلغتك.",types:["مستثمر","طالب","تاجر","معلم","مسافر"],searchPH:"ابحث عن أي دولة...",exploreBtn:"استكشف",s1:"الدول المشمولة",s2:"القارات",s3:"اللغات",s4:"أنواع الفرص",secCont:"استكشف حسب القارة",continents:["أفريقيا","آسيا","أوروبا","الأمريكتان","الشرق الأوسط","أوقيانوسيا"],contCounts:["54 دولة","48 دولة","44 دولة","35 دولة","17 دولة","14 دولة"],oppIn:"أفضل الفرص في",free:"3 عمليات بحث مجانية اليوم",fullReport:"عرض التقرير الكامل →",pwTitle:"🔓 افتح الوصول الكامل",pwSub:"لقد استخدمت 3 عمليات بحث مجانية. اشترك للحصول على تقارير غير محدودة.",pwPer1:"شهرياً",pwLbl1:"⭐ تقارير غير محدودة",pwPer2:"لكل جلسة",pwLbl2:"📞 استشارة شخصية",payBtn:"💳 اشترك — $40/شهر",consultBtn:"📞 احجز استشارة مع Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · جميع عملات العالم مقبولة",aiReportTitle:"تقرير الذكاء الاصطناعي الكامل",abTitle:"هل أنت مستعد للتصرف؟",abSub:"اشترك للحصول على تقارير غير محدودة أو احجز استشارة شخصية مع Nowells.",abPayBtn:"💳 اشترك — $40/شهر",abConsultBtn:"📞 استشارة شخصية — $80",backBtn:"← رجوع",cpTitle:"اشترك للمتابعة",cpSub:"لقد استخدمت جميع عمليات البحث المجانية الـ 3.",tagI:"استثمار",tagS:"دراسة",tagT:"تجارة",tagL:"إقامة",mDesc:"جميع عملات العالم مقبولة ومحولة تلقائياً"},
-sw:{hTitle:"Lango Lako kwa Fursa za Kimataifa",hSub:"Akili bandia kwa kila nchi duniani. Wekeza, soma, fanya biashara au hamia kwa lugha yako.",types:["Mwekezaji","Mwanafunzi","Mfanyabiashara","Mwalimu","Msafiri"],searchPH:"Tafuta nchi yoyote...",exploreBtn:"Chunguza",s1:"Nchi zilizofunikwa",s2:"Mabara",s3:"Lugha",s4:"Aina za fursa",secCont:"Chunguza kwa bara",continents:["Afrika","Asia","Ulaya","Amerika","Mashariki ya Kati","Oceania"],contCounts:["Nchi 54","Nchi 48","Nchi 44","Nchi 35","Nchi 17","Nchi 14"],oppIn:"Fursa bora katika",free:"Utafutaji 3 bure leo",fullReport:"Angalia Ripoti Kamili →",pwTitle:"🔓 Fungua Ufikiaji Kamili",pwSub:"Umetumia utafutaji wako 3 wa bure. Jiandikishe kwa ripoti zisizo na kikomo.",pwPer1:"kwa mwezi",pwLbl1:"⭐ Ripoti Zisizo na Kikomo",pwPer2:"kwa kikao",pwLbl2:"📞 Ushauri Binafsi",payBtn:"💳 Jiandikishe — $40/mwezi",consultBtn:"📞 Panga Ushauri na Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Sarafu zote za dunia",aiReportTitle:"Ripoti Kamili ya AI",abTitle:"Uko tayari kuchukua hatua?",abSub:"Jiandikishe kwa ripoti zisizo na kikomo au panga ushauri binafsi na Nowells.",abPayBtn:"💳 Jiandikishe — $40/mwezi",abConsultBtn:"📞 Ushauri Binafsi — $80",backBtn:"← Rudi",cpTitle:"Jiandikishe Kuendelea",cpSub:"Umetumia utafutaji wako 3 wa bure.",tagI:"Wekeza",tagS:"Soma",tagT:"Biashara",tagL:"Ishi",mDesc:"Sarafu zote za dunia zinakubaliwa na kubadilishwa kiotomatiki"},
-pt:{hTitle:"Sua porta para oportunidades globais",hSub:"Inteligência de IA para cada país do mundo. Invista, estude, comercialize ou se mude no seu idioma.",types:["Investidor","Estudante","Comerciante","Professor","Viajante"],searchPH:"Pesquisar qualquer país...",exploreBtn:"Explorar",s1:"Países cobertos",s2:"Continentes",s3:"Idiomas",s4:"Tipos de oportunidades",secCont:"Explorar por continente",continents:["África","Ásia","Europa","Américas","Oriente Médio","Oceania"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Melhores oportunidades em",free:"3 pesquisas gratuitas hoje",fullReport:"Ver relatório completo →",pwTitle:"🔓 Desbloqueie acesso completo",pwSub:"Você usou suas 3 pesquisas gratuitas. Assine para relatórios ilimitados.",pwPer1:"por mês",pwLbl1:"⭐ Relatórios ilimitados",pwPer2:"por sessão",pwLbl2:"📞 Consulta pessoal",payBtn:"💳 Assinar — $40/mês",consultBtn:"📞 Agendar consulta com Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Todas as moedas do mundo",aiReportTitle:"Relatório completo de inteligência IA",abTitle:"Pronto para agir?",abSub:"Assine para relatórios ilimitados ou agende uma consulta pessoal com Nowells.",abPayBtn:"💳 Assinar — $40/mês",abConsultBtn:"📞 Consulta pessoal — $80",backBtn:"← Voltar",cpTitle:"Assine para continuar",cpSub:"Você usou suas 3 pesquisas gratuitas.",tagI:"Investir",tagS:"Estudar",tagT:"Comércio",tagL:"Morar",mDesc:"Todas as moedas do mundo aceitas e convertidas automaticamente"},
-hi:{hTitle:"वैश्विक अवसरों का आपका द्वार",hSub:"पृथ्वी के हर देश के लिए AI-संचालित बुद्धिमत्ता। अपनी भाषा में निवेश करें, पढ़ें, व्यापार करें या स्थानांतरित हों।",types:["निवेशक","छात्र","व्यापारी","शिक्षक","यात्री"],searchPH:"कोई भी देश खोजें...",exploreBtn:"अन्वेषण करें",s1:"देश शामिल",s2:"महाद्वीप",s3:"भाषाएं",s4:"अवसर प्रकार",secCont:"महाद्वीप द्वारा अन्वेषण करें",continents:["अफ्रीका","एशिया","यूरोप","अमेरिका","मध्य पूर्व","ओशिनिया"],contCounts:["54 देश","48 देश","44 देश","35 देश","17 देश","14 देश"],oppIn:"शीर्ष अवसर",free:"आज 3 मुफ्त खोजें",fullReport:"पूरी रिपोर्ट देखें →",pwTitle:"🔓 पूर्ण एक्सेस अनलॉक करें",pwSub:"आपने 3 मुफ्त खोज उपयोग कर लिए हैं। असीमित रिपोर्ट के लिए सदस्यता लें।",pwPer1:"प्रति माह",pwLbl1:"⭐ असीमित रिपोर्ट",pwPer2:"प्रति सत्र",pwLbl2:"📞 व्यक्तिगत परामर्श",payBtn:"💳 सदस्यता — $40/माह",consultBtn:"📞 Nowells से परामर्श — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · सभी विश्व मुद्राएं",aiReportTitle:"AI पूर्ण इंटेलिजेंस रिपोर्ट",abTitle:"कार्रवाई के लिए तैयार हैं?",abSub:"असीमित रिपोर्ट के लिए सदस्यता लें या Nowells के साथ परामर्श बुक करें।",abPayBtn:"💳 सदस्यता — $40/माह",abConsultBtn:"📞 परामर्श — $80",backBtn:"← वापस",cpTitle:"पढ़ना जारी रखने के लिए सदस्यता लें",cpSub:"आपने 3 मुफ्त खोज उपयोग कर लिए हैं।",tagI:"निवेश",tagS:"अध्ययन",tagT:"व्यापार",tagL:"रहना",mDesc:"सभी विश्व मुद्राएं स्वीकार और स्वचालित रूप से परिवर्तित"},
-ja:{hTitle:"グローバルな機会へのゲートウェイ",hSub:"地球上のすべての国のAI搭載インテリジェンス。あなたの言語で投資、学習、貿易、または移住。",types:["投資家","学生","トレーダー","教師","旅行者"],searchPH:"国を検索...",exploreBtn:"探索する",s1:"対象国数",s2:"大陸",s3:"言語",s4:"機会の種類",secCont:"大陸別に探索",continents:["アフリカ","アジア","ヨーロッパ","アメリカ","中東","オセアニア"],contCounts:["54カ国","48カ国","44カ国","35カ国","17カ国","14カ国"],oppIn:"トップの機会",free:"今日3回無料検索",fullReport:"完全レポートを見る →",pwTitle:"🔓 完全アクセスを解除",pwSub:"3回の無料検索を使用しました。無制限のレポートにサブスクライブしてください。",pwPer1:"月額",pwLbl1:"⭐ 無制限レポート",pwPer2:"セッションごと",pwLbl2:"📞 個人相談",payBtn:"💳 サブスクライブ — $40/月",consultBtn:"📞 Nowellsとの個人相談 — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · すべての世界通貨",aiReportTitle:"AI完全インテリジェンスレポート",abTitle:"行動する準備はできていますか？",abSub:"無制限のレポートにサブスクライブするか、Nowellsとの個人相談を予約してください。",abPayBtn:"💳 サブスクライブ — $40/月",abConsultBtn:"📞 個人相談 — $80",backBtn:"← 戻る",cpTitle:"続きを読むにはサブスクライブ",cpSub:"3回の無料検索を使用しました。",tagI:"投資",tagS:"留学",tagT:"貿易",tagL:"移住",mDesc:"すべての世界通貨が受け付けられ、自動的に変換されます"},
-ko:{hTitle:"글로벌 기회로 가는 관문",hSub:"지구상 모든 국가를 위한 AI 기반 인텔리전스. 당신의 언어로 투자, 학습, 거래 또는 이주하세요.",types:["투자자","학생","트레이더","교사","여행자"],searchPH:"국가 검색...",exploreBtn:"탐색",s1:"국가 수",s2:"대륙",s3:"언어",s4:"기회 유형",secCont:"대륙별 탐색",continents:["아프리카","아시아","유럽","아메리카","중동","오세아니아"],contCounts:["54개국","48개국","44개국","35개국","17개국","14개국"],oppIn:"주요 기회",free:"오늘 3회 무료 검색",fullReport:"전체 보고서 보기 →",pwTitle:"🔓 전체 이용권 잠금 해제",pwSub:"3번의 무료 검색을 사용했습니다. 무제한 보고서를 구독하세요.",pwPer1:"월",pwLbl1:"⭐ 무제한 보고서",pwPer2:"세션당",pwLbl2:"📞 개인 상담",payBtn:"💳 구독 — $40/월",consultBtn:"📞 Nowells와 개인 상담 — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · 모든 세계 통화",aiReportTitle:"AI 완전 인텔리전스 보고서",abTitle:"행동할 준비가 되셨나요?",abSub:"무제한 보고서를 구독하거나 Nowells와 개인 상담을 예약하세요.",abPayBtn:"💳 구독 — $40/월",abConsultBtn:"📞 개인 상담 — $80",backBtn:"← 뒤로",cpTitle:"계속 읽으려면 구독하세요",cpSub:"3번의 무료 검색을 사용했습니다.",tagI:"투자",tagS:"학습",tagT:"무역",tagL:"거주",mDesc:"모든 세계 통화가 자동으로 변환되어 수락됩니다"},
-de:{hTitle:"Ihr Tor zu globalen Chancen",hSub:"KI-gestützte Intelligenz für jedes Land der Erde. Investieren, studieren, handeln oder umziehen in Ihrer Sprache.",types:["Investor","Student","Händler","Lehrer","Reisender"],searchPH:"Land suchen...",exploreBtn:"Erkunden",s1:"Abgedeckte Länder",s2:"Kontinente",s3:"Sprachen",s4:"Chance-Typen",secCont:"Nach Kontinent erkunden",continents:["Afrika","Asien","Europa","Amerika","Naher Osten","Ozeanien"],contCounts:["54 Länder","48 Länder","44 Länder","35 Länder","17 Länder","14 Länder"],oppIn:"Top-Chancen in",free:"Heute 3 kostenlose Suchen",fullReport:"Vollständigen Bericht ansehen →",pwTitle:"🔓 Vollzugriff freischalten",pwSub:"Sie haben Ihre 3 kostenlosen Suchen aufgebraucht. Abonnieren Sie für unbegrenzte Berichte.",pwPer1:"pro Monat",pwLbl1:"⭐ Unbegrenzte Berichte",pwPer2:"pro Sitzung",pwLbl2:"📞 Persönliche Beratung",payBtn:"💳 Abonnieren — $40/Monat",consultBtn:"📞 Beratung mit Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Alle Weltwährungen",aiReportTitle:"Vollständiger KI-Intelligenzbericht",abTitle:"Bereit zum Handeln?",abSub:"Abonnieren für unbegrenzte Berichte oder buchen Sie eine persönliche Beratung mit Nowells.",abPayBtn:"💳 Abonnieren — $40/Monat",abConsultBtn:"📞 Persönliche Beratung — $80",backBtn:"← Zurück",cpTitle:"Abonnieren Sie, um weiterzulesen",cpSub:"Sie haben Ihre 3 kostenlosen Suchen aufgebraucht.",tagI:"Investieren",tagS:"Studium",tagT:"Handel",tagL:"Leben",mDesc:"Alle Weltwährungen werden akzeptiert und automatisch umgerechnet"},
-ru:{hTitle:"Ваши ворота в мировые возможности",hSub:"ИИ-аналитика для каждой страны мира. Инвестируйте, учитесь, торгуйте или переезжайте на вашем языке.",types:["Инвестор","Студент","Трейдер","Преподаватель","Путешественник"],searchPH:"Поиск страны...",exploreBtn:"Исследовать",s1:"Стран охвачено",s2:"Континенты",s3:"Языки",s4:"Типы возможностей",secCont:"Исследовать по континенту",continents:["Африка","Азия","Европа","Америка","Ближний Восток","Океания"],contCounts:["54 страны","48 стран","44 страны","35 стран","17 стран","14 стран"],oppIn:"Лучшие возможности в",free:"3 бесплатных поиска сегодня",fullReport:"Просмотреть полный отчёт →",pwTitle:"🔓 Разблокировать полный доступ",pwSub:"Вы использовали 3 бесплатных поиска. Подпишитесь на неограниченные отчёты.",pwPer1:"в месяц",pwLbl1:"⭐ Неограниченные отчёты",pwPer2:"за сессию",pwLbl2:"📞 Личная консультация",payBtn:"💳 Подписаться — $40/месяц",consultBtn:"📞 Консультация с Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Все мировые валюты",aiReportTitle:"Полный отчёт ИИ-разведки",abTitle:"Готовы действовать?",abSub:"Подпишитесь на неограниченные отчёты или забронируйте личную консультацию с Nowells.",abPayBtn:"💳 Подписаться — $40/месяц",abConsultBtn:"📞 Личная консультация — $80",backBtn:"← Назад",cpTitle:"Подпишитесь, чтобы продолжить",cpSub:"Вы использовали 3 бесплатных поиска.",tagI:"Инвестиции",tagS:"Учёба",tagT:"Торговля",tagL:"Проживание",mDesc:"Все мировые валюты принимаются и автоматически конвертируются"}
-};
-
-var oppData={
-Africa:[
-{tagKey:'tagI',cls:'ti',score:'9.2',title:'Kenya Real Estate 2025',desc:'Nairobi property market growing 14% annually. Entry from $15,000. High rental yields in Westlands and Kilimani.',ctry:'🇰🇪 Kenya',flag:'🇰🇪',country:'Kenya'},
-{tagKey:'tagT',cls:'tt',score:'8.8',title:'Ethiopian Coffee Export',desc:'Ethiopia produces 3.5M metric tons of coffee yearly. Premium prices in Asian markets.',ctry:'🇪🇹 Ethiopia',flag:'🇪🇹',country:'Ethiopia'},
-{tagKey:'tagI',cls:'ti',score:'8.5',title:'Rwanda Tech Hub',desc:'Kigali ranked #1 business city in Africa. 0% tax on tech companies. Strong government support.',ctry:'🇷🇼 Rwanda',flag:'🇷🇼',country:'Rwanda'},
-{tagKey:'tagS',cls:'ts',score:'9.0',title:'African Scholarships 2025',desc:'Over 2,400 scholarships across 12 African universities for international students.',ctry:'🌍 Pan-Africa',flag:'🌍',country:'Africa'},
-{tagKey:'tagT',cls:'tt',score:'8.3',title:'South Africa Mining',desc:'Platinum, gold, and diamond opportunities. Government-backed trade programs.',ctry:'🇿🇦 South Africa',flag:'🇿🇦',country:'South Africa'},
-{tagKey:'tagI',cls:'ti',score:'8.7',title:'Ghana Agribusiness',desc:'Cocoa, palm oil, and cashew sectors open to foreign investment.',ctry:'🇬🇭 Ghana',flag:'🇬🇭',country:'Ghana'}
-],
-Asia:[
-{tagKey:'tagI',cls:'ti',score:'9.1',title:'Vietnam Manufacturing',desc:'Labour costs 60% lower than China. 15 free trade zones. Electronics booming.',ctry:'🇻🇳 Vietnam',flag:'🇻🇳',country:'Vietnam'},
-{tagKey:'tagS',cls:'ts',score:'9.4',title:'Singapore Universities',desc:'NUS and NTU rank top 15 globally. Scholarships up to $50,000/year.',ctry:'🇸🇬 Singapore',flag:'🇸🇬',country:'Singapore'},
-{tagKey:'tagT',cls:'tt',score:'8.9',title:'China Trade Opportunities',desc:'World largest manufacturing hub. Wholesale markets in Yiwu, Guangzhou. Huge import/export potential.',ctry:'🇨🇳 China',flag:'🇨🇳',country:'China'},
-{tagKey:'tagI',cls:'ti',score:'8.6',title:'Indonesia Tourism Investment',desc:'Bali property returns 18% annually. Tourism growing 22% post-pandemic.',ctry:'🇮🇩 Indonesia',flag:'🇮🇩',country:'Indonesia'}
-],
-Europe:[
-{tagKey:'tagL',cls:'tl',score:'9.3',title:'Portugal Golden Visa',desc:'Invest €280,000 and get EU residency. Path to citizenship in 5 years.',ctry:'🇵🇹 Portugal',flag:'🇵🇹',country:'Portugal'},
-{tagKey:'tagS',cls:'ts',score:'9.5',title:'Germany Free Universities',desc:'37 public universities with zero tuition. Engineering programs in English.',ctry:'🇩🇪 Germany',flag:'🇩🇪',country:'Germany'},
-{tagKey:'tagI',cls:'ti',score:'8.7',title:'Poland Tech Ecosystem',desc:'Warsaw emerging as EU tech hub. 50% lower costs. EU grants available.',ctry:'🇵🇱 Poland',flag:'🇵🇱',country:'Poland'},
-{tagKey:'tagT',cls:'tt',score:'8.4',title:'Netherlands Trade Hub',desc:"Rotterdam is Europe's largest port. Strategic for Africa-Europe trade.",ctry:'🇳🇱 Netherlands',flag:'🇳🇱',country:'Netherlands'}
-],
-Americas:[
-{tagKey:'tagS',cls:'ts',score:'9.6',title:'Canada Study Permit',desc:'1,200+ scholarships for international students. Path to PR after graduation.',ctry:'🇨🇦 Canada',flag:'🇨🇦',country:'Canada'},
-{tagKey:'tagI',cls:'ti',score:'8.8',title:'Brazil Agriculture',desc:"World's largest soy and beef exporter. Land investment returns 25% over 5 years.",ctry:'🇧🇷 Brazil',flag:'🇧🇷',country:'Brazil'},
-{tagKey:'tagT',cls:'tt',score:'8.5',title:'Mexico Manufacturing',desc:'USMCA creates massive trade opportunities. Auto and electronics growing.',ctry:'🇲🇽 Mexico',flag:'🇲🇽',country:'Mexico'},
-{tagKey:'tagL',cls:'tl',score:'8.9',title:'Colombia Digital Nomad',desc:'New digital nomad visa. Medellin ranked top remote work city. Cost 70% below US.',ctry:'🇨🇴 Colombia',flag:'🇨🇴',country:'Colombia'}
-],
-'Middle East':[
-{tagKey:'tagI',cls:'ti',score:'9.0',title:'UAE Business Setup',desc:'0% corporate tax in free zones. 100% foreign ownership. Setup in 3 days.',ctry:'🇦🇪 UAE',flag:'🇦🇪',country:'UAE'},
-{tagKey:'tagT',cls:'tt',score:'8.7',title:'Saudi Vision 2030',desc:'$500B NEOM project creating supplier opportunities. 200+ sectors open.',ctry:'🇸🇦 Saudi Arabia',flag:'🇸🇦',country:'Saudi Arabia'},
-{tagKey:'tagI',cls:'ti',score:'8.5',title:'Qatar Infrastructure',desc:'Post-World Cup boom. Construction and hospitality need foreign investment.',ctry:'🇶🇦 Qatar',flag:'🇶🇦',country:'Qatar'}
-],
-Oceania:[
-{tagKey:'tagL',cls:'tl',score:'9.4',title:'Australia Skilled Visa',desc:'189 visa for skilled workers. 500+ occupations on shortage list. Path to citizenship.',ctry:'🇦🇺 Australia',flag:'🇦🇺',country:'Australia'},
-{tagKey:'tagI',cls:'ti',score:'8.9',title:'New Zealand Agriculture',desc:'Dairy and wine export opportunities. Government-backed agri programs.',ctry:'🇳🇿 New Zealand',flag:'🇳🇿',country:'New Zealand'}
-]
-};
-
-// Rich pre-built data for common countries so it always works even if AI fails
-function getBaseData(country, typeIdx, langName) {
-  var typeNames=['Investor','Student','Trader','Teacher','Traveler'];
-  var tn=typeNames[typeIdx]||'Investor';
-  var data={
-    Kenya:{
-      Investor:{sections:[
-        {title:'💰 Investment Overview',rows:[['GDP Growth','5.6% annually'],['Top Sectors','Real Estate, Agriculture, Tech, Energy'],['Min Investment','$10,000+'],['Foreign Ownership','100% allowed'],['Corporate Tax','30% (16% in EPZ zones)'],['Investment Risk','Medium — Stable democracy']]},
-        {title:'🏢 Business Setup',rows:[['Registration Time','3-5 business days'],['Registration Cost','KES 10,000 (~$77)'],['Required Docs','Passport, business plan, local address'],['Best Entity Type','Limited Company or Branch Office'],['Regulator','Business Registration Service (BRS)'],['Website','brs.go.ke']]},
-        {title:'🏘️ Real Estate',rows:[['Nairobi Apt (2br)','$80,000 - $200,000'],['Rental Yield','7-14% annually'],['Hot Areas','Westlands, Karen, Kilimani, Ruaka'],['Title Process','60-90 days'],['Foreign Ownership','Allowed with restrictions'],['Best ROI Area','Ruaka, Tatu City']]},
-        {title:'📈 Key Opportunities',rows:[['Agriculture','Coffee, tea, avocado exports booming'],['Tech/Silicon Savannah','Largest tech hub in East Africa'],['Real Estate','14% annual price growth'],['Energy','Solar and geothermal investment'],['Tourism','$1.6B industry, growing 30%'],['Logistics','East Africa gateway country']]}
-      ],aiPrompt:'Provide a detailed investment guide for Kenya including: top 5 investment sectors with ROI, business registration step by step, tax incentives, legal protections for foreign investors, risks and how to mitigate them, recommended contacts and organizations, success stories of foreign investors, and a clear 90-day action plan to start investing in Kenya.'},
-      Student:{sections:[
-        {title:'🎓 Top Universities',rows:[['University of Nairobi','Ranked #1 in Kenya'],['Strathmore University','Best private, strong business'],['USIU-Africa','American system, international'],['KCA University','Business and tech focused'],['Kenyatta University','Large public, affordable'],['Aga Khan University','Medical and health sciences']]},
-        {title:'💵 Education Costs',rows:[['Public University Fees','$500 - $2,000/year'],['Private University Fees','$3,000 - $8,000/year'],['Accommodation','$100 - $400/month'],['Living Costs','$300 - $700/month total'],['Student Visa Fee','$50 one-time'],['Health Insurance','$200 - $500/year']]},
-        {title:'🏆 Scholarships Available',rows:[['Kenya Government Bursary','Up to 100% tuition for qualifying'],['MasterCard Foundation','Full scholarship + stipend'],['DAAD Scholarships','German-funded, various fields'],['Commonwealth Scholarship','Full UK-funded programs'],['World Bank Scholarship','Graduate level, competitive'],['African Development Bank','STEM focused scholarships']]},
-        {title:'📋 Visa & Requirements',rows:[['Student Visa','Required for non-EA citizens'],['Processing Time','2-4 weeks'],['Required Docs','Admission letter, funds proof, passport'],['Work While Studying','Not permitted on student visa'],['Post-Study Options','Apply for work permit'],['Language Requirement','English (most programs)']]}
-      ],aiPrompt:'Provide a comprehensive student guide to studying in Kenya including: top universities with rankings and fees, step-by-step application process, available scholarships with deadlines and amounts, student visa requirements, cost of living breakdown, student accommodation options, part-time work rules, post-study opportunities, and tips for international students adapting to Kenya.'},
-      Trader:{sections:[
-        {title:'🚢 Trade Overview',rows:[['Top Exports','Tea, coffee, horticulture, titanium'],['Top Imports','Machinery, vehicles, petroleum'],['Main Trade Partners','Uganda, Tanzania, UAE, Netherlands'],['Port of Entry','Mombasa Port (busiest in E.Africa)'],['Trade Agreements','EAC, COMESA, AfCFTA'],['Import Duty','0-35% depending on product']]},
-        {title:'📦 Import Process',rows:[['Customs Authority','Kenya Revenue Authority (KRA)'],['Declaration','Kenya TradeNet system online'],['Processing Time','1-3 days (pre-cleared)'],['Required Docs','Invoice, packing list, Bill of Lading'],['VAT on Imports','16% standard rate'],['Prohibited Items','Check KRA restricted goods list']]},
-        {title:'💱 Finance & Payments',rows:[['Currency','Kenyan Shilling (KES)'],['Exchange Rate','~KES 130 per USD'],['Banking','Equity, KCB, Standard Chartered'],['Mobile Money','M-Pesa widely used for trade'],['Letter of Credit','Available from all major banks'],['Trade Finance','KCB Trade Finance, Equity Bank']]},
-        {title:'🏪 Trading Hubs',rows:[['Nairobi CBD','Main wholesale commercial district'],['Mombasa','Port city, import/export hub'],['Gikomba Market','Largest secondhand goods market'],['Eastleigh','Electronics and fabric wholesale'],['Nyamakima','Hardware and building materials'],['Marikiti Market','Fresh produce wholesale']]}
-      ],aiPrompt:'Provide a comprehensive trade guide for Kenya including: top products to import and export with profit margins, step-by-step customs clearance process, import duties and VAT rates, key trading hubs and markets, banking and payment solutions, trade financing options, logistics and shipping costs, common mistakes traders make and how to avoid them, and specific profitable trade routes between Kenya and China/UAE/Europe.'},
-      Teacher:{sections:[
-        {title:'👩‍🏫 Teaching Demand',rows:[['Most Needed','Math, Science, English, ICT'],['International Schools','80+ schools hiring foreign teachers'],['Salary Range','$1,000 - $4,000/month'],['Public School Pay','$500 - $1,200/month'],['Job Security','High demand, low supply of specialists'],['Growth','Education sector growing 8% annually']]},
-        {title:'📋 Requirements',rows:[['Minimum Qualification','Bachelor degree + teaching certificate'],['TSC Registration','Required for all teachers'],['Work Permit','Required — Class G permit'],['Background Check','Criminal clearance from home country'],['Medical Check','Required for work permit'],['Processing Time','1-3 months for permit']]},
-        {title:'🏫 Top Employers',rows:[['ISK (Int\'l School of Kenya)','Premier school, high salaries'],['Brookhouse School','British curriculum'],['Rosslyn Academy','American curriculum'],['Braeburn Schools','Multiple campuses, structured'],['Aga Khan Academy','IB curriculum, excellent'],['Universities','UoN, Strathmore, USIU hiring']]},
-        {title:'🏡 Life in Kenya',rows:[['Cost of Living','$800-1,500/month comfortable'],['Climate','Warm and pleasant year-round'],['Safety','Generally safe in urban areas'],['Healthcare','Good private hospitals available'],['Community','Large expat teacher community'],['Travel','Safari and beach within easy reach']]}
-      ],aiPrompt:'Provide a comprehensive guide for teachers wanting to work in Kenya including: teaching job opportunities and demand by subject, salary ranges at different schools, step-by-step process to get a Kenyan teaching permit, list of international schools with contact details, comparison of public vs private school teaching, cost of living for teachers, accommodation options, tips for adapting to Kenyan school culture, and how to start the application process from abroad.'},
-      Traveler:{sections:[
-        {title:'✈️ Visa & Entry',rows:[['eVisa','Available online at evisa.go.ke'],['Cost','$51 single entry, $101 multi-entry'],['Processing','24-72 hours online'],['On Arrival','Available for most nationalities'],['Validity','90 days stay permitted'],['Exemptions','East Africa citizens visa-free']]},
-        {title:'💰 Budget Guide',rows:[['Budget Travel','$30-50/day (hostels, local food)'],['Mid-Range','$80-150/day (hotels, tours)'],['Luxury','$200-500/day (lodges, safaris)'],['Safari Cost','$200-800/day (varies by park)'],['Nairobi Hotel','$30-200/night'],['Local Meal','$2-8 in local restaurants']]},
-        {title:'🗺️ Must-Visit Places',rows:[['Maasai Mara','World famous wildlife reserve'],['Diani Beach','Best beach on Indian Ocean'],['Mount Kenya','Africa\'s second highest peak'],['Lake Nakuru','Flamingo lake, rhino sanctuary'],['Amboseli','Elephants with Kilimanjaro view'],['Nairobi National Park','Game park inside the capital']]},
-        {title:'🌍 Travel Tips',rows:[['Best Time','July-October (dry, best wildlife)'],['Currency','Carry USD, change to KES locally'],['Safety','Use Uber/Bolt, avoid walking at night'],['Vaccinations','Yellow fever card required'],['SIM Card','Safaricom (best coverage)'],['Emergency','999 Police, 0800 723 253 Tourist Helpline']]}
-      ],aiPrompt:'Provide a comprehensive Kenya travel guide including: visa requirements for different nationalities, step-by-step how to get an eVisa, complete budget breakdown for budget/mid-range/luxury traveler, top 10 must-visit destinations with entry fees, best time to visit each region, transportation options and costs, accommodation recommendations for all budgets, food guide with must-try dishes, safety tips, health requirements and vaccinations, packing list, and a suggested 1-week and 2-week itinerary.'}
-    }
-  };
-  // Return base data if available
-  if(data[country]&&data[country][typeNames[typeIdx]]){
-    return data[country][typeNames[typeIdx]];
+// Country database with rich data for ALL major countries
+var countryDB={
+  Kenya:{flag:'🇰🇪',score:'9.2',capital:'Nairobi',population:'55M',currency:'KES (Kenyan Shilling)',language:'English, Swahili',timezone:'UTC+3',climate:'Tropical, warm year-round',gdp:'$110B',growth:'5.6%',mapUrl:'https://www.google.com/maps/place/Kenya',wikiUrl:'https://en.wikipedia.org/wiki/Kenya',govUrl:'https://www.invest.go.ke',visaUrl:'https://evisa.go.ke',
+    Investor:{sections:[
+      {t:'💰 Investment Overview',rows:[['GDP Growth','5.6% annually'],['Top Sectors','Real Estate, Agriculture, Tech, Energy'],['Min Investment','$10,000+'],['Foreign Ownership','100% allowed'],['Corporate Tax','30% (16% EPZ)'],['Risk Level','Medium — Stable']]},
+      {t:'🏢 Business Setup',rows:[['Registration Time','3-5 business days'],['Registration Cost','KES 10,000 (~$77)'],['Required Docs','Passport, business plan, address'],['Best Entity','Limited Company'],['Regulator','BRS — brs.go.ke'],['Special Zones','EPZ, SEZ available']]},
+      {t:'🏘️ Real Estate',rows:[['Nairobi 2br Apt','$80,000 - $200,000'],['Rental Yield','7-14% annually'],['Hot Areas','Westlands, Karen, Kilimani'],['Title Process','60-90 days'],['Foreign Ownership','Allowed with leasehold'],['Best ROI Area','Ruaka, Tatu City']]},
+      {t:'📈 Key Opportunities',rows:[['Agriculture','Coffee, tea, avocado booming'],['Tech/Silicon Savannah','Largest tech hub E.Africa'],['Real Estate','14% annual price growth'],['Energy','Solar & geothermal'],['Tourism','$1.6B industry, +30%'],['Logistics','E.Africa gateway']]}
+    ],aiTopic:'investment opportunities in Kenya for foreign investors including top sectors, ROI, business registration, tax incentives, risks, and a 90-day action plan'},
+    Student:{sections:[
+      {t:'🎓 Top Universities',rows:[['University of Nairobi','#1 in Kenya, oldest'],['Strathmore University','Best private, business'],['USIU-Africa','American system'],['KCA University','Business & tech'],['Kenyatta University','Large public, affordable'],['Aga Khan University','Medical sciences']]},
+      {t:'💵 Education Costs',rows:[['Public Uni Fees','$500 - $2,000/year'],['Private Uni Fees','$3,000 - $8,000/year'],['Accommodation','$100 - $400/month'],['Living Costs','$300 - $700/month'],['Student Visa Fee','$50 one-time'],['Health Insurance','$200 - $500/year']]},
+      {t:'🏆 Scholarships',rows:[['Kenya Govt Bursary','Up to 100% tuition'],['MasterCard Foundation','Full scholarship + stipend'],['DAAD Scholarships','German-funded, all fields'],['Commonwealth','Full UK-funded programs'],['World Bank','Graduate level competitive'],['AfDB Scholarship','STEM focused']]},
+      {t:'📋 Visa & Requirements',rows:[['Student Visa','Required non-EA citizens'],['Processing Time','2-4 weeks'],['Required Docs','Admission letter, funds proof'],['Work While Studying','Not permitted'],['Post-Study Options','Apply for work permit'],['Language','English (most programs)']]}
+    ],aiTopic:'studying in Kenya including top universities, scholarships with deadlines and amounts, student visa step by step, cost of living breakdown, and tips for international students'},
+    Trader:{sections:[
+      {t:'🚢 Trade Overview',rows:[['Top Exports','Tea, coffee, horticulture'],['Top Imports','Machinery, vehicles, petroleum'],['Main Partners','UAE, Netherlands, Uganda'],['Main Port','Mombasa (busiest E.Africa)'],['Trade Agreements','EAC, COMESA, AfCFTA'],['Import Duty','0-35% by product']]},
+      {t:'📦 Import Process',rows:[['Customs Authority','Kenya Revenue Authority'],['Declaration System','Kenya TradeNet online'],['Processing Time','1-3 days pre-cleared'],['Required Docs','Invoice, packing list, B/L'],['VAT on Imports','16% standard rate'],['Customs Agent','Recommended for all']]},
+      {t:'💱 Finance & Payment',rows:[['Currency','KES (~130 per USD)'],['Best Banks','Equity, KCB, Stanchart'],['Mobile Money','M-Pesa widely used'],['Letter of Credit','All major banks offer'],['Trade Finance','KCB, Equity Bank'],['SWIFT','Available all banks']]},
+      {t:'🏪 Key Trading Hubs',rows:[['Nairobi CBD','Main wholesale district'],['Mombasa','Import/export hub'],['Gikomba Market','Largest secondhand goods'],['Eastleigh','Electronics & fabrics'],['Nyamakima','Hardware & building'],['Marikiti','Fresh produce wholesale']]}
+    ],aiTopic:'trading with Kenya including top import/export products, customs clearance process, duties and taxes, key markets, logistics costs, and profitable trade routes'},
+    Teacher:{sections:[
+      {t:'👩‍🏫 Teaching Demand',rows:[['Most Needed','Math, Science, English, ICT'],['International Schools','80+ hiring foreign teachers'],['Salary Range','$1,000 - $4,000/month'],['Public School Pay','$500 - $1,200/month'],['Job Security','High demand, specialist gap'],['Sector Growth','8% annually']]},
+      {t:'📋 Requirements',rows:[['Min Qualification','Bachelor + teaching cert'],['TSC Registration','Required all teachers'],['Work Permit','Class G permit required'],['Background Check','Criminal clearance home country'],['Medical Check','Required for permit'],['Processing Time','1-3 months']]},
+      {t:'🏫 Top Employers',rows:[['ISK','Premier school, high salary'],['Brookhouse School','British curriculum'],['Rosslyn Academy','American curriculum'],['Braeburn Schools','Multiple campuses'],['Aga Khan Academy','IB curriculum'],['USIU, Strathmore','University level']]},
+      {t:'🏡 Teacher Life',rows:[['Cost of Living','$800-1,500/month'],['Climate','Warm, pleasant year-round'],['Safety','Good in urban areas'],['Healthcare','Good private hospitals'],['Community','Large expat teacher network'],['Travel','Safari & beach nearby']]}
+    ],aiTopic:'teaching jobs in Kenya including salary ranges, required qualifications, work permit process, top international schools with contacts, cost of living, and how to apply from abroad'},
+    Traveler:{sections:[
+      {t:'✈️ Visa & Entry',rows:[['eVisa','evisa.go.ke online'],['Cost','$51 single, $101 multi-entry'],['Processing','24-72 hours online'],['On Arrival','Most nationalities'],['Validity','90 days stay'],['EA Citizens','Visa-free']]},
+      {t:'💰 Budget Guide',rows:[['Budget Travel','$30-50/day'],['Mid-Range','$80-150/day'],['Luxury','$200-500/day'],['Safari Cost','$200-800/day'],['Nairobi Hotel','$30-200/night'],['Local Meal','$2-8 restaurants']]},
+      {t:'🗺️ Must-Visit',rows:[['Maasai Mara','World famous wildlife'],['Diani Beach','Best Indian Ocean beach'],['Mount Kenya','Africa 2nd highest peak'],['Lake Nakuru','Flamingo & rhino'],['Amboseli','Elephants + Kilimanjaro'],['Nairobi Nat. Park','Wildlife in capital']]},
+      {t:'🌍 Travel Tips',rows:[['Best Time','July-October (dry season)'],['Currency','USD → change to KES'],['Safety','Uber/Bolt recommended'],['Vaccinations','Yellow fever required'],['SIM Card','Safaricom best coverage'],['Emergency','999 Police, +254 020 2720760']]}
+    ],aiTopic:'traveling to Kenya including visa requirements, budget breakdown, top attractions, best time to visit, safety tips, transport options, and a suggested 1-week itinerary'}
+  },
+  China:{flag:'🇨🇳',score:'9.0',capital:'Beijing',population:'1.4B',currency:'CNY (Chinese Yuan)',language:'Mandarin Chinese',timezone:'UTC+8',climate:'Varied — continental, tropical, desert',gdp:'$17.7T',growth:'5.2%',mapUrl:'https://www.google.com/maps/place/China',wikiUrl:'https://en.wikipedia.org/wiki/China',govUrl:'https://www.china.org.cn',visaUrl:'https://www.visaforchina.cn',
+    Investor:{sections:[
+      {t:'💰 Investment Overview',rows:[['GDP Growth','5.2% annually'],['Top Sectors','Manufacturing, Tech, EV, AI'],['Min Investment','Varies by sector'],['Foreign Ownership','Restricted in some sectors'],['Corporate Tax','25% (15% hi-tech)'],['Risk Level','Medium — regulatory risk']]},
+      {t:'🏢 Business Setup',rows:[['Entity Types','WFOE, JV, Rep Office'],['Registration Time','3-6 months'],['Min Capital','Varies by sector'],['Required Docs','Articles of association'],['Regulator','MOFCOM, SAMR'],['Best Cities','Shanghai, Shenzhen, Beijing']]},
+      {t:'🏘️ Real Estate',rows:[['Shanghai Apt (2br)','$400,000 - $1.2M'],['Rental Yield','2-4% (low yield)'],['Foreign Ownership','Restricted to residents'],['Hot Cities','Shanghai, Shenzhen, Hangzhou'],['Commercial Property','Foreigners can invest'],['REITs','Available on stock market']]},
+      {t:'📈 Key Opportunities',rows:[['EV & Battery','World leader, huge supply chain'],['Manufacturing','World factory, all categories'],['E-commerce','$2T market, growing fast'],['AI & Tech','Massive government investment'],['Agriculture Tech','Smart farming emerging'],['Green Energy','Solar panels, wind turbines']]}
+    ],aiTopic:'investing in China including top sectors, WFOE registration process, tax incentives, free trade zones, risks and compliance, and how to find Chinese business partners'},
+    Student:{sections:[
+      {t:'🎓 Top Universities',rows:[['Tsinghua University','#1 in China, world top 20'],['Peking University','#2 China, research focus'],['Fudan University','#3 China, Shanghai'],['Zhejiang University','Top engineering'],['Shanghai Jiao Tong','Strong STEM'],['CUHK Shenzhen','English language campus']]},
+      {t:'💵 Education Costs',rows:[['Tuition (per year)','$3,000 - $10,000'],['Accommodation','$100 - $400/month'],['Living Costs','$400 - $800/month'],['HSK Exam','Required for most programs'],['Scholarship Apps','Via Chinese Embassy'],['Part-time Work','Limited on student visa']]},
+      {t:'🏆 Scholarships',rows:[['CSC Scholarship','Full Chinese Govt scholarship'],['Confucius Institute','Language + stipend'],['Provincial Scholarships','Various province levels'],['University Scholarships','Each university offers'],['Belt & Road','Africa, Asia priority'],['MOFCOM Training','Trade & business programs']]},
+      {t:'📋 Requirements',rows:[['Student Visa','X1 or X2 visa required'],['HSK Required','Level 4+ for degree programs'],['Health Check','Mandatory on arrival'],['Medical Insurance','Required, ~$150/year'],['Processing Time','2-4 weeks'],['Documents','Acceptance letter, HSK cert']]}
+    ],aiTopic:'studying in China including top universities, Chinese government scholarships, HSK requirements, student visa process, cost of living in different cities, and tips for international students in China'},
+    Trader:{sections:[
+      {t:'🚢 Trade Overview',rows:[['World Trade Rank','#1 trading nation'],['Top Exports','Electronics, machinery, clothing'],['Top Imports','Oil, iron ore, soybeans'],['Key Ports','Shanghai, Shenzhen, Ningbo'],['Trade Agreements','RCEP, Belt & Road'],['Canton Fair','Twice yearly, Guangzhou']]},
+      {t:'📦 Buying from China',rows:[['Key Markets','Yiwu, Canton, Guangzhou, Shenzhen'],['Minimum Orders','Varies, often 100-500 units'],['Product Inspection','Essential before shipping'],['Payment','Alibaba Trade Assurance, T/T, L/C'],['Shipping','Sea (30 days) or Air (5-7 days)'],['Customs in China','Smooth for exporters']]},
+      {t:'💱 Trade Finance',rows:[['Payment Methods','T/T, L/C, Alibaba Assurance'],['RMB Trading','China pushing RMB settlement'],['Trade Insurance','PICC, China Export Credit'],['Financing','CDB, Export-Import Bank'],['Currency Risk','Hedge USD/CNY exposure'],['Platforms','Alibaba, Global Sources, Made-in-China']]},
+      {t:'🏪 Key Trading Cities',rows:[['Yiwu','World largest wholesale market'],['Guangzhou','Canton Fair, manufacturing hub'],['Shenzhen','Electronics, tech products'],['Dongguan','Furniture, toys, textiles'],['Ningbo','Machinery, plastics'],['Hangzhou','E-commerce HQ (Alibaba)']]}
+    ],aiTopic:'trading with China including how to find suppliers on Alibaba, visiting Yiwu and Canton Fair, import process, quality inspection, shipping options, and avoiding common scams'},
+    Teacher:{sections:[
+      {t:'👩‍🏫 Teaching in China',rows:[['Demand','Very high for native English speakers'],['Average Salary','$2,000 - $5,000+/month'],['Free Housing','Usually provided by school'],['Annual Flights','Often covered in contract'],['Work Visa','Z visa required'],['Contract Length','Usually 1-2 years']]},
+      {t:'📋 Requirements',rows:[['Nationality','Native English speaker preferred'],['Degree','Bachelor required, any subject'],['TEFL/CELTA','Highly recommended'],['Age Limit','Usually 18-60 years'],['Background Check','FBI or equivalent required'],['Health Check','Required at Chinese hospital']]},
+      {t:'🏫 Employer Types',rows:[['Public Schools','$1,500-2,500/month, stable'],['Private Schools','$2,500-4,000/month, demanding'],['Training Centers','$2,000-4,000/month, flexible hours'],['Universities','$2,000-3,500/month, most freedom'],['International Schools','$4,000-8,000+, need experience'],['Online Teaching','$15-30/hour, from home']]},
+      {t:'🏡 Life in China',rows:[['Cost of Living','$700-1,200/month comfortable'],['Food','Amazing variety, cheap local food'],['Safety','Very safe, low crime'],['Language Barrier','Learn basic Mandarin essential'],['WeChat','Essential app for daily life'],['VPN','Needed for Google, Facebook']]}
+    ],aiTopic:'teaching English in China including salary expectations, visa process, how to find teaching jobs, what to expect living in China, cultural tips, and best cities for foreign teachers'},
+    Traveler:{sections:[
+      {t:'✈️ Visa & Entry',rows:[['Visa Required','Yes for most countries'],['Tourist Visa Cost','$140-180 typically'],['Processing Time','4-7 business days'],['Visa-Free Trial','Some countries 15 days visa-free'],['Duration','Usually 30-90 days stay'],['Port of Entry','All major airports']]},
+      {t:'💰 Budget Guide',rows:[['Budget Travel','$30-60/day'],['Mid-Range','$80-150/day'],['Luxury','$200-500/day'],['High Speed Train','$10-100 depending on route'],['Hotel Budget','$20-80/night'],['Street Food Meal','$1-4 per meal']]},
+      {t:'🗺️ Must-Visit',rows:[['Great Wall','UNESCO World Heritage'],['Forbidden City','Imperial palace, Beijing'],['Zhangjiajie','Avatar floating mountains'],['Li River','Guilin, stunning scenery'],['Shanghai Bund','Iconic skyline'],['Terracotta Army','Ancient wonder, Xian']]},
+      {t:'🌍 Travel Tips',rows:[['Best Time','April-May, Sept-Oct'],['VPN','Download before entering China'],['WeChat Pay','Essential for cashless payments'],['Mandarin','Learn basic phrases'],['High Speed Rail','Excellent train network'],['Air Quality','Check index in cities']]}
+    ],aiTopic:'traveling to China including visa requirements for different countries, budget breakdown, top attractions, transportation by high speed rail, safety tips, and a 2-week itinerary'}
+  },
+  Japan:{flag:'🇯🇵',score:'8.8',capital:'Tokyo',population:'125M',currency:'JPY (Japanese Yen)',language:'Japanese',timezone:'UTC+9',climate:'Temperate, 4 distinct seasons',gdp:'$4.2T',growth:'1.9%',mapUrl:'https://www.google.com/maps/place/Japan',wikiUrl:'https://en.wikipedia.org/wiki/Japan',govUrl:'https://www.jetro.go.jp',visaUrl:'https://www.mofa.go.jp/j_info/visit/visa/',
+    Investor:{sections:[
+      {t:'💰 Investment Overview',rows:[['GDP Size','$4.2T — 3rd largest world'],['Top Sectors','Auto, Tech, Robotics, Healthcare'],['Foreign Investment','Actively encouraged'],['Corporate Tax','23.2% effective rate'],['Special Zones','National Strategic Special Zones'],['Currency Risk','JPY volatility consideration']]},
+      {t:'🏢 Business Setup',rows:[['Entity Type','KK (Kabushiki Kaisha) preferred'],['Registration Time','2-3 weeks'],['Registration Cost','~$1,000-2,000'],['Min Capital','¥1 (legally minimum)'],['Required Docs','Articles of incorporation'],['Best Cities','Tokyo, Osaka, Fukuoka']]},
+      {t:'🏘️ Real Estate',rows:[['Tokyo 2br Apt','$400,000 - $1.5M'],['Rental Yield','3-5% central Tokyo'],['Foreign Ownership','100% allowed, no restriction'],['Rural Properties','Very cheap, some near-free'],['Property Tax','0.3-0.4% of assessed value'],['Hot Areas','Tokyo, Kyoto, Osaka']]},
+      {t:'📈 Key Opportunities',rows:[['Robotics & AI','World leader, investment welcome'],['Healthcare','Aging population drives demand'],['Tourism','Record visitors, huge opportunity'],['Food & Agriculture','Premium Japanese products'],['Green Energy','Solar, hydrogen investment'],['Startup Ecosystem','Growing, govt. support']]},
+    ],aiTopic:'investing in Japan including company registration, best sectors, tax system, special economic zones, cultural tips for doing business in Japan, and how to find Japanese business partners'},
+    Student:{sections:[
+      {t:'🎓 Top Universities',rows:[['Tokyo University','#1 Japan, top 30 world'],['Kyoto University','#2 Japan, research excellence'],['Osaka University','#3 Japan, strong science'],['Waseda University','Best private, international'],['Keio University','Top private, business'],['Tohoku University','Strong engineering']]},
+      {t:'💵 Education Costs',rows:[['National Uni Fees','$5,000 - $7,000/year'],['Private Uni Fees','$8,000 - $14,000/year'],['Accommodation','$300 - $800/month Tokyo'],['Living Costs','$800 - $1,500/month'],['Japanese Proficiency','JLPT N2+ for degree'],['English Programs','Available at many universities']]},
+      {t:'🏆 Scholarships',rows:[['MEXT Scholarship','Japanese Govt, fully funded'],['JASSO Scholarship','¥48,000-88,000/month'],['University Awards','Each uni offers merit aid'],['JICA Scholarship','Development study focus'],['ADB Scholarship','Graduate level only'],['Private Foundations','100+ available']]},
+      {t:'📋 Requirements',rows:[['Student Visa','College Student visa required'],['Japanese Language','JLPT recommended'],['Application Deadline','Usually December for April'],['Required Docs','Transcript, financial proof'],['Part-time Work','28 hours/week allowed'],['Health Insurance','¥2,000/month through university']]}
+    ],aiTopic:'studying in Japan including MEXT scholarship application, top universities, cost of living, student visa process, Japanese language requirements, and life as an international student in Japan'},
+    Trader:{sections:[
+      {t:'🚢 Trade Overview',rows:[['Trade Rank','#4 world trading nation'],['Top Exports','Auto, electronics, machinery'],['Top Imports','Oil, LNG, food, coal'],['Key Ports','Tokyo, Yokohama, Kobe, Osaka'],['Trade Agreements','TPP11, RCEP, EU-Japan EPA'],['Standards','Very high quality requirements']]},
+      {t:'📦 Export to Japan',rows:[['Market Entry','Very quality-conscious buyers'],['Certification','JIS standards often required'],['Food Safety','Strict inspection for food products'],['Labeling','Japanese labeling required'],['Distribution','Complex, use local agent/distributor'],['Payment Terms','60-90 days common']]},
+      {t:'💱 Trade Finance',rows:[['Currency','JPY — watch exchange rates'],['Letters of Credit','Standard for large orders'],['Trade Insurance','NEXI export insurance'],['Financing','JBIC, Shinkin Bank'],['Payment Methods','Bank transfer preferred'],['Fintech','Growing B2B payment solutions']]},
+      {t:'🏪 Trade Resources',rows:[['JETRO','Govt trade promotion body'],['Japan External Trade Org','jetro.go.jp'],['Trade Shows','Tokyo Big Sight, Makuhari Messe'],['Chambers of Commerce','American, British, etc. in Tokyo'],['Industry Associations','Many sector-specific'],['B2B Platforms','TradeKey, Alibaba Japan']]}
+    ],aiTopic:'trading with Japan including how to export to Japan, quality requirements, finding Japanese buyers, trade shows, business etiquette, and navigating the Japanese distribution system'},
+    Teacher:{sections:[
+      {t:'👩‍🏫 Teaching Demand',rows:[['Market','Very high for English speakers'],['JET Programme','Govt-funded, 50+ countries'],['Salary JET','¥280,000 - ¥396,000/month'],['Private Eikaiwa','$2,000-3,000/month'],['International Schools','$3,000-5,000/month'],['University','$3,000-5,000/month']]},
+      {t:'📋 Requirements',rows:[['JET Programme','University degree + nationality'],['Eikaiwa Schools','TEFL helpful but not always required'],['International Schools','Teaching cert + experience required'],['Work Visa','Instructor visa or Humanit. Specialist visa'],['Background Check','Required for JET'],['Age','No upper limit for most']]},
+      {t:'🏫 Key Employers',rows:[['JET Programme','jet-programme.org'],['NOVA','Largest private English school'],['AEON','Major eikaiwa chain'],['ECC','Popular eikaiwa company'],['Berlitz Japan','Business English focus'],['International Schools','12+ in Tokyo alone']]},
+      {t:'🏡 Life in Japan',rows:[['Cost of Living','$1,200-2,000/month Tokyo'],['Safety','One of safest countries world'],['Food','World-class cuisine everywhere'],['Language Barrier','Japanese essential for daily life'],['Culture','Respectful, structured society'],['Technology','Highly advanced, convenient']]}
+    ],aiTopic:'teaching in Japan including the JET Programme application, other teaching options, salary expectations, cost of living, Japanese culture tips for teachers, and how to get the instructor visa'},
+    Traveler:{sections:[
+      {t:'✈️ Visa & Entry',rows:[['Visa-Free','70+ countries no visa needed'],['eVisa','Available for some countries'],['Cost','Free or $20-40'],['Duration','Usually 90 days stay'],['Fingerprints','Required at entry'],['Best Airports','Narita, Haneda (Tokyo)']]},
+      {t:'💰 Budget Guide',rows:[['Budget Travel','$60-100/day'],['Mid-Range','$120-200/day'],['Luxury','$300-600/day'],['Shinkansen','$30-200 depending on route'],['Accommodation','$30-150/night'],['Ramen Bowl','$8-15']]},
+      {t:'🗺️ Must-Visit',rows:[['Tokyo','World largest city, endless attractions'],['Kyoto','Ancient temples, traditional Japan'],['Osaka','Best food city in Japan'],['Hiroshima','Peace Memorial, moving history'],['Hakone','Mt. Fuji views, hot springs'],['Hokkaido','Winter sports, nature paradise']]},
+      {t:'🌍 Travel Tips',rows:[['Best Time','March-April (cherry blossoms)'],['JR Pass','Buy before arrival for trains'],['IC Card','Suica/Pasmo for transit'],['Cash','Still widely used'],['Google Maps','Works excellently in Japan'],['Manners','Remove shoes, quiet in public']]},
+    ],aiTopic:'traveling to Japan including visa-free countries, transport by shinkansen, cherry blossom season tips, budget breakdown, must-visit cities, cultural etiquette, and a 2-week Japan itinerary'}
+  },
+  UAE:{flag:'🇦🇪',score:'9.0',capital:'Abu Dhabi',population:'10M',currency:'AED (UAE Dirham)',language:'Arabic, English widely spoken',timezone:'UTC+4',climate:'Hot desert, mild winters',gdp:'$500B',growth:'4.0%',mapUrl:'https://www.google.com/maps/place/UAE',wikiUrl:'https://en.wikipedia.org/wiki/United_Arab_Emirates',govUrl:'https://www.moec.gov.ae',visaUrl:'https://u.ae/en/information-and-services/visa-and-emirates-id',
+    Investor:{sections:[
+      {t:'💰 Investment Overview',rows:[['GDP Growth','4.0% annually'],['Top Sectors','Real Estate, Finance, Tourism, Tech'],['Corporate Tax','9% (was 0% until 2023)'],['Free Zone Tax','0% corporate tax'],['Foreign Ownership','100% in free zones'],['Currency Risk','AED pegged to USD — stable']]},
+      {t:'🏢 Business Setup',rows:[['Mainland Setup','DED registration, 3-7 days'],['Free Zone Setup','Starting $5,000 — 1 week'],['Popular Free Zones','DIFC, DMCC, JAFZA, Dubai Media City'],['No Min Capital','Most free zones'],['Required Docs','Passport, visa, business plan'],['No Audit','Requirement — simple accounting']]},
+      {t:'🏘️ Real Estate',rows:[['Dubai 2br Apt','$300,000 - $800,000'],['Rental Yield','5-9% Dubai average'],['Foreign Ownership','100% in designated areas'],['Hot Areas','Downtown, Marina, JBR, Palm Jumeirah'],['Golden Visa','$2M property → 10-year visa'],['Off-Plan','Popular, 5-10% discount']]},
+      {t:'📈 Key Opportunities',rows:[['Real Estate','World class, high returns'],['E-commerce','Fast growing digital market'],['Tourism','30M+ visitors annually'],['Finance/Fintech','DIFC = world finance hub'],['Logistics','Global trade hub, Jebel Ali Port'],['Renewable Energy','Massive solar investment']]}
+    ],aiTopic:'investing in UAE including free zone vs mainland setup, best free zones for different businesses, real estate investment and golden visa, tax benefits, and how to start a business in Dubai'},
+    Student:{sections:[
+      {t:'🎓 Top Universities',rows:[['NYU Abu Dhabi','Top liberal arts, full scholarships'],['UAEU','Largest national university'],['American University Sharjah','Strong engineering'],['Khalifa University','STEM focus, top research'],['Heriot-Watt Dubai','UK degrees in Dubai'],['University of Dubai','Business, law focus']]},
+      {t:'💵 Education Costs',rows:[['Tuition per Year','$10,000 - $25,000'],['Accommodation','$500 - $1,500/month Dubai'],['Living Costs','$1,000 - $2,000/month total'],['Student Visa','~$300 application'],['Health Insurance','Mandatory, ~$500/year'],['Part-time Work','Permitted with NOC from university']]},
+      {t:'🏆 Scholarships',rows:[['NYU Abu Dhabi','Full scholarships available'],['UAEU Merit Award','Up to 100% tuition'],['Khalifa University','Merit + research grants'],['ADNOC Scholarship','Energy sector focus'],['Sharjah Scholarship','Various levels available'],['Emirates Foundation','UAE national priority']]},
+      {t:'📋 Requirements',rows:[['Student Visa','Sponsored by university'],['Documents','Passport, transcripts, medical'],['Emirates ID','Required on arrival'],['Health Check','Mandatory at govt clinic'],['Processing Time','2-4 weeks'],['English Proficiency','IELTS 6.0+ most universities']]}
+    ],aiTopic:'studying in UAE including top universities, scholarship opportunities, cost of living in Dubai vs Abu Dhabi, student visa process, and career opportunities after graduation in the UAE'},
+    Trader:{sections:[
+      {t:'🚢 Trade Overview',rows:[['Trade Hub','World 3rd largest re-export hub'],['Jebel Ali Port','World 9th largest port'],['Dubai Airport','DHL/FedEx Middle East hub'],['Tax on Trade','0% import duty in free zones'],['Trade Agreements','GCC common market'],['Free Zones','40+ trade free zones']]},
+      {t:'📦 Trading in UAE',rows:[['Re-export Hub','Buy global, sell to Middle East, Africa'],['Product Categories','Gold, jewelry, electronics, food'],['DMCC','Best free zone for commodities'],['JAFZA','Best for logistics & manufacturing'],['Trade License','Required, from ~$5,000/year'],['Customs Duty','5% standard mainland UAE']]},
+      {t:'💱 Trade Finance',rows:[['Currency','AED — pegged to USD, stable'],['Banking','Emirates NBD, FAB, ADCB'],['Trade Finance','Well developed, all instruments'],['Letters of Credit','Standard practice'],['Gold Trading','DMCC = world largest gold hub'],['Crypto','VARA regulated crypto trading allowed']]},
+      {t:'🏪 Key Markets',rows:[['Dubai Gold Souk','Largest gold market Middle East'],['Dragon Mart','China products wholesale'],['Deira Wholesale','General wholesale market'],['Jebel Ali Free Zone','Manufacturing & logistics'],['DIFC','Financial services hub'],['Dubai Internet City','Tech companies hub']]}
+    ],aiTopic:'trading in UAE including setting up a trading company in a free zone, best free zones for different products, re-export opportunities to Africa and Asia, and navigating UAE trade regulations'},
+    Teacher:{sections:[
+      {t:'👩‍🏫 Teaching in UAE',rows:[['Demand','Very high, growing school sector'],['Salary Range','$3,000 - $7,000/month'],['Housing Allowance','Usually included'],['Annual Flights','Often 1-2 per year covered'],['Tax-Free','No income tax in UAE'],['Contract','Usually 2 years']]},
+      {t:'📋 Requirements',rows:[['Qualification','Degree + teaching certification'],['Experience','2+ years preferred'],['DHA/DOH Test','Mandatory for Abu Dhabi'],['Enhanced DBS','UK CRB check required'],['Medical','Full medical at UAE clinic'],['Work Permit','Sponsored by school']]},
+      {t:'🏫 Top Employers',rows:[['GEMS Education','Largest private school group'],['Taaleem','Second largest group'],['Aldar Education','Abu Dhabi based'],['Repton School Dubai','UK prestige brand'],['Dubai American Academy','American curriculum'],['Nord Anglia','International premium brand']]},
+      {t:'🏡 Life in UAE',rows:[['Cost of Living','$2,000-3,500/month Dubai'],['Safety','Extremely safe, low crime'],['Weather','Very hot summers, mild winters'],['Social Life','Vibrant expat community'],['Religion','Respect Islamic customs'],['Driving','Car essential outside city center']]}
+    ],aiTopic:'teaching in UAE including salary packages, top school groups hiring, visa sponsorship process, cost of living comparison, and tips for adapting to teaching in the Gulf region'},
+    Traveler:{sections:[
+      {t:'✈️ Visa & Entry',rows:[['Visa on Arrival','100+ nationalities'],['eVisa','Available online, $90'],['GCC Residents','Visa-free for Dubai'],['Duration','30 days, extendable to 90'],['Processing','Instant for many nationalities'],['Documents','Passport, hotel booking, funds proof']]},
+      {t:'💰 Budget Guide',rows:[['Budget Travel','$80-120/day'],['Mid-Range','$150-300/day'],['Luxury','$400-800+/day'],['Metro Dubai','Very cheap, AED 2-7'],['Accommodation','$60-400/night'],['Restaurant Meal','$5-15 local, $30-80 fine dining']]},
+      {t:'🗺️ Must-Visit',rows:[['Burj Khalifa','World tallest building, $35 entry'],['Dubai Mall','World largest mall'],['Palm Jumeirah','Iconic island development'],['Desert Safari','Dune bashing, camel riding'],['Abu Dhabi','Sheikh Zayed Mosque, Louvre Abu Dhabi'],['Dubai Creek','Historic heart of Dubai']]},
+      {t:'🌍 Travel Tips',rows:[['Best Time','November - March (cool)'],['Dress Code','Modest dress in public areas'],['Alcohol','Only in licensed venues'],['Currency','AED, USD widely accepted'],['Transport','Uber/Careem or Metro'],['Shopping','Dubai Shopping Festival January']]}
+    ],aiTopic:'traveling to UAE including visa on arrival information, best time to visit, budget guide for Dubai and Abu Dhabi, top attractions, cultural guidelines, and a 5-day Dubai itinerary'}
+  },
+  Germany:{flag:'🇩🇪',score:'9.1',capital:'Berlin',population:'84M',currency:'EUR (Euro)',language:'German',timezone:'UTC+1 (CET)',climate:'Temperate oceanic, cold winters',gdp:'$4.1T',growth:'0.5%',mapUrl:'https://www.google.com/maps/place/Germany',wikiUrl:'https://en.wikipedia.org/wiki/Germany',govUrl:'https://www.make-it-in-germany.com',visaUrl:'https://www.auswaertiges-amt.de/en/visa-service',
+    Investor:{sections:[
+      {t:'💰 Investment Overview',rows:[['GDP Size','$4.1T — Europe largest economy'],['Top Sectors','Auto, Engineering, Chemicals, Tech'],['Corporate Tax','15% + 14% trade tax (~30% effective)'],['EU Market Access','500M consumers'],['Innovation','#4 global innovation index'],['Skilled Labor','Excellent workforce quality']]},
+      {t:'🏢 Business Setup',rows:[['Popular Entity','GmbH (Ltd) most common'],['Min Capital','€25,000 for GmbH'],['Registration Time','2-4 weeks'],['Registration Cost','~€2,000-3,000 with notary'],['Regulator','Local Trade Office (Gewerbeamt)'],['Best Cities','Berlin, Munich, Hamburg, Frankfurt']]},
+      {t:'🏘️ Real Estate',rows:[['Berlin 2br Apt','€350,000 - €700,000'],['Rental Yield','3-5% gross yield'],['Munich Apartment','€600,000 - €1.5M'],['Foreign Ownership','100% allowed, no restriction'],['Property Tax','3.5-6.5% land transfer tax'],['Rental Market','Strong demand, low vacancy']]},
+      {t:'📈 Key Opportunities',rows:[['Engineering & Machinery','Mittelstand supplier opportunities'],['Renewable Energy','Solar & wind investment'],['Digital Transformation','IT modernization demand'],['Healthcare Tech','Aging population drives need'],['Real Estate','Strong rental market'],['Food & Beverage','Premium market access']]}
+    ],aiTopic:'investing in Germany including company formation GmbH, best cities for different industries, tax system, EU market access advantages, and how to find German business partners'},
+    Student:{sections:[
+      {t:'🎓 Top Universities',rows:[['TU Munich','#1 Germany, global top 30'],['LMU Munich','Research excellence, medicine'],['Heidelberg Uni','Oldest German uni, strong research'],['Humboldt Berlin','Strong humanities & science'],['KIT Karlsruhe','Engineering powerhouse'],['FU Berlin','Social sciences, politics']]},
+      {t:'💵 Education Costs',rows:[['Tuition (Public Uni)','€0 - €3,000/year (mostly free!)'],['Semester Fee','€150-350/semester'],['Accommodation','€400-800/month'],['Living Costs','€700-1,200/month total'],['Health Insurance','€120/month (public)'],['Student Visa','€75 application fee']]},
+      {t:'🏆 Scholarships',rows:[['DAAD Scholarship','Germany most prestigious, €850/month'],['Deutschlandstipendium','€300/month, merit-based'],['Erasmus+','EU students exchange & grants'],['Heinrich Böll Foundation','Political ecology focus'],['Friedrich Ebert Foundation','Social democratic values'],['University Merit Aid','Each university offers']]},
+      {t:'📋 Requirements',rows:[['Language','German B2 or C1 for German programs'],['English Programs','Increasingly available at Master level'],['APS Certificate','For Chinese/Indian/Vietnamese applicants'],['Blocked Account','€11,208/year frozen to prove funds'],['Application Platform','uni-assist.de for most universities'],['Deadlines','Usually January 15 and July 15']]}
+    ],aiTopic:'studying in Germany for free including how to apply to public universities, blocked account setup, DAAD scholarship application, learning German, best cities for students, and life as an international student in Germany'},
+    Trader:{sections:[
+      {t:'🚢 Trade Overview',rows:[['Trade Rank','#3 world exporter'],['Main Exports','Vehicles, machinery, chemicals, electronics'],['Main Imports','Oil, gas, vehicles, food'],['Key Ports','Hamburg (#1 EU port), Bremen, Duisburg'],['Trade Agreements','All EU trade agreements'],['Standards','DIN, ISO — very strict quality']]},
+      {t:'📦 Selling to Germany',rows:[['Market','Demanding, quality-first consumers'],['CE Marking','Required for most products'],['Product Standards','DIN standards compliance needed'],['German Packaging Law','Strict recycling requirements'],['Labeling','German language required'],['Distribution','Use established distributor or Amazon.de']]},
+      {t:'💱 Trade Finance',rows:[['Currency','EUR — stable, globally traded'],['Trade Finance','Excellent banking infrastructure'],['Export Credit','Euler Hermes (Germany ECA)'],['Chamber of Commerce','AHKs in 90+ countries'],['Trade Shows','Hannover Messe, Frankfurt Book Fair, IFA'],['Factoring','Well developed market']]},
+      {t:'🏪 Key Trade Resources',rows:[['Germany Trade & Invest','gtai.de — official support'],['AHK','German chambers globally'],['Messe Frankfurt','World class exhibitions'],['IHK','Industry & Chamber of Commerce'],['BAFA','Licensing for controlled goods'],['Customs Authority','Zoll.de — all customs info']]}
+    ],aiTopic:'trading with Germany including CE marking requirements, finding German buyers and distributors, trade shows, German business culture, and how to register as a German importer/exporter'},
+    Teacher:{sections:[
+      {t:'👩‍🏫 Teaching in Germany',rows:[['Demand','High for STEM, English teachers'],['State School Salary','€50,000 - €70,000/year'],['Private School Salary','€35,000 - €55,000/year'],['University Lecturer','€40,000 - €80,000/year'],['Benefits','Full social security, pension'],['Job Security','Civil servant status for public schools']]},
+      {t:'📋 Requirements',rows:[['State Schools','Full German teaching qualification'],['Private/International Schools','Bachelor + teaching cert acceptable'],['Language','German B2 minimum for state schools'],['Work Permit','EU/EEA free, others need work visa'],['Recognition','Credential recognition takes 3-6 months'],['English Medium Schools','Growing sector']]},
+      {t:'🏫 Key Employers',rows:[['Berlin Public Schools','senate.berlin.de'],['International School Düsseldorf','Strong international'],['Munich International School','Premier IB school'],['British School Frankfurt','British curriculum'],['John F. Kennedy School Berlin','Free US Embassy school'],['Phorms Education','Growing private group']]},
+      {t:'🏡 Life in Germany',rows:[['Cost of Living','€1,200-2,000/month comfortable'],['Healthcare','Excellent public health system'],['Work-Life Balance','Strong worker protections'],['Transport','Excellent public transport'],['Language','Essential to learn German'],['Integration','German society values effort to integrate']]}
+    ],aiTopic:'teaching in Germany including state school vs international school options, salary and benefits, credential recognition process, work permit, learning German, and best cities to live as a teacher in Germany'},
+    Traveler:{sections:[
+      {t:'✈️ Visa & Entry',rows:[['Schengen Visa','Covers all Schengen area'],['Visa Cost','€80 Schengen visa'],['Processing','2-3 weeks minimum'],['Visa-Free','60+ countries visa-free'],['Duration','90 days in 180-day period'],['Best Entry Airport','Frankfurt, Munich, Berlin BER']]},
+      {t:'💰 Budget Guide',rows:[['Budget Travel','$60-100/day'],['Mid-Range','$120-200/day'],['Luxury','$250-500/day'],['ICE Train','€30-200 depending on route'],['Budget Accommodation','$30-60/night hostel'],['Beer in Munich','€4-6 per 0.5L']]},
+      {t:'🗺️ Must-Visit',rows:[['Neuschwanstein Castle','Fairy tale castle, Bavaria'],['Berlin Wall Memorial','Historic, moving experience'],['Cologne Cathedral','UNESCO Gothic masterpiece'],['Oktoberfest','September, Munich, world famous'],['Black Forest','Nature, hiking, cuckoo clocks'],['Hamburg Harbor','Historic port city, vibrant']]},
+      {t:'🌍 Travel Tips',rows:[['Best Time','May-September (warm, festivals)'],['Rail Pass','Deutschlandticket €49/month unlimited'],['Punctuality','Germans value punctuality'],['Cash','Still widely used, carry some'],['Sunday Trading','Most shops closed Sunday'],['Recycling','Complex system, follow the rules']]}
+    ],aiTopic:'traveling to Germany including Schengen visa application, regional highlights, Oktoberfest tips, budget breakdown, rail passes, and a 2-week Germany itinerary covering Berlin, Munich, and the Rhine Valley'}
+  },
+  Canada:{flag:'🇨🇦',score:'9.4',capital:'Ottawa',population:'38M',currency:'CAD (Canadian Dollar)',language:'English, French',timezone:'UTC-3.5 to UTC-8',climate:'Cold winters, warm summers — varies by region',gdp:'$2.1T',growth:'1.1%',mapUrl:'https://www.google.com/maps/place/Canada',wikiUrl:'https://en.wikipedia.org/wiki/Canada',govUrl:'https://www.canada.ca/en/services/immigration-citizenship',visaUrl:'https://www.canada.ca/en/immigration-refugees-citizenship/services/visit-canada',
+    Investor:{sections:[
+      {t:'💰 Investment Overview',rows:[['GDP Growth','1.1% (stable advanced economy)'],['Top Sectors','Real Estate, Mining, Tech, Cannabis'],['Federal Tax','15% corporate tax rate'],['Provincial Tax','8-16% additional provincial tax'],['Foreign Ownership','Generally open, some restrictions'],['Strong Sectors','AI, cleantech, mining, oil & gas']]},
+      {t:'🏢 Business Setup',rows:[['Entity Type','Corporation (Ltd) or Partnership'],['Federal Registration','nuans.gc.ca — online'],['Provincial Registration','Each province separately'],['Startup Visa','Canada Startup Visa Program available'],['Incubators','Many govt-funded accelerators'],['Tax Incentives','SR&ED tax credits for R&D']]},
+      {t:'🏘️ Real Estate',rows:[['Toronto 2br Condo','$600,000 - $1.2M'],['Vancouver Condo','$700,000 - $1.5M'],['Calgary Detached','$400,000 - $700,000'],['Rental Yield','3-5% major cities'],['Foreign Buyer Ban','Residential ban for non-residents until 2027'],['Commercial Property','Open to foreign investment']]},
+      {t:'📈 Key Opportunities',rows:[['Tech/AI','Montreal & Toronto = North American AI hubs'],['Mining','World leading mining sector'],['Cannabis','Legally regulated industry'],['Cleantech','Strong govt support'],['Agriculture','Vast farmland, export potential'],['Immigration Services','High demand sector']]}
+    ],aiTopic:'investing in Canada including the Startup Visa program, best provinces for business, real estate market, tech ecosystem in Toronto and Vancouver, and how to access Canadian government grants and incentives'},
+    Student:{sections:[
+      {t:'🎓 Top Universities',rows:[['University of Toronto','#1 Canada, top 25 world'],['UBC Vancouver','#2 Canada, stunning campus'],['McGill Montreal','#3 Canada, strong medicine'],['University of Alberta','Oil & engineering focus'],['University of Waterloo','#1 co-op programs'],['Simon Fraser','Business & computing']]},
+      {t:'💵 Education Costs',rows:[['Undergrad International','CAD $25,000 - $55,000/year'],['Masters','CAD $15,000 - $35,000/year'],['Accommodation','CAD $800 - $2,000/month'],['Living Costs','CAD $1,200 - $2,500/month total'],['Study Permit','CAD $150 application'],['Health Insurance','CAD $600 - $800/year']]},
+      {t:'🏆 Scholarships',rows:[['Vanier CGS','$50,000/year, doctoral students'],['Trudeau Foundation','$60,000/year + travel'],['University Scholarships','Up to $40,000 merit awards'],['Provincial Awards','Each province offers separate'],['Commonwealth Scholarship','For Commonwealth countries'],['NSERC/SSHRC','Research funding for grad students']]},
+      {t:'📋 Study Permit',rows:[['Study Permit Required','Yes for most countries'],['Processing Time','4-12 weeks online'],['Required Docs','Acceptance letter, funds proof, biometrics'],['Work While Studying','20 hours/week on campus + co-op'],['Post-Grad Work Permit','1-3 years after graduation'],['PR Pathway','Express Entry after work experience']]}
+    ],aiTopic:'studying in Canada including study permit application, top universities, scholarships, working while studying, post-graduation work permit, and pathway to Canadian permanent residence'},
+    Trader:{sections:[
+      {t:'🚢 Trade Overview',rows:[['CUSMA/USMCA','Free trade US, Canada, Mexico'],['CETA','EU-Canada trade agreement'],['CPTPP','Pacific region free trade'],['Top Exports','Oil, vehicles, gold, aircraft'],['Top Imports','Vehicles, machinery, electronics'],['Key Ports','Vancouver, Montreal, Halifax, Prince Rupert']]},
+      {t:'📦 Importing to Canada',rows:[['CBSA','Canada Border Services Agency'],['Duty Rates','0-20% depending on product and origin'],['GST on Imports','5% GST on most imports'],['Food Safety','CFIA strict food inspection'],['Labeling','Bilingual English/French required'],['eManifest','Required for commercial imports']]},
+      {t:'💱 Trade Finance',rows:[['Currency','CAD — strong stable currency'],['EDC','Export Development Canada — trade insurance'],['BDC','Business Development Bank — loans'],['Banks','RBC, TD, Scotia — all offer trade finance'],['CUSMA Advantages','Duty-free to US and Mexico'],['Trade Missions','AAFC organizes regular trade missions']]},
+      {t:'🏪 Trade Resources',rows:[['Trade Commissioner Service','international.gc.ca'],['EDC','edc.ca — export financing'],['BDC','bdc.ca — business loans'],['Trade Data Online','www.ic.gc.ca/tdo'],['CanadExport','Govt export promotion magazine'],['Trade Shows','PDAC, Toronto Gift Fair, agri shows']]}
+    ],aiTopic:'trading with Canada including CUSMA benefits, customs and CBSA process, finding Canadian buyers, food import regulations, and export financing through EDC'},
+    Teacher:{sections:[
+      {t:'👩‍🏫 Teaching in Canada',rows:[['Demand','Significant teacher shortage nationally'],['Average Salary','CAD $60,000 - $100,000/year'],['Benefits','Extended health, dental, pension'],['Work-Life Balance','Strong, summers off in schools'],['Job Security','Very good, unionized profession'],['Provinces Hiring','BC, Alberta, Ontario actively recruiting']]},
+      {t:'📋 Requirements',rows:[['Qualification','Teaching degree or equivalent'],['Provincial Certification','Each province certifies separately'],['Criminal Record Check','Enhanced police clearance required'],['PR or Work Permit','Required to work in Canada'],['French Immersion','Bilingual teachers in high demand'],['Recognition','ICAS credential assessment']]},
+      {t:'🏫 Key Provinces',rows:[['British Columbia','Teacher Regulation Branch'],['Alberta','Alberta Teacher Certification'],['Ontario','Ontario College of Teachers — oct.ca'],['Saskatchewan','Actively recruiting internationally'],['Manitoba','Strong demand, lower cost of living'],['Nova Scotia','Atlantic immigration teacher pathway']]},
+      {t:'🏡 Life in Canada',rows:[['Healthcare','Universal free healthcare'],['Safety','Very safe, multicultural'],['Nature','Mountains, lakes, stunning scenery'],['Winter','Cold winters — prepare well'],['Multicultural','Very welcoming to immigrants'],['Cost of Living','$2,000-3,500 CAD/month depending on city']]}
+    ],aiTopic:'teaching in Canada including provincial certification process, international teacher recruitment pathways, salary and benefits, immigration options for teachers, and best provinces to live and work'},
+    Traveler:{sections:[
+      {t:'✈️ Visa & Entry',rows:[['eTA Required','Most visa-free countries need eTA'],['eTA Cost','CAD $7, processed in minutes'],['Tourist Visa','CAD $100 for visa required countries'],['US Citizens','No visa or eTA required'],['Duration','Usually 6 months permitted'],['Entry Points','Toronto, Vancouver, Montreal — main airports']]},
+      {t:'💰 Budget Guide',rows:[['Budget Travel','$60-100 CAD/day'],['Mid-Range','$150-250 CAD/day'],['Luxury','$300-600 CAD/day'],['Greyhound/Rideshare','Budget intercity option'],['Accommodation','$30-80 CAD hostel, $100-200 hotel'],['Tim Hortons Coffee','CAD $2-4']]},
+      {t:'🗺️ Must-Visit',rows:[['Niagara Falls','Iconic, on Ontario/NY border'],['Banff National Park','Rocky Mountain paradise'],['Vancouver','Mountains + ocean city'],['Quebec City','Historic French-speaking city'],['Toronto','CN Tower, diverse food scene'],['Prince Edward Island','Anne of Green Gables, beaches']]},
+      {t:'🌍 Travel Tips',rows:[['Best Time','June-September for most regions'],['Tipping','15-20% expected at restaurants'],['Healthcare','Get travel insurance — expensive'],['Distances','Canada is HUGE — fly between regions'],['French Quebec','Learn bonjour, merci'],['Wildlife','Respect bears and moose — keep distance']]}
+    ],aiTopic:'traveling to Canada including eTA vs visa requirements, national parks guide, best time to visit different regions, budget tips, and a 2-week cross-Canada itinerary'}
   }
-  return null;
+};
+
+// Generic fallback for countries not in DB
+function getGenericData(country, typeIdx) {
+  var typeNames=['Investor','Student','Trader','Teacher','Traveler'];
+  var tn=typeNames[typeIdx];
+  var generic={
+    Investor:{sections:[
+      {t:'💰 Investment Overview',rows:[['Focus','Research current economic conditions'],['Key Resource','World Bank Doing Business'],['Foreign Investment','Check OECD FDI data'],['Tax Treaties','IBFD treaty database'],['Risk Assessment','Oxford Analytica, EIU'],['Entry Strategy','Consult local lawyer first']]},
+      {t:'🏢 Business Setup',rows:[['Step 1','Research legal entity types'],['Step 2','Consult a local business lawyer'],['Step 3','Register with national authority'],['Step 4','Open local bank account'],['Step 5','Register for taxes/VAT'],['Step 6','Hire local team or partner']]},
+      {t:'📈 Common Opportunities',rows:[['Real Estate','Usually good entry sector'],['Import/Export','Check trade gap analysis'],['Services','Professional services often open'],['Agribusiness','If agricultural country'],['Tourism','Growing sector globally'],['Technology','Digital economy opportunities']]},
+      {t:'🔗 Key Resources',rows:[['World Bank','doingbusiness.worldbank.org'],['OECD','oecd.org/investment'],['UN Trade','unctad.org'],['IMF Data','imf.org/en/Data'],['Country Embassy','Check embassy website'],['Local Chamber','Find local chamber of commerce']]}
+    ]},
+    Student:{sections:[
+      {t:'🎓 Education System',rows:[['Top Universities','Search QS World Rankings'],['Language','Check if English programs available'],['Application','Usually September/January intake'],['Recognition','Check credential recognition'],['Scholarships','Check country embassy + uni websites'],['Student Visa','Contact local embassy']]},
+      {t:'💵 Cost Estimates',rows:[['Tuition','Varies widely — research specific uni'],['Living Costs','Check Numbeo.com for city costs'],['Accommodation','Usually $200-800/month'],['Health Insurance','Required in most countries'],['Transport','Usually $50-150/month'],['Food','$200-400/month average']]},
+      {t:'🏆 Scholarship Sources',rows:[['Government Scholarships','Check country ministry of education'],['University Aid','Contact university financial aid office'],['DAAD','German-funded global scholarships'],['Commonwealth','For Commonwealth countries'],['Fulbright','US-funded exchange programs'],['Your Country Embassy','Often gives out-going scholarships']]},
+      {t:'📋 General Requirements',rows:[['Acceptance Letter','From chosen university'],['Financial Proof','Bank statements showing funds'],['Health Insurance','Mandatory in most countries'],['Language Test','IELTS/TOEFL for English programs'],['Background Check','Some countries require this'],['Medical Certificate','Some countries require']]},
+    ]},
+    Trader:{sections:[
+      {t:'🚢 Trade Basics',rows:[['Find Trade Data','ITC Trade Map — trademap.org'],['Tariff Research','WTO Tariff Download Facility'],['Trade Agreements','WTO RTA database'],['Market Research','ITC Market Analysis Tools'],['Find Buyers/Sellers','Alibaba, Global Sources, TradeKey'],['Logistics','Freightos for freight quotes']]},
+      {t:'📦 Import/Export Steps',rows:[['Step 1','Research product regulations'],['Step 2','Find certified customs broker'],['Step 3','Get product certifications'],['Step 4','Arrange freight forwarder'],['Step 5','Prepare all documents'],['Step 6','Handle customs clearance']]},
+      {t:'💱 Payment & Finance',rows:[['Safest Payment','Letter of Credit (L/C)'],['Common Method','T/T Bank Transfer'],['Escrow','Alibaba Trade Assurance'],['Currency Hedge','Use forward contracts'],['Trade Insurance','Check government ECA'],['Working Capital','Talk to your bank first']]},
+      {t:'🔗 Trade Resources',rows:[['ITC Trade Map','trademap.org'],['World Bank Trade','wits.worldbank.org'],['WTO','wto.org/english/res_e/statis_e'],['UN Comtrade','comtrade.un.org'],['Freight Quote','freightos.com'],['Trade Show Calendar','10times.com/trade-shows']]}
+    ]},
+    Teacher:{sections:[
+      {t:'👩‍🏫 Teaching Opportunities',rows:[['International Schools','Search on TES, Search Associates'],['English Teaching','Dave\'s ESL Cafe, ESL Base'],['Universities','Check individual university sites'],['Volunteer Teaching','Peace Corps, VSO, Teach For All'],['Online Teaching','VIPKid, Cambly, iTalki'],['Govt Programs','Check country education ministry']]},
+      {t:'💵 Salary Expectations',rows:[['International Schools','$2,000-6,000/month typical'],['English Language School','$1,000-3,000/month'],['University Level','$2,000-5,000/month'],['Public School','$500-2,000/month varies'],['Benefits','Housing, flights common in international'],['Savings Potential','High if expenses covered']]},
+      {t:'📋 Requirements',rows:[['Teaching Degree','Required for most positions'],['TEFL/CELTA','Valuable for ESL teaching'],['Experience','2+ years preferred international schools'],['Background Check','Required for all school jobs'],['Work Permit','Must be arranged before travel'],['Health Insurance','Confirm coverage before signing']]},
+      {t:'🔗 Job Resources',rows:[['TES Global','tes.com — top international teaching jobs'],['Search Associates','searchassociates.com'],['Teach Away','teachaway.com'],['Dave\'s ESL Cafe','eslcafe.com'],['International School Review','internationalschoolsreview.com'],['Council of International Schools','cois.org']]}
+    ]},
+    Traveler:{sections:[
+      {t:'✈️ Visa & Entry',rows:[['Visa Checker','iata.org/travel-centre-timatic'],['Apply Online','Check official embassy website'],['eVisa','Growing number of countries offer'],['Cost','Typically $20-150'],['Processing','1-4 weeks typical'],['Travel Insurance','Always recommended']]},
+      {t:'💰 Budget Guide',rows:[['Budget Estimate','Check Numbeo.com for city costs'],['Accommodation','Hostelworld, Booking.com'],['Local Transport','Google Maps + local apps'],['Food Costs','Street food vs restaurant vary widely'],['Activities','Check Viator, GetYourGuide'],['Money Tips','Notify bank before travel, carry some local currency']]},
+      {t:'🗺️ Planning Tips',rows:[['Attractions','Check TripAdvisor top 10'],['Best Time','Check weather data on Weather2Travel'],['Local Transport','Rome2Rio for route planning'],['Safety','Check FCDO/US State Dept travel advisories'],['Health','Fit for Travel — vaccinations guide'],['Insurance','World Nomads recommended']]},
+      {t:'🔗 Travel Resources',rows:[['Lonely Planet','lonelyplanet.com'],['TripAdvisor','tripadvisor.com'],['Booking.com','Hotels and accommodation'],['Hostelworld','Budget accommodation'],['GetYourGuide','Tours and activities'],['Rome2Rio','Multimodal transport planner']]}
+    ]}
+  };
+  return generic[tn]||generic['Investor'];
+}
+
+function getLangName(l){return{en:'English',zh:'Chinese',fr:'French',es:'Spanish',ar:'Arabic',sw:'Swahili',pt:'Portuguese',hi:'Hindi',ja:'Japanese',ko:'Korean',de:'German',ru:'Russian'}[l]||'English';}
+
+function getTypeEn(idx){return['Investor','Student','Trader','Teacher','Traveler'][idx]||'Investor';}
+
+function getTypeFocus(idx){
+  return[
+    'ONLY investment: sectors, ROI percentages, business registration steps and costs, tax rates and incentives, investment zones, real estate yields, risks for investors, legal protections, success stories, 90-day action plan',
+    'ONLY education: universities with rankings and fees, scholarships with amounts and deadlines, student visa step by step, cost of living breakdown per month, accommodation options, part-time work rules, post-study options, tips for international students',
+    'ONLY trade and commerce: top products to import and export with profit margins, customs clearance step by step, import duties and tariffs, key trading markets and hubs, banking and payment methods, logistics costs, freight options, common trade mistakes, most profitable trade routes',
+    'ONLY teaching: demand for teachers, salary ranges at different school types, required qualifications and certifications, work permit or visa process, how to find teaching jobs with specific websites, cost of living for teachers, accommodation, cultural tips for teachers',
+    'ONLY travel and tourism: visa requirements for different nationalities, best time to visit, top 10 attractions with entry fees, complete budget breakdown for 1 week trip, transportation options, accommodation recommendations, food guide, safety tips, suggested daily itinerary'
+  ][idx]||'';
 }
 
 function ownerLogin(){
   var p=prompt('Enter owner password:');
   if(p===OWNER_PASS){
     isOwner=true;
-    document.getElementById('ownerBadge').style.display='inline-block';
+    document.getElementById('ownerBadge').style.display='inline-flex';
     document.getElementById('ownerLoginBtn').style.display='none';
-    alert('✅ Welcome Nowells! You have unlimited free owner access.');
-  } else if(p!==null){
-    alert('❌ Incorrect password.');
-  }
+    alert('✅ Welcome Nowells! Unlimited access activated.');
+  } else if(p!==null){alert('❌ Incorrect password.');}
 }
 
 function openPayment(type){
   curPay=type;
   var p=prices[type];
-  var t=T[lang];
   document.getElementById('mTitle').textContent=p.label;
   document.getElementById('mAmt').innerHTML='$'+p.usd+' <small>USD</small>';
-  document.getElementById('mDesc').textContent=t.mDesc;
   document.getElementById('modalOverlay').classList.add('active');
 }
-
 function closeModal(){document.getElementById('modalOverlay').classList.remove('active');}
-
 function goToPesapal(){
   var p=prices[curPay];
   window.open(PESAPAL+'?amount='+p.usd+'&currency=USD&description='+encodeURIComponent('WorldGate AI - '+p.label),'_blank');
   closeModal();
 }
 
-function getLangName(l){
-  return {en:'English',zh:'Chinese',fr:'French',es:'Spanish',ar:'Arabic',sw:'Swahili',pt:'Portuguese',hi:'Hindi',ja:'Japanese',ko:'Korean',de:'German',ru:'Russian'}[l]||'English';
-}
-
-function getTypeFocus(idx){
-  var focuses=[
-    'investment opportunities, business setup, real estate, tax incentives, legal protections for investors, ROI projections, risks for investors',
-    'universities, scholarships, tuition fees, student visa, accommodation, student life, post-study work options',
-    'import export opportunities, customs procedures, trade agreements, market prices, logistics, trading hubs, payment methods',
-    'teaching jobs, salary ranges, required qualifications, work permits, international schools, cost of living for teachers',
-    'visa requirements, tourist attractions, accommodation, transportation, budget breakdown, safety tips, best time to visit'
-  ];
-  return focuses[idx]||focuses[0];
-}
-
 function checkPaywall(){
   if(isOwner) return false;
   searchCount++;
-  if(searchCount>3) return true;
-  return false;
+  return searchCount>3;
 }
 
 function viewOpp(i,continent){
-  if(checkPaywall()){
-    document.getElementById('paywall').style.display='block';
-    document.getElementById('paywall').scrollIntoView({behavior:'smooth'});
-    return;
-  }
+  if(checkPaywall()){document.getElementById('paywall').style.display='block';document.getElementById('paywall').scrollIntoView({behavior:'smooth'});return;}
   var o=oppData[continent][i];
   showCountry(o.country,o.flag,o.score||'8.5');
 }
@@ -418,24 +621,26 @@ function viewOpp(i,continent){
 function doSearch(){
   var q=document.getElementById('searchInput').value.trim();
   if(!q)return;
-  if(checkPaywall()){
-    document.getElementById('paywall').style.display='block';
-    document.getElementById('paywall').scrollIntoView({behavior:'smooth'});
-    return;
-  }
+  if(checkPaywall()){document.getElementById('paywall').style.display='block';document.getElementById('paywall').scrollIntoView({behavior:'smooth'});return;}
   showCountry(q,'🌍','—');
 }
 
 function showCountry(countryName,flag,score){
+  currentCountry=countryName;
+  chatHistory=[];
   document.getElementById('homePage').style.display='none';
   document.getElementById('countryWrap').style.display='block';
   document.getElementById('countryPaywall').style.display='none';
+  document.getElementById('chatBody').classList.remove('open');
+  chatOpen=false;
+  document.getElementById('chatToggleIcon').textContent='▼';
   window.scrollTo(0,0);
 
   var t=T[lang];
-  var typeNames=t.types;
-  var typeName=typeNames[curType];
+  var typeEn=getTypeEn(curType);
+  var typeName=t.types[curType];
   var langName=getLangName(lang);
+  var db=countryDB[countryName];
 
   // Update translated labels
   document.getElementById('backBtn').textContent=t.backBtn;
@@ -446,82 +651,181 @@ function showCountry(countryName,flag,score){
   document.getElementById('abConsultBtn').textContent=t.abConsultBtn;
   document.getElementById('cpTitle').textContent=t.cpTitle;
   document.getElementById('cpSub').textContent=t.cpSub;
+  document.getElementById('chatTitle').textContent=t.chatTitle;
+  document.getElementById('chatStatus').textContent=t.chatStatus;
+
+  var actualFlag=db?db.flag:flag;
+  var actualScore=db?db.score:score;
 
   // Country header
   document.getElementById('cHeader').innerHTML=
-    '<div class="c-flag">'+(flag||'🌍')+'</div>'+
-    '<div class="c-info"><h2>'+countryName+'</h2><p>'+typeName+' Intelligence Report · '+langName+'</p></div>'+
-    '<div class="c-score"><div class="c-score-num">'+(score||'—')+'</div><div class="c-score-lbl">Score/10</div></div>';
+    '<div class="c-flag">'+actualFlag+'</div>'+
+    '<div class="c-info"><h2>'+countryName+'</h2><p>'+typeName+' Intelligence Report · '+langName+'</p>'+
+    '<div class="c-tags"><span class="c-tag">'+typeName+'</span>'+(db?'<span class="c-tag">'+db.capital+'</span><span class="c-tag">'+db.population+'</span>':'')+'</div></div>'+
+    '<div class="c-score"><div class="c-score-num">'+actualScore+'</div><div class="c-score-lbl">Score/10</div></div>';
 
-  // Try to show base data first
-  var typeEnNames=['Investor','Student','Trader','Teacher','Traveler'];
-  var baseData=getBaseData(countryName,curType,langName);
-  if(baseData&&baseData.sections){
-    var sectHtml='';
-    for(var s=0;s<baseData.sections.length;s++){
-      var sec=baseData.sections[s];
-      sectHtml+='<div class="sec-card"><h3>'+sec.title+'</h3>';
-      if(sec.rows){
-        for(var r=0;r<sec.rows.length;r++){
-          sectHtml+='<div class="row"><span class="lbl">'+sec.rows[r][0]+'</span><span class="val">'+sec.rows[r][1]+'</span></div>';
-        }
-      }
-      if(sec.items){
-        sectHtml+='<ul>';
-        for(var it=0;it<sec.items.length;it++) sectHtml+='<li>'+sec.items[it]+'</li>';
-        sectHtml+='</ul>';
-      }
-      sectHtml+='</div>';
-    }
-    document.getElementById('sectionsGrid').innerHTML=sectHtml;
+  // Quick stats
+  if(db){
+    document.getElementById('quickStats').innerHTML=
+      '<div class="qs-card"><div class="qs-icon">🏛️</div><div class="qs-label">Capital</div><div class="qs-value">'+db.capital+'</div></div>'+
+      '<div class="qs-card"><div class="qs-icon">👥</div><div class="qs-label">Population</div><div class="qs-value">'+db.population+'</div></div>'+
+      '<div class="qs-card"><div class="qs-icon">💱</div><div class="qs-label">Currency</div><div class="qs-value">'+db.currency+'</div></div>'+
+      '<div class="qs-card"><div class="qs-icon">🗣️</div><div class="qs-label">Language</div><div class="qs-value">'+db.language+'</div></div>'+
+      '<div class="qs-card"><div class="qs-icon">🕐</div><div class="qs-label">Timezone</div><div class="qs-value">'+db.timezone+'</div></div>'+
+      '<div class="qs-card"><div class="qs-icon">🌡️</div><div class="qs-label">Climate</div><div class="qs-value">'+db.climate+'</div></div>'+
+      '<div class="qs-card"><div class="qs-icon">💰</div><div class="qs-label">GDP</div><div class="qs-value">'+db.gdp+'</div></div>'+
+      '<div class="qs-card"><div class="qs-icon">📈</div><div class="qs-label">Growth</div><div class="qs-value">'+db.growth+'</div></div>';
   } else {
-    document.getElementById('sectionsGrid').innerHTML='';
+    document.getElementById('quickStats').innerHTML='';
   }
 
-  // Generate AI report
-  document.getElementById('aiReportContent').innerHTML='<p><span class="spin">⏳</span> Generating your '+typeName+' report for '+countryName+' in '+langName+'... Please wait 15-20 seconds.</p>';
+  // Links bar
+  if(db){
+    var mapQ=encodeURIComponent(countryName);
+    document.getElementById('linksBar').innerHTML=
+      '<a class="link-btn" href="'+db.mapUrl+'" target="_blank">🗺️ Google Maps</a>'+
+      '<a class="link-btn" href="'+db.wikiUrl+'" target="_blank">📖 Wikipedia</a>'+
+      '<a class="link-btn" href="'+db.govUrl+'" target="_blank">🏛️ Official Govt Site</a>'+
+      '<a class="link-btn" href="'+db.visaUrl+'" target="_blank">✈️ Visa Info</a>'+
+      '<a class="link-btn" href="https://www.numbeo.com/cost-of-living/country_result.jsp?country='+encodeURIComponent(countryName)+'" target="_blank">💰 Cost of Living</a>'+
+      '<a class="link-btn" href="https://www.worldbank.org/en/country/'+countryName.toLowerCase().replace(/\s/g,'')+'" target="_blank">🌐 World Bank Data</a>';
+  } else {
+    var q2=encodeURIComponent(countryName);
+    document.getElementById('linksBar').innerHTML=
+      '<a class="link-btn" href="https://www.google.com/maps/place/'+q2+'" target="_blank">🗺️ Google Maps</a>'+
+      '<a class="link-btn" href="https://en.wikipedia.org/wiki/'+q2+'" target="_blank">📖 Wikipedia</a>'+
+      '<a class="link-btn" href="https://www.numbeo.com/cost-of-living/country_result.jsp?country='+q2+'" target="_blank">💰 Cost of Living</a>'+
+      '<a class="link-btn" href="https://www.worldbank.org/en/country/'+q2.toLowerCase().replace(/%20/g,'')+'" target="_blank">🌐 World Bank</a>'+
+      '<a class="link-btn" href="https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/'+q2+'.html" target="_blank">🛂 US Travel Advisory</a>';
+  }
 
-  var aiPrompt = baseData && baseData.aiPrompt ? baseData.aiPrompt :
-    'You are WorldGate AI. Generate a comprehensive, detailed '+typeEnNames[curType]+' intelligence report for '+countryName+' written entirely in '+langName+'. Focus ONLY on '+getTypeFocus(curType)+'. Include real numbers, costs, requirements, step-by-step processes, contacts, websites, risks, and a clear action plan. Minimum 500 words. Use emoji section headers. Be extremely specific and practical.';
+  // Sections grid
+  var typeData=db&&db[typeEn]?db[typeEn]:getGenericData(countryName,curType);
+  var sectHtml='';
+  for(var s=0;s<typeData.sections.length;s++){
+    var sec=typeData.sections[s];
+    sectHtml+='<div class="sec-card"><h3>'+sec.t+'</h3>';
+    for(var r=0;r<sec.rows.length;r++){
+      sectHtml+='<div class="row"><span class="lbl">'+sec.rows[r][0]+'</span><span class="val">'+sec.rows[r][1]+'</span></div>';
+    }
+    sectHtml+='</div>';
+  }
+  document.getElementById('sectionsGrid').innerHTML=sectHtml;
 
-  var fullPrompt = 'Write everything in '+langName+'. '+aiPrompt+' Make this the most comprehensive and useful '+typeEnNames[curType]+' guide for '+countryName+' available anywhere. Include actual costs, phone numbers, websites, and real actionable steps.';
+  // AI Report — generate in selected language
+  document.getElementById('aiReportContent').innerHTML='<div class="loading-pulse"><div class="pulse-dots"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div><span style="margin-left:8px">'+t.generating+'</span></div>';
 
-  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY,{
-    method:'POST',
-    headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({contents:[{parts:[{text:fullPrompt}]}],generationConfig:{maxOutputTokens:2000}})
-  })
-  .then(function(r){return r.json();})
-  .then(function(data){
-    var text='';
-    try{text=data.candidates[0].content.parts[0].text;}catch(e){}
+  var aiTopic=db&&db[typeEn]&&db[typeEn].aiTopic?db[typeEn].aiTopic:'comprehensive '+typeEn.toLowerCase()+' opportunities in '+countryName;
+  var prompt='Write a comprehensive, detailed, practical '+typeEn+' intelligence report about '+countryName+'. The ENTIRE report must be written in '+langName+'. Focus ONLY on '+getTypeFocus(curType)+'. Include: real numbers and costs, step-by-step processes, official websites and contacts, risks and how to avoid them, success tips, and a clear numbered ACTION PLAN. Use emoji section headers. Minimum 400 words. Make it genuinely useful for someone ready to take action. All text must be in '+langName+' language — do not include any English if the language is not English.';
+
+  fetchGemini(prompt, function(text){
     if(text){
-      text=text
+      var formatted=text
         .replace(/##\s*(.*)/g,'<h4>$1</h4>')
         .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
         .replace(/\*(.*?)\*/g,'<em>$1</em>')
         .replace(/\n\n/g,'</p><p>')
         .replace(/\n/g,'<br>');
-      document.getElementById('aiReportContent').innerHTML='<p>'+text+'</p>';
+      document.getElementById('aiReportContent').innerHTML='<p>'+formatted+'</p>';
     } else {
-      showFallbackReport(countryName,typeName,langName,typeEnNames[curType]);
+      // Fallback in selected language
+      var fallbackPrompt='In '+langName+', write a practical guide for a '+typeEn+' interested in '+countryName+'. Include key opportunities, costs, requirements, risks, and 5 action steps. Write entirely in '+langName+'. Use emoji headers.';
+      fetchGemini(fallbackPrompt, function(text2){
+        if(text2){
+          var f2=text2.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
+          document.getElementById('aiReportContent').innerHTML='<p>'+f2+'</p>';
+        } else {
+          document.getElementById('aiReportContent').innerHTML='<p style="opacity:.8">'+t.reportFallback+'</p>';
+        }
+      });
     }
-  })
-  .catch(function(){
-    showFallbackReport(countryName,typeName,langName,typeEnNames[curType]);
   });
+
+  // Setup chatbot
+  setupChatbot(countryName, typeName, langName);
 }
 
-function showFallbackReport(country,typeName,langName,typeEn){
-  var fallbacks={
-    Investor:'<h4>💰 Why '+country+' for Investors</h4><p>'+country+' offers significant investment opportunities across multiple sectors. Foreign investors benefit from growing economies, improving infrastructure, and increasing consumer markets.</p><h4>📊 Key Investment Sectors</h4><p><strong>Real Estate:</strong> Growing urban populations drive property demand. Rental yields of 7-15% are common in major cities.<br><strong>Agriculture:</strong> Large arable land, export-oriented commodities, and government incentives for agri-investors.<br><strong>Technology:</strong> Young, mobile-first population creating a vibrant tech startup ecosystem.<br><strong>Energy:</strong> Renewable energy targets opening solar and wind investment opportunities.<br><strong>Retail & Consumer:</strong> Growing middle class with increasing purchasing power.</p><h4>⚖️ Legal Framework</h4><p>Most countries allow 100% foreign ownership in most sectors. Register your business through the national business registry. Corporate taxes typically range 20-35%. Investment protection treaties available in most cases.</p><h4>🚀 Action Plan</h4><p>1. Research specific sector regulations<br>2. Visit the country to assess firsthand<br>3. Engage a local lawyer and accountant<br>4. Register your business entity<br>5. Open a local bank account<br>6. Begin operations with local partnerships</p><p><strong>📞 Expert Help:</strong> Book a personal consultation with Nowells (Africa-based global consultant) for tailored advice — $80/session via WorldGate AI.</p>',
-    Student:'<h4>🎓 Studying in '+country+'</h4><p>'+country+' hosts several reputable universities and colleges offering programs for international students. Many programs are taught in English or the local language.</p><h4>💵 Costs Overview</h4><p><strong>Tuition:</strong> Varies widely from $500 to $15,000 per year depending on university and program.<br><strong>Accommodation:</strong> $150-600 per month in student housing or shared apartments.<br><strong>Living Costs:</strong> Budget $500-1,200 per month for comfortable student life.<br><strong>Health Insurance:</strong> Required for most student visas, $200-600 per year.</p><h4>🏆 Scholarships</h4><p>Multiple scholarship opportunities available including government scholarships, university merit awards, international organization grants (MasterCard Foundation, DAAD, Commonwealth), and bilateral agreements between countries.</p><h4>📋 Application Steps</h4><p>1. Research universities and programs<br>2. Check language requirements<br>3. Prepare required documents (transcripts, statement of purpose, references)<br>4. Apply online through university portal<br>5. Receive acceptance letter<br>6. Apply for student visa at embassy<br>7. Arrange accommodation before arrival</p>',
-    Trader:'<h4>🚢 Trading with '+country+'</h4><p>'+country+' offers significant import and export opportunities. Understanding the customs process and regulations is key to successful trading.</p><h4>📦 Key Trade Information</h4><p><strong>Customs Process:</strong> All imports must be declared through the national customs authority. Electronic filing is available in most countries.<br><strong>Import Duties:</strong> Vary by product category, typically 0-35%. Check country tariff schedule.<br><strong>Trade Agreements:</strong> Many countries are members of regional trade blocs offering preferential rates.<br><strong>Payment Methods:</strong> Letter of Credit (L/C), T/T bank transfer, and mobile money where available.</p><h4>💡 Profitable Trade Ideas</h4><p>Research the country\'s major imports and exports. Common opportunities include: consumer electronics, textiles and clothing, agricultural commodities, machinery and equipment, food products, and construction materials.</p><h4>🚀 Getting Started</h4><p>1. Register as an importer/exporter<br>2. Get a customs agent/freight forwarder<br>3. Research product demand and pricing<br>4. Establish supplier or buyer contacts<br>5. Arrange logistics and shipping<br>6. Handle customs documentation carefully</p>',
-    Teacher:'<h4>👩‍🏫 Teaching in '+country+'</h4><p>'+country+' has demand for qualified teachers especially in STEM subjects, English language, and at international schools. Teaching abroad is a rewarding career and life experience.</p><h4>💵 Salary & Benefits</h4><p><strong>International Schools:</strong> $1,500-5,000+/month with benefits<br><strong>Public Schools:</strong> $500-1,500/month<br><strong>Universities:</strong> $1,000-4,000/month<br><strong>Common Benefits:</strong> Housing allowance, flight allowance, medical insurance, school fees for dependent children</p><h4>📋 Requirements</h4><p><strong>Qualifications:</strong> Bachelor degree minimum, teaching certification preferred<br><strong>Experience:</strong> 2+ years usually required for international schools<br><strong>Documents:</strong> Degree certificates, teaching certificate, criminal background check, medical certificate<br><strong>Visa:</strong> Work permit/visa required — employer usually assists</p><h4>🚀 How to Find Teaching Jobs</h4><p>1. Search on TES, International School Review, LinkedIn<br>2. Contact international school directly<br>3. Use recruitment agencies specializing in international teaching<br>4. Attend international teaching job fairs<br>5. Network with teachers already in the country</p>',
-    Traveler:'<h4>✈️ Visiting '+country+'</h4><p>'+country+' welcomes international visitors with diverse attractions, rich culture, and memorable experiences. Plan your trip carefully for the best experience.</p><h4>🛂 Visa Information</h4><p>Check the official embassy website for your nationality\'s visa requirements. Many countries offer eVisa applications online, visa on arrival, or visa-free access depending on your passport. Apply at least 2-4 weeks before travel.</p><h4>💰 Budget Guide</h4><p><strong>Budget Traveler:</strong> $25-60/day (hostels, local transport, street food)<br><strong>Mid-Range:</strong> $80-150/day (3-star hotels, guided tours, restaurants)<br><strong>Luxury:</strong> $200-500+/day (luxury resorts, private tours, fine dining)</p><h4>🌍 Essential Tips</h4><p><strong>Money:</strong> Carry USD as backup, exchange to local currency on arrival<br><strong>Safety:</strong> Research current travel advisories, keep valuables secure<br><strong>Health:</strong> Check required vaccinations, carry travel insurance<br><strong>Communication:</strong> Get a local SIM card for data<br><strong>Transport:</strong> Use official taxis or ride-hailing apps<br><strong>Respect:</strong> Learn basic local customs and greetings</p><h4>🚀 Planning Steps</h4><p>1. Check visa requirements for your passport<br>2. Book flights 2-3 months in advance for best prices<br>3. Arrange accommodation in advance<br>4. Get travel insurance<br>5. Get required vaccinations<br>6. Notify your bank of travel dates<br>7. Download offline maps</p>'
-  };
-  var content=fallbacks[typeEn]||fallbacks['Investor'];
-  document.getElementById('aiReportContent').innerHTML=content+'<p style="margin-top:16px;padding:12px;background:rgba(255,255,255,.15);border-radius:8px"><strong>💡 Need more specific information for '+country+'?</strong> Book a personal consultation with Nowells — expert in global markets based in Nairobi, Kenya — for $80 via Pesapal.</p>';
+function fetchGemini(prompt, callback){
+  fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY,{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:2000,temperature:0.7}})
+  })
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var text='';
+    try{text=data.candidates[0].content.parts[0].text;}catch(e){}
+    callback(text);
+  })
+  .catch(function(){callback('');});
+}
+
+function setupChatbot(country, typeName, langName){
+  var t=T[lang];
+  var msgs=document.getElementById('chatMessages');
+  msgs.innerHTML='<div class="msg bot">'+t.chatWelcome.replace('{country}',country).replace('{type}',typeName)+'</div>';
+
+  // Quick questions in selected language
+  var qqEl=document.getElementById('quickQs');
+  qqEl.innerHTML='';
+  var questions=t.quickQs;
+  for(var i=0;i<questions.length;i++){
+    (function(q){
+      var btn=document.createElement('button');
+      btn.className='qq-btn';
+      btn.textContent=q;
+      btn.onclick=function(){
+        document.getElementById('chatInput').value=q;
+        sendChat();
+      };
+      qqEl.appendChild(btn);
+    })(questions[i]);
+  }
+}
+
+function toggleChat(){
+  chatOpen=!chatOpen;
+  var body=document.getElementById('chatBody');
+  if(chatOpen){
+    body.classList.add('open');
+    document.getElementById('chatToggleIcon').textContent='▲';
+    body.scrollTop=body.scrollHeight;
+  } else {
+    body.classList.remove('open');
+    document.getElementById('chatToggleIcon').textContent='▼';
+  }
+}
+
+function sendChat(){
+  var input=document.getElementById('chatInput');
+  var msg=input.value.trim();
+  if(!msg)return;
+  input.value='';
+
+  var msgs=document.getElementById('chatMessages');
+  msgs.innerHTML+='<div class="msg user">'+msg+'</div>';
+  msgs.innerHTML+='<div class="msg bot" id="botTyping">...</div>';
+  msgs.scrollTop=msgs.scrollHeight;
+
+  chatHistory.push({role:'user',parts:[{text:msg}]});
+
+  var t=T[lang];
+  var langName=getLangName(lang);
+  var typeEn=getTypeEn(curType);
+  var typeName=t.types[curType];
+
+  var systemContext='You are WorldGate AI, an expert global opportunity assistant specializing in '+typeEn+' intelligence for '+currentCountry+'. Answer ONLY in '+langName+'. Be helpful, specific, practical. Keep answers under 150 words. Focus on '+typeName+' topics for '+currentCountry+'. If asked about payment or consultation, mention WorldGate AI subscription $40/month or personal consultation with Nowells for $80.';
+
+  var messages=[{role:'user',parts:[{text:systemContext+'\n\nUser question: '+msg}]}];
+
+  fetchGemini(systemContext+'\n\nUser says: '+msg+'\n\nRespond helpfully in '+langName+' in under 120 words:', function(text){
+    var typing=document.getElementById('botTyping');
+    if(typing){
+      typing.textContent=text||t.chatError;
+      typing.removeAttribute('id');
+    }
+    msgs.scrollTop=msgs.scrollHeight;
+  });
 }
 
 function goBack(){
@@ -529,6 +833,60 @@ function goBack(){
   document.getElementById('countryWrap').style.display='none';
   window.scrollTo(0,0);
 }
+
+// TRANSLATIONS — all UI text in all languages
+var T={
+en:{hTitle:"Your Gateway to Global Opportunities",hSub:"AI-powered intelligence for every country on earth. Invest, study, trade, or relocate — in your language.",types:["Investor","Student","Trader","Teacher","Traveler"],searchPH:"Search any country...",exploreBtn:"Explore",s1:"Countries",s2:"Continents",s3:"Languages",s4:"Opportunity Types",secCont:"Explore by continent",continents:["Africa","Asia","Europe","Americas","Middle East","Oceania"],contCounts:["54 countries","48 countries","44 countries","35 countries","17 countries","14 countries"],oppIn:"Top opportunities in",free:"3 free searches",fullReport:"View Full Report →",pwTitle:"🔓 Unlock Full WorldGate AI Access",pwSub:"You have used your 3 free searches. Subscribe for unlimited AI reports in your language.",pwPer1:"per month",pwLbl1:"⭐ Unlimited Reports",pwPer2:"per session",pwLbl2:"📞 Personal Consultation",payBtn:"💳 Subscribe — $40/month · Unlimited Access",consultBtn:"📞 Book Consultation with Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · All world currencies · Instant access",aiReportTitle:"AI Full Intelligence Report",abTitle:"Ready to take action?",abSub:"Subscribe for unlimited country reports or book a personal consultation with Nowells in Nairobi, Kenya.",abPayBtn:"💳 Subscribe — $40/month",abConsultBtn:"📞 Personal Consultation — $80",backBtn:"← Back",cpTitle:"Subscribe to Continue",cpSub:"Subscribe for $40/month to access unlimited detailed reports for all 195 countries.",tagI:"Invest",tagS:"Study",tagT:"Trade",tagL:"Live",mDesc:"All world currencies accepted · Instant access",generating:"Generating your report in English...",reportFallback:"Report available. Subscribe for $40/month for guaranteed detailed AI reports in your language, or book a personal consultation with Nowells for $80.",chatTitle:"Ask WorldGate AI Assistant",chatStatus:"Online · Replies instantly",chatWelcome:"Hello! I'm your WorldGate AI assistant for {country}. I specialize in {type} intelligence. What would you like to know?",chatError:"I'm processing your question. Please try again.",quickQs:["What are the best opportunities?","How do I get started?","What are the risks?","How much does it cost?","What documents do I need?"]},
+zh:{hTitle:"您通往全球机遇的门户",hSub:"为地球上每个国家提供AI驱动的智能服务。投资、学习、贸易或移居——用您的语言。",types:["投资者","学生","贸易商","教师","旅行者"],searchPH:"搜索任何国家...",exploreBtn:"探索",s1:"国家",s2:"洲",s3:"语言",s4:"机会类型",secCont:"按大洲探索",continents:["非洲","亚洲","欧洲","美洲","中东","大洋洲"],contCounts:["54个国家","48个国家","44个国家","35个国家","17个国家","14个国家"],oppIn:"顶级机遇在",free:"3次免费搜索",fullReport:"查看完整报告 →",pwTitle:"🔓 解锁WorldGate AI完整权限",pwSub:"您已使用3次免费搜索。立即订阅，以您的语言获取无限AI报告。",pwPer1:"每月",pwLbl1:"⭐ 无限报告",pwPer2:"每次",pwLbl2:"📞 个人咨询",payBtn:"💳 订阅 — $40/月 · 无限访问",consultBtn:"📞 预约Nowells个人咨询 — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · 接受全球所有货币 · 即时访问",aiReportTitle:"AI完整智能报告",abTitle:"准备好采取行动了吗？",abSub:"订阅获取无限国家报告，或直接预约Nowells在内罗毕进行个人咨询。",abPayBtn:"💳 订阅 — $40/月",abConsultBtn:"📞 个人咨询 — $80",backBtn:"← 返回",cpTitle:"订阅以继续",cpSub:"订阅$40/月，访问全球195个国家的无限详细报告。",tagI:"投资",tagS:"学习",tagT:"贸易",tagL:"居住",mDesc:"接受并自动转换全球所有货币",generating:"正在用中文生成您的报告...",reportFallback:"报告可用。订阅$40/月获取中文详细AI报告，或以$80预约Nowells的个人咨询。",chatTitle:"询问WorldGate AI助手",chatStatus:"在线 · 即时回复",chatWelcome:"您好！我是您的WorldGate AI助手，专门提供{country}的{type}智能信息。您想了解什么？",chatError:"正在处理您的问题，请再试一次。",quickQs:["最好的机会是什么？","如何开始？","有哪些风险？","费用是多少？","需要哪些文件？"]},
+fr:{hTitle:"Votre porte vers les opportunités mondiales",hSub:"Intelligence IA pour chaque pays du monde. Investissez, étudiez, commercez ou déménagez dans votre langue.",types:["Investisseur","Étudiant","Commerçant","Enseignant","Voyageur"],searchPH:"Rechercher un pays...",exploreBtn:"Explorer",s1:"Pays",s2:"Continents",s3:"Langues",s4:"Types d'opportunités",secCont:"Explorer par continent",continents:["Afrique","Asie","Europe","Amériques","Moyen-Orient","Océanie"],contCounts:["54 pays","48 pays","44 pays","35 pays","17 pays","14 pays"],oppIn:"Meilleures opportunités en",free:"3 recherches gratuites",fullReport:"Voir le rapport →",pwTitle:"🔓 Débloquez l'accès complet",pwSub:"Vous avez utilisé vos 3 recherches gratuites. Abonnez-vous pour des rapports illimités dans votre langue.",pwPer1:"par mois",pwLbl1:"⭐ Rapports illimités",pwPer2:"par session",pwLbl2:"📞 Consultation personnelle",payBtn:"💳 S'abonner — $40/mois",consultBtn:"📞 Consultation avec Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Toutes les devises mondiales",aiReportTitle:"Rapport complet d'intelligence IA",abTitle:"Prêt à passer à l'action ?",abSub:"Abonnez-vous pour des rapports illimités ou réservez une consultation avec Nowells à Nairobi.",abPayBtn:"💳 S'abonner — $40/mois",abConsultBtn:"📞 Consultation — $80",backBtn:"← Retour",cpTitle:"Abonnez-vous pour continuer",cpSub:"Abonnez-vous à $40/mois pour accéder à des rapports illimités pour 195 pays.",tagI:"Investir",tagS:"Étudier",tagT:"Commerce",tagL:"Vivre",mDesc:"Toutes les devises mondiales acceptées et converties automatiquement",generating:"Génération de votre rapport en français...",reportFallback:"Rapport disponible. Abonnez-vous à $40/mois pour des rapports détaillés en français.",chatTitle:"Demander à l'assistant WorldGate AI",chatStatus:"En ligne · Répond instantanément",chatWelcome:"Bonjour ! Je suis votre assistant WorldGate AI pour {country}, spécialisé en {type}. Que souhaitez-vous savoir ?",chatError:"Je traite votre question. Veuillez réessayer.",quickQs:["Quelles sont les meilleures opportunités ?","Comment commencer ?","Quels sont les risques ?","Combien ça coûte ?","Quels documents faut-il ?"]},
+es:{hTitle:"Tu puerta a las oportunidades globales",hSub:"Inteligencia IA para cada país del mundo. Invierte, estudia, comercia o reubícate en tu idioma.",types:["Inversor","Estudiante","Comerciante","Profesor","Viajero"],searchPH:"Buscar cualquier país...",exploreBtn:"Explorar",s1:"Países",s2:"Continentes",s3:"Idiomas",s4:"Tipos de oportunidades",secCont:"Explorar por continente",continents:["África","Asia","Europa","Américas","Oriente Medio","Oceanía"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Mejores oportunidades en",free:"3 búsquedas gratuitas",fullReport:"Ver informe →",pwTitle:"🔓 Desbloquea acceso completo",pwSub:"Has usado tus 3 búsquedas gratuitas. Suscríbete para informes ilimitados en tu idioma.",pwPer1:"por mes",pwLbl1:"⭐ Informes ilimitados",pwPer2:"por sesión",pwLbl2:"📞 Consulta personal",payBtn:"💳 Suscribirse — $40/mes",consultBtn:"📞 Consulta con Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Todas las divisas mundiales",aiReportTitle:"Informe completo de inteligencia IA",abTitle:"¿Listo para actuar?",abSub:"Suscríbete para informes ilimitados o reserva una consulta personal con Nowells en Nairobi.",abPayBtn:"💳 Suscribirse — $40/mes",abConsultBtn:"📞 Consulta — $80",backBtn:"← Volver",cpTitle:"Suscríbete para continuar",cpSub:"Suscríbete a $40/mes para acceder a informes ilimitados de 195 países.",tagI:"Invertir",tagS:"Estudiar",tagT:"Comercio",tagL:"Vivir",mDesc:"Todas las divisas mundiales aceptadas automáticamente",generating:"Generando tu informe en español...",reportFallback:"Informe disponible. Suscríbete a $40/mes para informes detallados en español.",chatTitle:"Pregunta al asistente WorldGate AI",chatStatus:"En línea · Responde al instante",chatWelcome:"¡Hola! Soy tu asistente WorldGate AI para {country}, especializado en {type}. ¿Qué quieres saber?",chatError:"Procesando tu pregunta. Por favor intenta de nuevo.",quickQs:["¿Cuáles son las mejores oportunidades?","¿Cómo empezar?","¿Cuáles son los riesgos?","¿Cuánto cuesta?","¿Qué documentos necesito?"]},
+ar:{hTitle:"بوابتك للفرص العالمية",hSub:"ذكاء اصطناعي لكل دولة في العالم. استثمر، ادرس، تاجر أو انتقل بلغتك.",types:["مستثمر","طالب","تاجر","معلم","مسافر"],searchPH:"ابحث عن أي دولة...",exploreBtn:"استكشف",s1:"الدول",s2:"القارات",s3:"اللغات",s4:"أنواع الفرص",secCont:"استكشف حسب القارة",continents:["أفريقيا","آسيا","أوروبا","الأمريكتان","الشرق الأوسط","أوقيانوسيا"],contCounts:["54 دولة","48 دولة","44 دولة","35 دولة","17 دولة","14 دولة"],oppIn:"أفضل الفرص في",free:"3 بحث مجاني",fullReport:"عرض التقرير →",pwTitle:"🔓 افتح الوصول الكامل",pwSub:"لقد استخدمت 3 عمليات بحث مجانية. اشترك للحصول على تقارير غير محدودة بلغتك.",pwPer1:"شهرياً",pwLbl1:"⭐ تقارير غير محدودة",pwPer2:"لكل جلسة",pwLbl2:"📞 استشارة شخصية",payBtn:"💳 اشترك — $40/شهر",consultBtn:"📞 استشارة مع Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · جميع عملات العالم",aiReportTitle:"تقرير الذكاء الاصطناعي الكامل",abTitle:"هل أنت مستعد للتصرف؟",abSub:"اشترك للحصول على تقارير غير محدودة أو احجز استشارة شخصية مع Nowells في نيروبي.",abPayBtn:"💳 اشترك — $40/شهر",abConsultBtn:"📞 استشارة شخصية — $80",backBtn:"← رجوع",cpTitle:"اشترك للمتابعة",cpSub:"اشترك بـ$40/شهر للوصول إلى تقارير غير محدودة لـ195 دولة.",tagI:"استثمار",tagS:"دراسة",tagT:"تجارة",tagL:"إقامة",mDesc:"جميع عملات العالم مقبولة ومحولة تلقائياً",generating:"جاري إنشاء تقريرك باللغة العربية...",reportFallback:"التقرير متاح. اشترك بـ$40/شهر للحصول على تقارير مفصلة باللغة العربية.",chatTitle:"اسأل مساعد WorldGate AI",chatStatus:"متصل · يرد فوراً",chatWelcome:"مرحباً! أنا مساعد WorldGate AI الخاص بك لـ{country}، متخصص في معلومات {type}. ماذا تريد أن تعرف؟",chatError:"جاري معالجة سؤالك. يرجى المحاولة مرة أخرى.",quickQs:["ما هي أفضل الفرص؟","كيف أبدأ؟","ما هي المخاطر؟","كم تكلف؟","ما المستندات المطلوبة؟"]},
+sw:{hTitle:"Lango Lako kwa Fursa za Kimataifa",hSub:"Akili bandia kwa kila nchi duniani. Wekeza, soma, fanya biashara au hamia kwa lugha yako.",types:["Mwekezaji","Mwanafunzi","Mfanyabiashara","Mwalimu","Msafiri"],searchPH:"Tafuta nchi yoyote...",exploreBtn:"Chunguza",s1:"Nchi",s2:"Mabara",s3:"Lugha",s4:"Aina za Fursa",secCont:"Chunguza kwa bara",continents:["Afrika","Asia","Ulaya","Amerika","Mashariki ya Kati","Oceania"],contCounts:["Nchi 54","Nchi 48","Nchi 44","Nchi 35","Nchi 17","Nchi 14"],oppIn:"Fursa bora katika",free:"Utafutaji 3 bure",fullReport:"Angalia Ripoti →",pwTitle:"🔓 Fungua Ufikiaji Kamili",pwSub:"Umetumia utafutaji wako 3 wa bure. Jiandikishe kwa ripoti zisizo na kikomo kwa lugha yako.",pwPer1:"kwa mwezi",pwLbl1:"⭐ Ripoti Zisizo na Kikomo",pwPer2:"kwa kikao",pwLbl2:"📞 Ushauri Binafsi",payBtn:"💳 Jiandikishe — $40/mwezi",consultBtn:"📞 Ushauri na Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Sarafu zote za dunia",aiReportTitle:"Ripoti Kamili ya AI",abTitle:"Uko tayari kuchukua hatua?",abSub:"Jiandikishe kwa ripoti zisizo na kikomo au panga ushauri binafsi na Nowells.",abPayBtn:"💳 Jiandikishe — $40/mwezi",abConsultBtn:"📞 Ushauri Binafsi — $80",backBtn:"← Rudi",cpTitle:"Jiandikishe Kuendelea",cpSub:"Jiandikishe kwa $40/mwezi kupata ripoti zisizo na kikomo kwa nchi 195.",tagI:"Wekeza",tagS:"Soma",tagT:"Biashara",tagL:"Ishi",mDesc:"Sarafu zote za dunia zinakubaliwa kiotomatiki",generating:"Inaunda ripoti yako kwa Kiswahili...",reportFallback:"Ripoti inapatikana. Jiandikishe kwa $40/mwezi kwa ripoti za kina kwa Kiswahili.",chatTitle:"Uliza Msaidizi wa WorldGate AI",chatStatus:"Mtandaoni · Anajibu mara moja",chatWelcome:"Habari! Mimi ni msaidizi wako wa WorldGate AI kwa {country}, nikijihusisha na {type}. Ungependa kujua nini?",chatError:"Ninashughulikia swali lako. Tafadhali jaribu tena.",quickQs:["Ni fursa gani bora?","Nianze vipi?","Hatari ni zipi?","Gharama ni ngapi?","Ninahitaji hati gani?"]},
+pt:{hTitle:"Sua porta para oportunidades globais",hSub:"Inteligência de IA para cada país do mundo. Invista, estude, comercialize ou se mude no seu idioma.",types:["Investidor","Estudante","Comerciante","Professor","Viajante"],searchPH:"Pesquisar qualquer país...",exploreBtn:"Explorar",s1:"Países",s2:"Continentes",s3:"Idiomas",s4:"Tipos de Oportunidades",secCont:"Explorar por continente",continents:["África","Ásia","Europa","Américas","Oriente Médio","Oceania"],contCounts:["54 países","48 países","44 países","35 países","17 países","14 países"],oppIn:"Melhores oportunidades em",free:"3 pesquisas gratuitas",fullReport:"Ver relatório →",pwTitle:"🔓 Desbloqueie acesso completo",pwSub:"Você usou suas 3 pesquisas gratuitas. Assine para relatórios ilimitados no seu idioma.",pwPer1:"por mês",pwLbl1:"⭐ Relatórios ilimitados",pwPer2:"por sessão",pwLbl2:"📞 Consulta pessoal",payBtn:"💳 Assinar — $40/mês",consultBtn:"📞 Consulta com Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Todas as moedas do mundo",aiReportTitle:"Relatório completo de inteligência IA",abTitle:"Pronto para agir?",abSub:"Assine para relatórios ilimitados ou agende uma consulta pessoal com Nowells em Nairóbi.",abPayBtn:"💳 Assinar — $40/mês",abConsultBtn:"📞 Consulta — $80",backBtn:"← Voltar",cpTitle:"Assine para continuar",cpSub:"Assine por $40/mês para acessar relatórios ilimitados de 195 países.",tagI:"Investir",tagS:"Estudar",tagT:"Comércio",tagL:"Morar",mDesc:"Todas as moedas do mundo aceitas automaticamente",generating:"Gerando seu relatório em português...",reportFallback:"Relatório disponível. Assine por $40/mês para relatórios detalhados em português.",chatTitle:"Pergunte ao assistente WorldGate AI",chatStatus:"Online · Responde instantaneamente",chatWelcome:"Olá! Sou seu assistente WorldGate AI para {country}, especializado em {type}. O que você gostaria de saber?",chatError:"Processando sua pergunta. Por favor, tente novamente.",quickQs:["Quais são as melhores oportunidades?","Como começar?","Quais são os riscos?","Quanto custa?","Quais documentos são necessários?"]},
+hi:{hTitle:"वैश्विक अवसरों का आपका द्वार",hSub:"पृथ्वी के हर देश के लिए AI-संचालित बुद्धिमत्ता। अपनी भाषा में निवेश करें, पढ़ें, व्यापार करें या स्थानांतरित हों।",types:["निवेशक","छात्र","व्यापारी","शिक्षक","यात्री"],searchPH:"कोई भी देश खोजें...",exploreBtn:"अन्वेषण करें",s1:"देश",s2:"महाद्वीप",s3:"भाषाएं",s4:"अवसर प्रकार",secCont:"महाद्वीप द्वारा अन्वेषण करें",continents:["अफ्रीका","एशिया","यूरोप","अमेरिका","मध्य पूर्व","ओशिनिया"],contCounts:["54 देश","48 देश","44 देश","35 देश","17 देश","14 देश"],oppIn:"शीर्ष अवसर",free:"3 मुफ्त खोजें",fullReport:"पूरी रिपोर्ट →",pwTitle:"🔓 पूर्ण एक्सेस अनलॉक करें",pwSub:"आपने 3 मुफ्त खोज उपयोग कर लिए। अपनी भाषा में असीमित रिपोर्ट के लिए सदस्यता लें।",pwPer1:"प्रति माह",pwLbl1:"⭐ असीमित रिपोर्ट",pwPer2:"प्रति सत्र",pwLbl2:"📞 व्यक्तिगत परामर्श",payBtn:"💳 सदस्यता — $40/माह",consultBtn:"📞 Nowells से परामर्श — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · सभी विश्व मुद्राएं",aiReportTitle:"AI पूर्ण इंटेलिजेंस रिपोर्ट",abTitle:"कार्रवाई के लिए तैयार हैं?",abSub:"असीमित रिपोर्ट के लिए सदस्यता लें या नैरोबी में Nowells के साथ व्यक्तिगत परामर्श बुक करें।",abPayBtn:"💳 सदस्यता — $40/माह",abConsultBtn:"📞 परामर्श — $80",backBtn:"← वापस",cpTitle:"पढ़ना जारी रखने के लिए सदस्यता लें",cpSub:"195 देशों की असीमित रिपोर्ट के लिए $40/माह सदस्यता लें।",tagI:"निवेश",tagS:"अध्ययन",tagT:"व्यापार",tagL:"रहना",mDesc:"सभी विश्व मुद्राएं स्वचालित रूप से स्वीकार",generating:"हिंदी में आपकी रिपोर्ट तैयार की जा रही है...",reportFallback:"रिपोर्ट उपलब्ध है। हिंदी में विस्तृत रिपोर्ट के लिए $40/माह सदस्यता लें।",chatTitle:"WorldGate AI सहायक से पूछें",chatStatus:"ऑनलाइन · तुरंत जवाब",chatWelcome:"नमस्ते! मैं {country} के लिए आपका WorldGate AI सहायक हूं, {type} में विशेषज्ञ। आप क्या जानना चाहते हैं?",chatError:"आपका प्रश्न प्रसंस्करण हो रहा है। कृपया पुनः प्रयास करें।",quickQs:["सबसे अच्छे अवसर क्या हैं?","कैसे शुरू करें?","क्या जोखिम हैं?","कितना खर्च होगा?","कौन से दस्तावेज चाहिए?"]},
+ja:{hTitle:"グローバルな機会へのゲートウェイ",hSub:"地球上のすべての国のAI搭載インテリジェンス。あなたの言語で投資、学習、貿易、または移住。",types:["投資家","学生","トレーダー","教師","旅行者"],searchPH:"国を検索...",exploreBtn:"探索する",s1:"国数",s2:"大陸",s3:"言語",s4:"機会の種類",secCont:"大陸別に探索",continents:["アフリカ","アジア","ヨーロッパ","アメリカ","中東","オセアニア"],contCounts:["54カ国","48カ国","44カ国","35カ国","17カ国","14カ国"],oppIn:"トップの機会",free:"無料検索3回",fullReport:"レポートを見る →",pwTitle:"🔓 完全アクセスを解除",pwSub:"3回の無料検索を使用しました。あなたの言語で無制限のAIレポートを購読してください。",pwPer1:"月額",pwLbl1:"⭐ 無制限レポート",pwPer2:"セッションごと",pwLbl2:"📞 個人相談",payBtn:"💳 サブスクライブ — $40/月",consultBtn:"📞 Nowellsとの個人相談 — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · すべての世界通貨",aiReportTitle:"AI完全インテリジェンスレポート",abTitle:"行動する準備はできていますか？",abSub:"無制限のレポートにサブスクライブするか、ナイロビのNowellsとの個人相談を予約してください。",abPayBtn:"💳 サブスクライブ — $40/月",abConsultBtn:"📞 個人相談 — $80",backBtn:"← 戻る",cpTitle:"続きを読むにはサブスクライブ",cpSub:"195カ国の無制限レポートにアクセスするには$40/月でサブスクライブしてください。",tagI:"投資",tagS:"留学",tagT:"貿易",tagL:"移住",mDesc:"すべての世界通貨が自動的に変換されます",generating:"日本語でレポートを生成中...",reportFallback:"レポートが利用可能です。日本語の詳細なAIレポートには$40/月でサブスクライブしてください。",chatTitle:"WorldGate AIアシスタントに質問する",chatStatus:"オンライン · 即座に返信",chatWelcome:"こんにちは！私は{country}のWorldGate AIアシスタントで、{type}の専門家です。何を知りたいですか？",chatError:"質問を処理中です。もう一度お試しください。",quickQs:["最良の機会は何ですか？","どうやって始めますか？","リスクは何ですか？","費用はいくらですか？","どんな書類が必要ですか？"]},
+ko:{hTitle:"글로벌 기회로 가는 관문",hSub:"지구상 모든 국가를 위한 AI 기반 인텔리전스. 당신의 언어로 투자, 학습, 거래 또는 이주하세요.",types:["투자자","학생","트레이더","교사","여행자"],searchPH:"국가 검색...",exploreBtn:"탐색",s1:"국가",s2:"대륙",s3:"언어",s4:"기회 유형",secCont:"대륙별 탐색",continents:["아프리카","아시아","유럽","아메리카","중동","오세아니아"],contCounts:["54개국","48개국","44개국","35개국","17개국","14개국"],oppIn:"주요 기회",free:"무료 검색 3회",fullReport:"보고서 보기 →",pwTitle:"🔓 전체 이용권 잠금 해제",pwSub:"3번의 무료 검색을 사용했습니다. 당신의 언어로 무제한 AI 보고서를 구독하세요.",pwPer1:"월",pwLbl1:"⭐ 무제한 보고서",pwPer2:"세션당",pwLbl2:"📞 개인 상담",payBtn:"💳 구독 — $40/월",consultBtn:"📞 Nowells와 상담 — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · 모든 세계 통화",aiReportTitle:"AI 완전 인텔리전스 보고서",abTitle:"행동할 준비가 되셨나요?",abSub:"무제한 보고서를 구독하거나 나이로비의 Nowells와 개인 상담을 예약하세요.",abPayBtn:"💳 구독 — $40/월",abConsultBtn:"📞 개인 상담 — $80",backBtn:"← 뒤로",cpTitle:"계속 읽으려면 구독하세요",cpSub:"195개국의 무제한 보고서에 접근하려면 $40/월을 구독하세요.",tagI:"투자",tagS:"학습",tagT:"무역",tagL:"거주",mDesc:"모든 세계 통화가 자동으로 변환됩니다",generating:"한국어로 보고서를 생성 중...",reportFallback:"보고서를 이용할 수 있습니다. 한국어 상세 AI 보고서는 $40/월 구독하세요.",chatTitle:"WorldGate AI 어시스턴트에게 물어보세요",chatStatus:"온라인 · 즉시 응답",chatWelcome:"안녕하세요! 저는 {country}의 WorldGate AI 어시스턴트로 {type} 전문가입니다. 무엇을 알고 싶으신가요?",chatError:"질문을 처리 중입니다. 다시 시도해 주세요.",quickQs:["최고의 기회는 무엇인가요?","어떻게 시작하나요?","위험은 무엇인가요?","비용이 얼마나 드나요?","어떤 서류가 필요한가요?"]},
+de:{hTitle:"Ihr Tor zu globalen Chancen",hSub:"KI-gestützte Intelligenz für jedes Land der Erde. Investieren, studieren, handeln oder umziehen in Ihrer Sprache.",types:["Investor","Student","Händler","Lehrer","Reisender"],searchPH:"Land suchen...",exploreBtn:"Erkunden",s1:"Länder",s2:"Kontinente",s3:"Sprachen",s4:"Chance-Typen",secCont:"Nach Kontinent erkunden",continents:["Afrika","Asien","Europa","Amerika","Naher Osten","Ozeanien"],contCounts:["54 Länder","48 Länder","44 Länder","35 Länder","17 Länder","14 Länder"],oppIn:"Top-Chancen in",free:"3 kostenlose Suchen",fullReport:"Bericht ansehen →",pwTitle:"🔓 Vollzugriff freischalten",pwSub:"Sie haben Ihre 3 kostenlosen Suchen aufgebraucht. Abonnieren Sie für unbegrenzte Berichte in Ihrer Sprache.",pwPer1:"pro Monat",pwLbl1:"⭐ Unbegrenzte Berichte",pwPer2:"pro Sitzung",pwLbl2:"📞 Persönliche Beratung",payBtn:"💳 Abonnieren — $40/Monat",consultBtn:"📞 Beratung mit Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Alle Weltwährungen",aiReportTitle:"Vollständiger KI-Intelligenzbericht",abTitle:"Bereit zum Handeln?",abSub:"Abonnieren Sie für unbegrenzte Berichte oder buchen Sie eine persönliche Beratung mit Nowells in Nairobi.",abPayBtn:"💳 Abonnieren — $40/Monat",abConsultBtn:"📞 Beratung — $80",backBtn:"← Zurück",cpTitle:"Abonnieren Sie, um weiterzulesen",cpSub:"Abonnieren Sie für $40/Monat für unbegrenzte Berichte über 195 Länder.",tagI:"Investieren",tagS:"Studium",tagT:"Handel",tagL:"Leben",mDesc:"Alle Weltwährungen werden automatisch umgerechnet",generating:"Bericht wird auf Deutsch generiert...",reportFallback:"Bericht verfügbar. Abonnieren Sie für $40/Monat für detaillierte Berichte auf Deutsch.",chatTitle:"WorldGate AI-Assistenten fragen",chatStatus:"Online · Antwortet sofort",chatWelcome:"Hallo! Ich bin Ihr WorldGate AI-Assistent für {country}, spezialisiert auf {type}. Was möchten Sie wissen?",chatError:"Ihre Frage wird bearbeitet. Bitte versuchen Sie es erneut.",quickQs:["Was sind die besten Chancen?","Wie fange ich an?","Was sind die Risiken?","Was kostet es?","Welche Dokumente benötige ich?"]},
+ru:{hTitle:"Ваши ворота в мировые возможности",hSub:"ИИ-аналитика для каждой страны мира. Инвестируйте, учитесь, торгуйте или переезжайте на вашем языке.",types:["Инвестор","Студент","Трейдер","Преподаватель","Путешественник"],searchPH:"Поиск страны...",exploreBtn:"Исследовать",s1:"Стран",s2:"Континенты",s3:"Языки",s4:"Типы возможностей",secCont:"Исследовать по континенту",continents:["Африка","Азия","Европа","Америка","Ближний Восток","Океания"],contCounts:["54 страны","48 стран","44 страны","35 стран","17 стран","14 стран"],oppIn:"Лучшие возможности в",free:"3 бесплатных поиска",fullReport:"Просмотреть отчёт →",pwTitle:"🔓 Разблокировать полный доступ",pwSub:"Вы использовали 3 бесплатных поиска. Подпишитесь на неограниченные отчёты на вашем языке.",pwPer1:"в месяц",pwLbl1:"⭐ Неограниченные отчёты",pwPer2:"за сессию",pwLbl2:"📞 Личная консультация",payBtn:"💳 Подписаться — $40/месяц",consultBtn:"📞 Консультация с Nowells — $80",currNote:"M-Pesa · Visa · Mastercard · PayPal · Все мировые валюты",aiReportTitle:"Полный отчёт ИИ-разведки",abTitle:"Готовы действовать?",abSub:"Подпишитесь на неограниченные отчёты или забронируйте личную консультацию с Nowells в Найроби.",abPayBtn:"💳 Подписаться — $40/месяц",abConsultBtn:"📞 Личная консультация — $80",backBtn:"← Назад",cpTitle:"Подпишитесь, чтобы продолжить",cpSub:"Подпишитесь за $40/месяц для доступа к неограниченным отчётам по 195 странам.",tagI:"Инвестиции",tagS:"Учёба",tagT:"Торговля",tagL:"Проживание",mDesc:"Все мировые валюты принимаются и конвертируются автоматически",generating:"Отчёт генерируется на русском языке...",reportFallback:"Отчёт доступен. Подпишитесь за $40/месяц для подробных отчётов на русском языке.",chatTitle:"Спросить ИИ-ассистента WorldGate",chatStatus:"Онлайн · Отвечает мгновенно",chatWelcome:"Привет! Я ваш ИИ-ассистент WorldGate для {country}, специализируюсь на {type}. Что вы хотите знать?",chatError:"Обрабатываю ваш вопрос. Пожалуйста, попробуйте снова.",quickQs:["Каковы лучшие возможности?","Как начать?","Каковы риски?","Сколько это стоит?","Какие документы нужны?"]}
+};
+
+var oppData={
+Africa:[
+{tagKey:'tagI',cls:'ti',score:'9.2',title:'Kenya Real Estate 2025',desc:'Nairobi property market growing 14% annually. Entry from $15,000. High rental yields in Westlands and Kilimani.',ctry:'🇰🇪 Kenya',flag:'🇰🇪',country:'Kenya'},
+{tagKey:'tagT',cls:'tt',score:'8.8',title:'Ethiopian Coffee Export',desc:'Ethiopia produces 3.5M metric tons of coffee yearly. Premium prices in Asian markets.',ctry:'🇪🇹 Ethiopia',flag:'🇪🇹',country:'Ethiopia'},
+{tagKey:'tagI',cls:'ti',score:'8.5',title:'Rwanda Tech Hub',desc:'Kigali ranked #1 business city in Africa. 0% tax on tech companies. Strong government support.',ctry:'🇷🇼 Rwanda',flag:'🇷🇼',country:'Rwanda'},
+{tagKey:'tagS',cls:'ts',score:'9.0',title:'African Scholarships 2025',desc:'Over 2,400 scholarships across 12 African universities for international students.',ctry:'🌍 Pan-Africa',flag:'🌍',country:'Africa'},
+{tagKey:'tagT',cls:'tt',score:'8.3',title:'South Africa Mining',desc:'Platinum, gold, and diamond opportunities. Government-backed trade programs for foreign companies.',ctry:'🇿🇦 South Africa',flag:'🇿🇦',country:'South Africa'},
+{tagKey:'tagI',cls:'ti',score:'8.7',title:'Ghana Agribusiness',desc:'Cocoa, palm oil, and cashew sectors open to foreign investment. World Bank infrastructure projects.',ctry:'🇬🇭 Ghana',flag:'🇬🇭',country:'Ghana'}
+],
+Asia:[
+{tagKey:'tagI',cls:'ti',score:'9.1',title:'Vietnam Manufacturing',desc:'Labour costs 60% lower than China. 15 free trade zones. Electronics and textile sectors booming.',ctry:'🇻🇳 Vietnam',flag:'🇻🇳',country:'Vietnam'},
+{tagKey:'tagS',cls:'ts',score:'9.4',title:'Singapore Universities',desc:'NUS and NTU rank top 15 globally. Scholarships up to $50,000/year.',ctry:'🇸🇬 Singapore',flag:'🇸🇬',country:'Singapore'},
+{tagKey:'tagT',cls:'tt',score:'9.0',title:'China Trade Hub — Yiwu & Guangzhou',desc:'World largest wholesale markets. 100,000+ product categories. Ideal for global traders.',ctry:'🇨🇳 China',flag:'🇨🇳',country:'China'},
+{tagKey:'tagI',cls:'ti',score:'8.6',title:'Indonesia Tourism Investment',desc:'Bali property returns 18% annually. Tourism growing 22% post-pandemic.',ctry:'🇮🇩 Indonesia',flag:'🇮🇩',country:'Indonesia'}
+],
+Europe:[
+{tagKey:'tagL',cls:'tl',score:'9.3',title:'Portugal Golden Visa',desc:'Invest €280,000 and get EU residency. Path to citizenship in 5 years. No minimum stay.',ctry:'🇵🇹 Portugal',flag:'🇵🇹',country:'Portugal'},
+{tagKey:'tagS',cls:'ts',score:'9.5',title:'Germany Free Universities',desc:'37 public universities with zero tuition. Engineering and medicine programs in English.',ctry:'🇩🇪 Germany',flag:'🇩🇪',country:'Germany'},
+{tagKey:'tagI',cls:'ti',score:'8.7',title:'Poland Tech Ecosystem',desc:'Warsaw emerging as EU tech hub. 50% lower costs than Western Europe. EU grants available.',ctry:'🇵🇱 Poland',flag:'🇵🇱',country:'Poland'},
+{tagKey:'tagT',cls:'tt',score:'8.4',title:'Netherlands Trade Hub',desc:"Rotterdam is Europe's largest port. Strategic location for Africa-Europe trade routes.",ctry:'🇳🇱 Netherlands',flag:'🇳🇱',country:'Netherlands'}
+],
+Americas:[
+{tagKey:'tagS',cls:'ts',score:'9.6',title:'Canada Study Permit',desc:'1,200+ scholarships for international students. Path to permanent residency after graduation.',ctry:'🇨🇦 Canada',flag:'🇨🇦',country:'Canada'},
+{tagKey:'tagI',cls:'ti',score:'8.8',title:'Brazil Agriculture Investment',desc:"World's largest soy and beef exporter. Land investment returns 25% over 5 years.",ctry:'🇧🇷 Brazil',flag:'🇧🇷',country:'Brazil'},
+{tagKey:'tagT',cls:'tt',score:'8.5',title:'Mexico Manufacturing',desc:'USMCA agreement creates massive trade opportunities. Auto and electronics growing fast.',ctry:'🇲🇽 Mexico',flag:'🇲🇽',country:'Mexico'},
+{tagKey:'tagL',cls:'tl',score:'8.9',title:'Colombia Digital Nomad Visa',desc:'New digital nomad visa. Medellin ranked top remote work city. Cost 70% below US.',ctry:'🇨🇴 Colombia',flag:'🇨🇴',country:'Colombia'}
+],
+'Middle East':[
+{tagKey:'tagI',cls:'ti',score:'9.0',title:'UAE Free Zone Business Setup',desc:'0% corporate tax in free zones. 100% foreign ownership. Setup in 3 days from $5,000.',ctry:'🇦🇪 UAE',flag:'🇦🇪',country:'UAE'},
+{tagKey:'tagT',cls:'tt',score:'8.7',title:'Saudi Vision 2030 Opportunities',desc:'$500B NEOM project creating massive supplier opportunities. 200+ sectors open to foreign business.',ctry:'🇸🇦 Saudi Arabia',flag:'🇸🇦',country:'Saudi Arabia'},
+{tagKey:'tagI',cls:'ti',score:'8.5',title:'Qatar Infrastructure Boom',desc:'Post-World Cup infrastructure boom. Construction and hospitality sectors need foreign investment.',ctry:'🇶🇦 Qatar',flag:'🇶🇦',country:'Qatar'}
+],
+Oceania:[
+{tagKey:'tagL',cls:'tl',score:'9.4',title:'Australia Skilled Worker Visa',desc:'189 visa for skilled workers. 500+ occupations on shortage list. Path to citizenship in 4 years.',ctry:'🇦🇺 Australia',flag:'🇦🇺',country:'Australia'},
+{tagKey:'tagI',cls:'ti',score:'8.9',title:'New Zealand Agriculture',desc:'Dairy and wine export opportunities. Government-backed programs for foreign agri-investors.',ctry:'🇳🇿 New Zealand',flag:'🇳🇿',country:'New Zealand'}
+]
+};
 
 function applyLang(l){
   lang=l;
@@ -577,7 +935,6 @@ function renderContinents(){
   }
   document.getElementById('contGrid').innerHTML=h;
 }
-
 function selCont(k,i){
   curContinent=k;
   document.getElementById('oppTitle').textContent=T[lang].oppIn+' '+T[lang].continents[i];
@@ -586,8 +943,7 @@ function selCont(k,i){
 }
 
 function renderOpps(continent){
-  var t=T[lang];
-  var opps=oppData[continent]||oppData['Africa'];var h='';
+  var t=T[lang];var opps=oppData[continent]||oppData['Africa'];var h='';
   for(var i=0;i<opps.length;i++){
     var o=opps[i];
     h+='<div class="opp-card" onclick="viewOpp('+i+',\''+continent+'\')"> ';

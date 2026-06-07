@@ -609,7 +609,19 @@ function goToPesapal(){
 function checkPaywall(){
   if(isOwner) return false;
   searchCount++;
-  return searchCount>3;
+  var remaining = 3 - searchCount;
+  var badge = document.getElementById('freeBadge');
+  if(badge && remaining >= 0){
+    badge.textContent = remaining + ' free searches left';
+    if(remaining === 1) badge.style.background = '#FEF3E2';
+    if(remaining === 0){ badge.style.background = '#fee2e2'; badge.style.color = '#dc2626'; badge.textContent = 'No free searches left'; }
+  }
+  if(searchCount > 3){
+    document.getElementById('paywall').style.display = 'block';
+    document.getElementById('paywall').scrollIntoView({behavior:'smooth'});
+    return true;
+  }
+  return false;
 }
 
 function viewOpp(i,continent){
@@ -716,7 +728,7 @@ function showCountry(countryName,flag,score){
   document.getElementById('aiReportContent').innerHTML='<div class="loading-pulse"><div class="pulse-dots"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div><span style="margin-left:8px">'+t.generating+'</span></div>';
 
   var aiTopic=db&&db[typeEn]&&db[typeEn].aiTopic?db[typeEn].aiTopic:'comprehensive '+typeEn.toLowerCase()+' opportunities in '+countryName;
-  var prompt='Write a comprehensive, detailed, practical '+typeEn+' intelligence report about '+countryName+'. The ENTIRE report must be written in '+langName+'. Focus ONLY on '+getTypeFocus(curType)+'. Include: real numbers and costs, step-by-step processes, official websites and contacts, risks and how to avoid them, success tips, and a clear numbered ACTION PLAN. Use emoji section headers. Minimum 400 words. Make it genuinely useful for someone ready to take action. All text must be in '+langName+' language — do not include any English if the language is not English.';
+var prompt = 'IMPORTANT: Write this ENTIRE report in '+langName+' language. Every single word must be in '+langName+'. Do NOT write in English unless '+langName+' is English. You are WorldGate AI. Write a comprehensive '+typeEn+' intelligence report for '+countryName+' written entirely in '+langName+'. Focus ONLY on: '+getTypeFocus(curType)+'. Include real costs, step-by-step processes, official websites, risks and action plan. Use emoji section headers. Minimum 400 words. Remember: ALL text must be in '+langName+' — not a single word of English if the language selected is not English.';
 
   fetchGemini(prompt, function(text){
     if(text){
@@ -797,37 +809,28 @@ function toggleChat(){
 }
 
 function sendChat(){
-  var input=document.getElementById('chatInput');
-  var msg=input.value.trim();
-  if(!msg)return;
-  input.value='';
-
-  var msgs=document.getElementById('chatMessages');
-  msgs.innerHTML+='<div class="msg user">'+msg+'</div>';
-  msgs.innerHTML+='<div class="msg bot" id="botTyping">...</div>';
-  msgs.scrollTop=msgs.scrollHeight;
-
-  chatHistory.push({role:'user',parts:[{text:msg}]});
-
-  var t=T[lang];
-  var langName=getLangName(lang);
-  var typeEn=getTypeEn(curType);
-  var typeName=t.types[curType];
-
-  var systemContext='You are WorldGate AI, an expert global opportunity assistant specializing in '+typeEn+' intelligence for '+currentCountry+'. Answer ONLY in '+langName+'. Be helpful, specific, practical. Keep answers under 150 words. Focus on '+typeName+' topics for '+currentCountry+'. If asked about payment or consultation, mention WorldGate AI subscription $40/month or personal consultation with Nowells for $80.';
-
-  var messages=[{role:'user',parts:[{text:systemContext+'\n\nUser question: '+msg}]}];
-
-  fetchGemini(systemContext+'\n\nUser says: '+msg+'\n\nRespond helpfully in '+langName+' in under 120 words:', function(text){
-    var typing=document.getElementById('botTyping');
-    if(typing){
-      typing.textContent=text||t.chatError;
-      typing.removeAttribute('id');
+  var input = document.getElementById('chatInput');
+  var msg = input.value.trim();
+  if(!msg) return;
+  input.value = '';
+  var msgs = document.getElementById('chatMessages');
+  msgs.innerHTML += '<div class="msg user">' + msg + '</div>';
+  var typingId = 'bot_' + Date.now();
+  msgs.innerHTML += '<div class="msg bot" id="' + typingId + '">...</div>';
+  msgs.scrollTop = msgs.scrollHeight;
+  var langName = getLangName(lang);
+  var typeEn = getTypeEn(curType);
+  var t = T[lang];
+  var fullPrompt = 'You are WorldGate AI assistant. The user is interested in ' + typeEn + ' opportunities in ' + currentCountry + '. Answer ONLY in ' + langName + ' language. Be specific, practical and helpful. Keep answer under 120 words. Do not repeat yourself. Give a direct helpful answer. User question: ' + msg;
+  fetchGemini(fullPrompt, function(text){
+    var el = document.getElementById(typingId);
+    if(el){
+      el.textContent = text || t.chatError;
+      el.removeAttribute('id');
     }
-    msgs.scrollTop=msgs.scrollHeight;
+    msgs.scrollTop = msgs.scrollHeight;
   });
 }
-
 function goBack(){
   document.getElementById('homePage').style.display='block';
   document.getElementById('countryWrap').style.display='none';

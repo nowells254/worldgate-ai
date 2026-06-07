@@ -324,7 +324,7 @@ var isOwner=false;
 var lang='en';
 var curType=0;
 var curContinent='Africa';
-var searchCount=0;
+var searchCount=parseInt(localStorage.getItem('wg_searches')||'0');
 var curPay='pro';
 var currentCountry='';
 var chatOpen=false;
@@ -609,12 +609,13 @@ function goToPesapal(){
 function checkPaywall(){
   if(isOwner) return false;
   searchCount++;
+  localStorage.setItem('wg_searches', searchCount);
   var remaining = 3 - searchCount;
   var badge = document.getElementById('freeBadge');
-  if(badge && remaining >= 0){
-    badge.textContent = remaining + ' free searches left';
-    if(remaining === 1) badge.style.background = '#FEF3E2';
-    if(remaining === 0){ badge.style.background = '#fee2e2'; badge.style.color = '#dc2626'; badge.textContent = 'No free searches left'; }
+  if(badge){
+    if(remaining > 0){ badge.textContent = remaining + ' free searches left'; }
+    if(remaining === 1){ badge.style.background = '#FEF3E2'; badge.style.color = '#d97706'; }
+    if(remaining <= 0){ badge.style.background = '#fee2e2'; badge.style.color = '#dc2626'; badge.textContent = 'No free searches left'; }
   }
   if(searchCount > 3){
     document.getElementById('paywall').style.display = 'block';
@@ -623,7 +624,6 @@ function checkPaywall(){
   }
   return false;
 }
-
 function viewOpp(i,continent){
   if(checkPaywall()){document.getElementById('paywall').style.display='block';document.getElementById('paywall').scrollIntoView({behavior:'smooth'});return;}
   var o=oppData[continent][i];
@@ -815,42 +815,132 @@ function sendChat(){
   input.value='';
   var msgs=document.getElementById('chatMessages');
   msgs.innerHTML+='<div class="msg user">'+msg+'</div>';
-  var typingId='typing_'+Date.now();
-  msgs.innerHTML+='<div class="msg bot" id="'+typingId+'"><em>typing...</em></div>';
+  var typingId='t_'+Date.now();
+  msgs.innerHTML+='<div class="msg bot" id="'+typingId+'">...</div>';
   msgs.scrollTop=msgs.scrollHeight;
-  var langName=getLangName(lang);
+  setTimeout(function(){
+    var el=document.getElementById(typingId);
+    if(el){
+      el.textContent=getSmartReply(msg);
+      el.removeAttribute('id');
+      msgs.scrollTop=msgs.scrollHeight;
+    }
+  },800);
+}
+
+function getSmartReply(msg){
+  var m=msg.toLowerCase();
+  var c=currentCountry;
   var typeEn=getTypeEn(curType);
   var t=T[lang];
-  var prompt='You are WorldGate AI, a helpful expert assistant. The user is on the '+currentCountry+' page looking for '+typeEn+' information. Respond ONLY in '+langName+'. Give a specific, direct, helpful answer in under 100 words. Do not say you cannot help. Always give real useful information. User question: '+msg;
-  var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY;
-  var xhr=new XMLHttpRequest();
-  xhr.open('POST',url,true);
-  xhr.setRequestHeader('Content-Type','application/json');
-  xhr.timeout=15000;
-  xhr.onload=function(){
-    var el=document.getElementById(typingId);
-    if(!el)return;
-    if(xhr.status===200){
-      try{
-        var d=JSON.parse(xhr.responseText);
-        var reply=d.candidates[0].content.parts[0].text||'';
-        el.textContent=reply||t.chatError;
-      }catch(e){el.textContent=t.chatError;}
-    }else{
-      el.textContent=t.chatError;
+  var db=countryDB[c];
+
+  // Investment questions
+  if(m.indexOf('opportunit')>-1||m.indexOf('best')>-1||m.indexOf('invest')>-1||m.indexOf('sector')>-1){
+    if(typeEn==='Investor'&&db&&db.Investor){
+      var rows=db.Investor.sections[0].rows;
+      return c+' top investment opportunities: '+rows[1][1]+'. GDP growth: '+rows[0][1]+'. Minimum investment: '+rows[2][1]+'. Corporate tax: '+rows[4][1]+'. Subscribe for $40/month for full detailed AI reports.';
     }
-    el.removeAttribute('id');
-    msgs.scrollTop=msgs.scrollHeight;
-  };
-  xhr.onerror=function(){
-    var el=document.getElementById(typingId);
-    if(el){el.textContent=t.chatError;el.removeAttribute('id');}
-  };
-  xhr.ontimeout=function(){
-    var el=document.getElementById(typingId);
-    if(el){el.textContent=t.chatError;el.removeAttribute('id');}
-  };
-  xhr.send(JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:200,temperature:0.8}}));
+    if(typeEn==='Student'&&db&&db.Student){
+      var rows=db.Student.sections[0].rows;
+      return 'Top universities in '+c+': '+rows[0][0]+' ('+rows[0][1]+'), '+rows[1][0]+' ('+rows[1][1]+'), '+rows[2][0]+'. Subscribe for $40/month for scholarship details and application guides.';
+    }
+    if(typeEn==='Trader'&&db&&db.Trader){
+      var rows=db.Trader.sections[0].rows;
+      return c+' trade opportunities: Top exports are '+rows[0][1]+'. Import duty: '+rows[5][1]+'. Main trading partners: '+rows[2][1]+'. Subscribe for $40/month for full trade guides.';
+    }
+    if(typeEn==='Teacher'&&db&&db.Teacher){
+      var rows=db.Teacher.sections[0].rows;
+      return 'Teaching opportunities in '+c+': '+rows[0][1]+'. Salary range: '+rows[2][1]+'. Growing sector: '+rows[5][1]+'. Subscribe for $40/month for a complete teaching guide.';
+    }
+    if(typeEn==='Traveler'&&db&&db.Traveler){
+      var rows=db.Traveler.sections[2].rows;
+      return 'Must-visit places in '+c+': '+rows[0][0]+' ('+rows[0][1]+'), '+rows[1][0]+' ('+rows[1][1]+'), '+rows[2][0]+'. Subscribe for $40/month for full travel guides.';
+    }
+    return 'There are excellent '+typeEn.toLowerCase()+' opportunities in '+c+'. Subscribe for $40/month to access our full detailed AI report with specific recommendations.';
+  }
+
+  // Cost questions
+  if(m.indexOf('cost')>-1||m.indexOf('price')>-1||m.indexOf('fee')>-1||m.indexOf('money')>-1||m.indexOf('much')>-1||m.indexOf('pay')>-1){
+    if(typeEn==='Investor'&&db&&db.Investor){
+      var rows=db.Investor.sections[2].rows;
+      return 'Cost of investing in '+c+': Property price around '+rows[0][1]+'. Rental yield: '+rows[1][1]+'. Business registration: ~$77-500. Subscribe for $40/month for detailed cost breakdowns.';
+    }
+    if(typeEn==='Student'&&db&&db.Student){
+      var rows=db.Student.sections[1].rows;
+      return 'Cost of studying in '+c+': Tuition '+rows[0][1]+'. Accommodation '+rows[2][1]+'. Living costs '+rows[3][1]+'. Health insurance '+rows[5][1]+'. Subscribe for $40/month for scholarship opportunities to reduce costs.';
+    }
+    if(typeEn==='Traveler'&&db&&db.Traveler){
+      var rows=db.Traveler.sections[1].rows;
+      return 'Cost of visiting '+c+': Budget travel '+rows[0][1]+'. Mid-range '+rows[1][1]+'. Luxury '+rows[2][1]+'. Accommodation from '+rows[4][1]+'. Subscribe for $40/month for a complete budget guide.';
+    }
+    if(typeEn==='Teacher'&&db&&db.Teacher){
+      var rows=db.Teacher.sections[0].rows;
+      return 'Teacher salaries in '+c+': '+rows[2][1]+'. Cost of living: '+db.Teacher.sections[3].rows[0][1]+'. Subscribe for $40/month for full salary comparison and benefits guide.';
+    }
+    return 'Costs vary by activity in '+c+'. Subscribe for $40/month to access detailed cost breakdowns in our full AI report.';
+  }
+
+  // How to start / get started
+  if(m.indexOf('start')>-1||m.indexOf('begin')>-1||m.indexOf('how')>-1||m.indexOf('step')>-1||m.indexOf('process')>-1){
+    if(typeEn==='Investor'&&db&&db.Investor){
+      var rows=db.Investor.sections[1].rows;
+      return 'To start investing in '+c+': 1) '+rows[0][0]+': '+rows[0][1]+' 2) Registration cost: '+rows[1][1]+' 3) Best entity: '+rows[3][1]+' 4) Regulator: '+rows[4][1]+'. Book a personal consultation with Nowells for $80 for step-by-step guidance.';
+    }
+    if(typeEn==='Student'){
+      return 'To study in '+c+': 1) Research and choose your university 2) Apply online through university portal 3) Get acceptance letter 4) Apply for student visa 5) Arrange accommodation. Subscribe for $40/month for detailed application guides.';
+    }
+    if(typeEn==='Trader'){
+      return 'To start trading with '+c+': 1) Research your product 2) Find a customs broker 3) Register as importer/exporter 4) Arrange freight forwarder 5) Handle documentation 6) Clear customs. Subscribe for $40/month for step-by-step trade guides.';
+    }
+    if(typeEn==='Teacher'){
+      return 'To teach in '+c+': 1) Prepare your degree and teaching certificate 2) Get criminal background check 3) Apply to international schools online 4) Get work permit 5) Arrange accommodation. Subscribe for $40/month for school contacts and application templates.';
+    }
+    return 'Getting started in '+c+' as a '+typeEn+': Research thoroughly, consult local experts, and prepare your documents. Book a personal consultation with Nowells for $80 for a tailored action plan.';
+  }
+
+  // Risk questions
+  if(m.indexOf('risk')>-1||m.indexOf('danger')>-1||m.indexOf('safe')>-1||m.indexOf('problem')>-1||m.indexOf('challenge')>-1){
+    if(c==='Kenya') return 'Key risks in Kenya: Currency fluctuation (KES volatile), political risk during elections, traffic and infrastructure challenges, occasional security concerns in certain areas. Overall risk level: Medium. Subscribe for $40/month for our full risk assessment report.';
+    if(c==='China') return 'Key risks in China: Regulatory changes, IP protection concerns, VPN restrictions, currency controls, and cultural/language barriers. Political environment requires careful navigation. Subscribe for $40/month for our full risk assessment.';
+    if(c==='UAE') return 'Key risks in UAE: High cost of living, strict cultural laws, employment contract issues, and business setup costs. Overall very safe and stable. Subscribe for $40/month for our full risk assessment.';
+    if(c==='Germany') return 'Key risks in Germany: High taxes, complex bureaucracy, language barrier, slow digitalization. Very stable and low political risk. Subscribe for $40/month for our full risk assessment.';
+    return 'Key risks for '+typeEn.toLowerCase()+'s in '+c+' include regulatory changes, currency risk, and cultural differences. Subscribe for $40/month for our comprehensive risk assessment report.';
+  }
+
+  // Document questions
+  if(m.indexOf('document')>-1||m.indexOf('visa')>-1||m.indexOf('passport')>-1||m.indexOf('require')>-1||m.indexOf('need')>-1){
+    if(typeEn==='Student'&&db&&db.Student){
+      var rows=db.Student.sections[3].rows;
+      return 'Documents needed for '+c+' as a student: '+rows[2][1]+'. Processing time: '+rows[1][1]+'. Language requirement: '+rows[5][1]+'. Subscribe for $40/month for a complete document checklist.';
+    }
+    if(typeEn==='Investor'&&db&&db.Investor){
+      var rows=db.Investor.sections[1].rows;
+      return 'Documents needed to invest in '+c+': '+rows[2][1]+'. Processing time: '+rows[0][1]+'. Subscribe for $40/month for complete legal and registration guides.';
+    }
+    if(typeEn==='Traveler'&&db&&db.Traveler){
+      var rows=db.Traveler.sections[0].rows;
+      return 'To visit '+c+': '+rows[0][0]+': '+rows[0][1]+'. Cost: '+rows[1][1]+'. Processing: '+rows[2][1]+'. Validity: '+rows[4][1]+'. Subscribe for $40/month for a full entry requirements guide.';
+    }
+    if(typeEn==='Teacher'&&db&&db.Teacher){
+      var rows=db.Teacher.sections[1].rows;
+      return 'Documents needed to teach in '+c+': '+rows[0][1]+'. Work permit: '+rows[2][1]+'. Background check: '+rows[3][1]+'. Processing time: '+rows[5][1]+'. Subscribe for $40/month for a complete application guide.';
+    }
+    return 'Required documents for '+typeEn.toLowerCase()+'s in '+c+' typically include passport, relevant certificates, background check, and application forms. Subscribe for $40/month for a complete checklist.';
+  }
+
+  // Consultation / contact
+  if(m.indexOf('consult')>-1||m.indexOf('contact')>-1||m.indexOf('nowells')>-1||m.indexOf('help')>-1||m.indexOf('talk')>-1){
+    return 'You can book a personal consultation with Nowells directly for $80. Nowells is based in Nairobi, Kenya with deep expertise in African and global markets. Click the "Personal Consultation — $80" button below to book and pay. You will receive a response within 24 hours.';
+  }
+
+  // Subscribe / price of service
+  if(m.indexOf('subscri')>-1||m.indexOf('plan')>-1||m.indexOf('access')>-1||m.indexOf('unlock')>-1){
+    return 'WorldGate AI offers: 1) Monthly subscription $40/month — unlimited reports for all 195 countries in your language. 2) Personal consultation with Nowells $80/session — direct expert advice. Pay via M-Pesa, Visa, Mastercard, PayPal or any world currency through Pesapal.';
+  }
+
+  // Default intelligent fallback
+  return 'Great question about '+c+'! As a '+typeEn+', you have excellent opportunities here. For detailed specific information including costs, requirements, contacts and step-by-step guides, subscribe for $40/month or book a personal consultation with Nowells for $80. What specific aspect would you like to know more about?';
 }
 function goBack(){
   document.getElementById('homePage').style.display='block';

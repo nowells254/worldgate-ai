@@ -809,27 +809,48 @@ function toggleChat(){
 }
 
 function sendChat(){
-  var input = document.getElementById('chatInput');
-  var msg = input.value.trim();
-  if(!msg) return;
-  input.value = '';
-  var msgs = document.getElementById('chatMessages');
-  msgs.innerHTML += '<div class="msg user">' + msg + '</div>';
-  var typingId = 'bot_' + Date.now();
-  msgs.innerHTML += '<div class="msg bot" id="' + typingId + '">...</div>';
-  msgs.scrollTop = msgs.scrollHeight;
-  var langName = getLangName(lang);
-  var typeEn = getTypeEn(curType);
-  var t = T[lang];
-  var fullPrompt = 'You are WorldGate AI assistant. The user is interested in ' + typeEn + ' opportunities in ' + currentCountry + '. Answer ONLY in ' + langName + ' language. Be specific, practical and helpful. Keep answer under 120 words. Do not repeat yourself. Give a direct helpful answer. User question: ' + msg;
-  fetchGemini(fullPrompt, function(text){
-    var el = document.getElementById(typingId);
-    if(el){
-      el.textContent = text || t.chatError;
-      el.removeAttribute('id');
+  var input=document.getElementById('chatInput');
+  var msg=input.value.trim();
+  if(!msg)return;
+  input.value='';
+  var msgs=document.getElementById('chatMessages');
+  msgs.innerHTML+='<div class="msg user">'+msg+'</div>';
+  var typingId='typing_'+Date.now();
+  msgs.innerHTML+='<div class="msg bot" id="'+typingId+'"><em>typing...</em></div>';
+  msgs.scrollTop=msgs.scrollHeight;
+  var langName=getLangName(lang);
+  var typeEn=getTypeEn(curType);
+  var t=T[lang];
+  var prompt='You are WorldGate AI, a helpful expert assistant. The user is on the '+currentCountry+' page looking for '+typeEn+' information. Respond ONLY in '+langName+'. Give a specific, direct, helpful answer in under 100 words. Do not say you cannot help. Always give real useful information. User question: '+msg;
+  var url='https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY;
+  var xhr=new XMLHttpRequest();
+  xhr.open('POST',url,true);
+  xhr.setRequestHeader('Content-Type','application/json');
+  xhr.timeout=15000;
+  xhr.onload=function(){
+    var el=document.getElementById(typingId);
+    if(!el)return;
+    if(xhr.status===200){
+      try{
+        var d=JSON.parse(xhr.responseText);
+        var reply=d.candidates[0].content.parts[0].text||'';
+        el.textContent=reply||t.chatError;
+      }catch(e){el.textContent=t.chatError;}
+    }else{
+      el.textContent=t.chatError;
     }
-    msgs.scrollTop = msgs.scrollHeight;
-  });
+    el.removeAttribute('id');
+    msgs.scrollTop=msgs.scrollHeight;
+  };
+  xhr.onerror=function(){
+    var el=document.getElementById(typingId);
+    if(el){el.textContent=t.chatError;el.removeAttribute('id');}
+  };
+  xhr.ontimeout=function(){
+    var el=document.getElementById(typingId);
+    if(el){el.textContent=t.chatError;el.removeAttribute('id');}
+  };
+  xhr.send(JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{maxOutputTokens:200,temperature:0.8}}));
 }
 function goBack(){
   document.getElementById('homePage').style.display='block';

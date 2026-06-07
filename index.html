@@ -319,6 +319,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <script>
 var GEMINI_KEY='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';
 var OWNER_PASS='Nowells2025';
+  var PESAPAL='https://www.pesapal.com';
 var PESAPAL='https://www.pesapal.com';
 var isOwner=false;
 var lang='en';
@@ -595,8 +596,10 @@ function ownerLogin(){
 function openPayment(type){
   curPay=type;
   var p=prices[type];
+  var t=T[lang];
   document.getElementById('mTitle').textContent=p.label;
   document.getElementById('mAmt').innerHTML='$'+p.usd+' <small>USD</small>';
+  document.getElementById('mDesc').textContent=t.currNote;
   document.getElementById('modalOverlay').classList.add('active');
 }
 function closeModal(){document.getElementById('modalOverlay').classList.remove('active');}
@@ -728,7 +731,8 @@ function showCountry(countryName,flag,score){
   document.getElementById('aiReportContent').innerHTML='<div class="loading-pulse"><div class="pulse-dots"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div><span style="margin-left:8px">'+t.generating+'</span></div>';
 
   var aiTopic=db&&db[typeEn]&&db[typeEn].aiTopic?db[typeEn].aiTopic:'comprehensive '+typeEn.toLowerCase()+' opportunities in '+countryName;
-var prompt = 'IMPORTANT: Write this ENTIRE report in '+langName+' language. Every single word must be in '+langName+'. Do NOT write in English unless '+langName+' is English. You are WorldGate AI. Write a comprehensive '+typeEn+' intelligence report for '+countryName+' written entirely in '+langName+'. Focus ONLY on: '+getTypeFocus(curType)+'. Include real costs, step-by-step processes, official websites, risks and action plan. Use emoji section headers. Minimum 400 words. Remember: ALL text must be in '+langName+' — not a single word of English if the language selected is not English.';
+var report = buildSmartReport(countryName, curType, langName, db);
+  document.getElementById('aiReportContent').innerHTML = report;
 
   fetchGemini(prompt, function(text){
     if(text){
@@ -756,7 +760,80 @@ var prompt = 'IMPORTANT: Write this ENTIRE report in '+langName+' language. Ever
   // Setup chatbot
   setupChatbot(countryName, typeName, langName);
 }
+function buildSmartReport(country, typeIdx, langName, db){
+  var typeNames=['Investor','Student','Trader','Teacher','Traveler'];
+  var typeEn=typeNames[typeIdx];
+  var t=T[lang];
+  var typeName=t.types[typeIdx];
 
+  // Labels translated
+  var labels={
+    en:{overview:'Investment Overview',setup:'Business Setup',realestate:'Real Estate',opps:'Key Opportunities',unis:'Top Universities',costs:'Education Costs',schols:'Scholarships',visa:'Visa & Requirements',tradeov:'Trade Overview',import:'Import Process',finance:'Finance & Payment',hubs:'Trading Hubs',demand:'Teaching Demand',req:'Requirements',employers:'Top Employers',life:'Life & Benefits',entry:'Visa & Entry',budget:'Budget Guide',visit:'Must-Visit Places',tips:'Travel Tips',gdp:'GDP Growth',mininvest:'Min Investment',foreign:'Foreign Ownership',tax:'Corporate Tax',risk:'Risk Level',sectors:'Top Sectors',reg:'Registration Time',cost:'Registration Cost',docs:'Required Docs',entity:'Best Entity',price:'Property Price',yield:'Rental Yield',hotareas:'Hot Areas',salary:'Salary Range',processing:'Processing Time',needed:'Most Needed',schools:'International Schools',duration:'Stay Duration',besttime:'Best Time to Visit',action:'ACTION PLAN',step:'Step'},
+    zh:{overview:'投资概况',setup:'企业设置',realestate:'房地产',opps:'主要机会',unis:'顶尖大学',costs:'教育费用',schols:'奖学金',visa:'签证要求',tradeov:'贸易概况',import:'进口流程',finance:'金融与支付',hubs:'贸易中心',demand:'教学需求',req:'要求',employers:'主要雇主',life:'生活与福利',entry:'签证与入境',budget:'预算指南',visit:'必游景点',tips:'旅游贴士',gdp:'GDP增长',mininvest:'最低投资',foreign:'外资所有权',tax:'企业税率',risk:'风险等级',sectors:'主要行业',reg:'注册时间',cost:'注册费用',docs:'所需文件',entity:'最佳实体',price:'房产价格',yield:'租金收益',hotareas:'热门区域',salary:'薪资范围',processing:'处理时间',needed:'最急需',schools:'国际学校',duration:'居留期限',besttime:'最佳旅游时间',action:'行动计划',step:'步骤'},
+    fr:{overview:'Aperçu des investissements',setup:'Création d\'entreprise',realestate:'Immobilier',opps:'Opportunités clés',unis:'Meilleures universités',costs:'Frais d\'éducation',schols:'Bourses d\'études',visa:'Visa et exigences',tradeov:'Aperçu du commerce',import:'Processus d\'importation',finance:'Finance et paiement',hubs:'Centres commerciaux',demand:'Demande d\'enseignement',req:'Exigences',employers:'Principaux employeurs',life:'Vie et avantages',entry:'Visa et entrée',budget:'Guide budgétaire',visit:'Incontournables',tips:'Conseils de voyage',gdp:'Croissance PIB',mininvest:'Investissement min.',foreign:'Propriété étrangère',tax:'Impôt sur les sociétés',risk:'Niveau de risque',sectors:'Secteurs principaux',reg:'Délai d\'enregistrement',cost:'Coût d\'enregistrement',docs:'Documents requis',entity:'Meilleure entité',price:'Prix immobilier',yield:'Rendement locatif',hotareas:'Zones prisées',salary:'Fourchette salariale',processing:'Délai de traitement',needed:'Plus demandé',schools:'Écoles internationales',duration:'Durée de séjour',besttime:'Meilleure période',action:'PLAN D\'ACTION',step:'Étape'},
+    es:{overview:'Resumen de inversión',setup:'Configuración empresarial',realestate:'Bienes raíces',opps:'Oportunidades clave',unis:'Mejores universidades',costs:'Costos educativos',schols:'Becas',visa:'Visa y requisitos',tradeov:'Resumen comercial',import:'Proceso de importación',finance:'Finanzas y pagos',hubs:'Centros comerciales',demand:'Demanda docente',req:'Requisitos',employers:'Empleadores principales',life:'Vida y beneficios',entry:'Visa y entrada',budget:'Guía de presupuesto',visit:'Lugares imprescindibles',tips:'Consejos de viaje',gdp:'Crecimiento PIB',mininvest:'Inversión mínima',foreign:'Propiedad extranjera',tax:'Impuesto corporativo',risk:'Nivel de riesgo',sectors:'Sectores principales',reg:'Tiempo de registro',cost:'Costo de registro',docs:'Documentos requeridos',entity:'Mejor entidad',price:'Precio inmobiliario',yield:'Rendimiento alquiler',hotareas:'Zonas destacadas',salary:'Rango salarial',processing:'Tiempo de tramitación',needed:'Más solicitado',schools:'Escuelas internacionales',duration:'Duración de estancia',besttime:'Mejor época para visitar',action:'PLAN DE ACCIÓN',step:'Paso'},
+    ar:{overview:'نظرة عامة على الاستثمار',setup:'إنشاء الأعمال',realestate:'العقارات',opps:'الفرص الرئيسية',unis:'أفضل الجامعات',costs:'تكاليف التعليم',schols:'المنح الدراسية',visa:'التأشيرة والمتطلبات',tradeov:'نظرة عامة على التجارة',import:'عملية الاستيراد',finance:'التمويل والدفع',hubs:'مراكز التجارة',demand:'الطلب على التدريس',req:'المتطلبات',employers:'أبرز أصحاب العمل',life:'الحياة والمزايا',entry:'التأشيرة والدخول',budget:'دليل الميزانية',visit:'الأماكن التي يجب زيارتها',tips:'نصائح السفر',gdp:'نمو الناتج المحلي',mininvest:'الحد الأدنى للاستثمار',foreign:'الملكية الأجنبية',tax:'ضريبة الشركات',risk:'مستوى المخاطرة',sectors:'القطاعات الرئيسية',reg:'وقت التسجيل',cost:'تكلفة التسجيل',docs:'المستندات المطلوبة',entity:'أفضل كيان',price:'سعر العقار',yield:'العائد الإيجاري',hotareas:'المناطق الساخنة',salary:'نطاق الراتب',processing:'وقت المعالجة',needed:'الأكثر طلباً',schools:'المدارس الدولية',duration:'مدة الإقامة',besttime:'أفضل وقت للزيارة',action:'خطة العمل',step:'خطوة'},
+    sw:{overview:'Muhtasari wa Uwekezaji',setup:'Kuanzisha Biashara',realestate:'Mali Isiyohamishika',opps:'Fursa Muhimu',unis:'Vyuo Vikuu Bora',costs:'Gharama za Elimu',schols:'Masikini',visa:'Visa na Mahitaji',tradeov:'Muhtasari wa Biashara',import:'Mchakato wa Kuagiza',finance:'Fedha na Malipo',hubs:'Vituo vya Biashara',demand:'Mahitaji ya Kufundisha',req:'Mahitaji',employers:'Waajiri Wakuu',life:'Maisha na Faida',entry:'Visa na Kuingia',budget:'Mwongozo wa Bajeti',visit:'Maeneo ya Lazima Kutembelea',tips:'Vidokezo vya Usafiri',gdp:'Ukuaji wa Uchumi',mininvest:'Uwekezaji wa Chini',foreign:'Umiliki wa Kigeni',tax:'Kodi ya Kampuni',risk:'Kiwango cha Hatari',sectors:'Sekta Kuu',reg:'Muda wa Usajili',cost:'Gharama ya Usajili',docs:'Nyaraka Zinazohitajika',entity:'Chombo Bora',price:'Bei ya Mali',yield:'Faida ya Kukodisha',hotareas:'Maeneo Maarufu',salary:'Kiwango cha Mshahara',processing:'Muda wa Kushughulikia',needed:'Inayohitajika Zaidi',schools:'Shule za Kimataifa',duration:'Muda wa Kukaa',besttime:'Wakati Bora wa Kutembelea',action:'MPANGO WA HATUA',step:'Hatua'},
+    pt:{overview:'Visão geral do investimento',setup:'Criação de empresa',realestate:'Imóveis',opps:'Oportunidades principais',unis:'Melhores universidades',costs:'Custos educacionais',schols:'Bolsas de estudo',visa:'Visto e requisitos',tradeov:'Visão geral do comércio',import:'Processo de importação',finance:'Finanças e pagamentos',hubs:'Centros comerciais',demand:'Demanda de ensino',req:'Requisitos',employers:'Principais empregadores',life:'Vida e benefícios',entry:'Visto e entrada',budget:'Guia de orçamento',visit:'Lugares imperdíveis',tips:'Dicas de viagem',gdp:'Crescimento do PIB',mininvest:'Investimento mínimo',foreign:'Propriedade estrangeira',tax:'Imposto corporativo',risk:'Nível de risco',sectors:'Setores principais',reg:'Tempo de registro',cost:'Custo de registro',docs:'Documentos necessários',entity:'Melhor entidade',price:'Preço do imóvel',yield:'Rendimento de aluguel',hotareas:'Áreas populares',salary:'Faixa salarial',processing:'Tempo de processamento',needed:'Mais necessário',schools:'Escolas internacionais',duration:'Duração da estadia',besttime:'Melhor época para visitar',action:'PLANO DE AÇÃO',step:'Passo'},
+    hi:{overview:'निवेश अवलोकन',setup:'व्यवसाय स्थापना',realestate:'रियल एस्टेट',opps:'प्रमुख अवसर',unis:'शीर्ष विश्वविद्यालय',costs:'शिक्षा लागत',schols:'छात्रवृत्तियां',visa:'वीजा और आवश्यकताएं',tradeov:'व्यापार अवलोकन',import:'आयात प्रक्रिया',finance:'वित्त और भुगतान',hubs:'व्यापार केंद्र',demand:'शिक्षण मांग',req:'आवश्यकताएं',employers:'प्रमुख नियोक्ता',life:'जीवन और लाभ',entry:'वीजा और प्रवेश',budget:'बजट गाइड',visit:'अवश्य देखें',tips:'यात्रा सुझाव',gdp:'जीडीपी विकास',mininvest:'न्यूनतम निवेश',foreign:'विदेशी स्वामित्व',tax:'कॉर्पोरेट कर',risk:'जोखिम स्तर',sectors:'प्रमुख क्षेत्र',reg:'पंजीकरण समय',cost:'पंजीकरण लागत',docs:'आवश्यक दस्तावेज',entity:'सर्वोत्तम इकाई',price:'संपत्ति मूल्य',yield:'किराया उपज',hotareas:'प्रमुख क्षेत्र',salary:'वेतन सीमा',processing:'प्रसंस्करण समय',needed:'सबसे जरूरी',schools:'अंतर्राष्ट्रीय स्कूल',duration:'प्रवास अवधि',besttime:'यात्रा का सर्वोत्तम समय',action:'कार्य योजना',step:'चरण'},
+    ja:{overview:'投資概要',setup:'ビジネス設立',realestate:'不動産',opps:'主要機会',unis:'トップ大学',costs:'教育費用',schols:'奨学金',visa:'ビザと要件',tradeov:'貿易概要',import:'輸入プロセス',finance:'金融・支払い',hubs:'貿易拠点',demand:'教師の需要',req:'要件',employers:'主要雇用主',life:'生活と福利厚生',entry:'ビザと入国',budget:'予算ガイド',visit:'必見スポット',tips:'旅行のヒント',gdp:'GDP成長率',mininvest:'最低投資額',foreign:'外国人所有権',tax:'法人税',risk:'リスクレベル',sectors:'主要セクター',reg:'登録期間',cost:'登録費用',docs:'必要書類',entity:'最適な法人形態',price:'不動産価格',yield:'賃貸利回り',hotareas:'人気エリア',salary:'給与範囲',processing:'処理時間',needed:'最も必要',schools:'インターナショナルスクール',duration:'滞在期間',besttime:'最適訪問時期',action:'アクションプラン',step:'ステップ'},
+    ko:{overview:'투자 개요',setup:'비즈니스 설립',realestate:'부동산',opps:'주요 기회',unis:'상위 대학',costs:'교육 비용',schols:'장학금',visa:'비자 및 요건',tradeov:'무역 개요',import:'수입 프로세스',finance:'금융 및 결제',hubs:'무역 허브',demand:'교사 수요',req:'요건',employers:'주요 고용주',life:'생활 및 혜택',entry:'비자 및 입국',budget:'예산 가이드',visit:'필수 방문지',tips:'여행 팁',gdp:'GDP 성장률',mininvest:'최소 투자',foreign:'외국인 소유권',tax:'법인세',risk:'위험 수준',sectors:'주요 부문',reg:'등록 기간',cost:'등록 비용',docs:'필요 서류',entity:'최적 법인 유형',price:'부동산 가격',yield:'임대 수익률',hotareas:'인기 지역',salary:'급여 범위',processing:'처리 시간',needed:'가장 필요한',schools:'국제 학교',duration:'체류 기간',besttime:'최적 방문 시기',action:'실행 계획',step:'단계'},
+    de:{overview:'Investitionsübersicht',setup:'Unternehmensaufbau',realestate:'Immobilien',opps:'Wichtige Chancen',unis:'Top-Universitäten',costs:'Bildungskosten',schols:'Stipendien',visa:'Visum und Anforderungen',tradeov:'Handelsübersicht',import:'Importprozess',finance:'Finanzen und Zahlung',hubs:'Handelszentren',demand:'Lehrernachfrage',req:'Anforderungen',employers:'Top-Arbeitgeber',life:'Leben und Leistungen',entry:'Visum und Einreise',budget:'Budgetführer',visit:'Sehenswürdigkeiten',tips:'Reisetipps',gdp:'BIP-Wachstum',mininvest:'Mindestinvestition',foreign:'Ausländisches Eigentum',tax:'Körperschaftsteuer',risk:'Risikoniveau',sectors:'Hauptsektoren',reg:'Registrierungszeit',cost:'Registrierungskosten',docs:'Erforderliche Dokumente',entity:'Beste Unternehmensform',price:'Immobilienpreis',yield:'Mietrendite',hotareas:'Beliebte Gebiete',salary:'Gehaltsbereich',processing:'Bearbeitungszeit',needed:'Am meisten gefragt',schools:'Internationale Schulen',duration:'Aufenthaltsdauer',besttime:'Beste Reisezeit',action:'AKTIONSPLAN',step:'Schritt'},
+    ru:{overview:'Обзор инвестиций',setup:'Создание бизнеса',realestate:'Недвижимость',opps:'Ключевые возможности',unis:'Лучшие университеты',costs:'Расходы на образование',schols:'Стипендии',visa:'Виза и требования',tradeov:'Обзор торговли',import:'Процесс импорта',finance:'Финансы и платежи',hubs:'Торговые центры',demand:'Спрос на учителей',req:'Требования',employers:'Ключевые работодатели',life:'Жизнь и льготы',entry:'Виза и въезд',budget:'Руководство по бюджету',visit:'Места обязательного посещения',tips:'Советы путешественникам',gdp:'Рост ВВП',mininvest:'Мин. инвестиции',foreign:'Иностранная собственность',tax:'Корпоративный налог',risk:'Уровень риска',sectors:'Основные секторы',reg:'Время регистрации',cost:'Стоимость регистрации',docs:'Необходимые документы',entity:'Лучшая форма',price:'Цена недвижимости',yield:'Доходность аренды',hotareas:'Популярные районы',salary:'Диапазон зарплат',processing:'Время обработки',needed:'Наиболее востребованный',schools:'Международные школы',duration:'Продолжительность пребывания',besttime:'Лучшее время для посещения',action:'ПЛАН ДЕЙСТВИЙ',step:'Шаг'}
+  };
+
+  var L=labels[lang]||labels['en'];
+  var html='';
+
+  if(!db||!db[typeEn]){
+    return '<p style="opacity:.8">'+T[lang].reportFallback+'</p>';
+  }
+
+  var sections=db[typeEn].sections;
+
+  // Build each section card
+  for(var s=0;s<sections.length;s++){
+    var sec=sections[s];
+    html+='<div style="margin-bottom:16px;background:rgba(255,255,255,.12);border-radius:10px;padding:14px">';
+    html+='<div style="font-size:13px;font-weight:700;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:6px">'+sec.t+'</div>';
+    for(var r=0;r<sec.rows.length;r++){
+      html+='<div style="display:flex;justify-content:space-between;padding:4px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,.08)">';
+      html+='<span style="opacity:.8;flex:1">'+sec.rows[r][0]+'</span>';
+      html+='<span style="font-weight:600;text-align:right;flex:1.2">'+sec.rows[r][1]+'</span>';
+      html+='</div>';
+    }
+    html+='</div>';
+  }
+
+  // Action plan section
+  html+='<div style="margin-bottom:16px;background:rgba(255,255,255,.15);border-radius:10px;padding:14px">';
+  html+='<div style="font-size:13px;font-weight:700;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:6px">🚀 '+L.action+'</div>';
+  var steps=getActionSteps(typeEn,country,L);
+  for(var i=0;i<steps.length;i++){
+    html+='<div style="padding:5px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,.08)">';
+    html+='<strong>'+L.step+' '+(i+1)+':</strong> '+steps[i]+'</div>';
+  }
+  html+='</div>';
+
+  // Subscribe prompt
+  html+='<div style="background:rgba(255,255,255,.1);border-radius:8px;padding:12px;text-align:center;font-size:12px">';
+  html+='<strong>📞 '+T[lang].consultBtn+'</strong><br>';
+  html+='<span style="opacity:.8">'+T[lang].currNote+'</span>';
+  html+='</div>';
+
+  return html;
+}
+
+function getActionSteps(typeEn, country, L){
+  var steps={
+    Investor:['Research the specific sector you want to enter in '+country,'Consult a local lawyer and accountant in '+country,'Register your business entity with the government authority','Open a local bank account and arrange capital transfer','Begin operations with a local partner for the first 6 months'],
+    Student:['Research and shortlist 3-5 universities in '+country,'Contact universities for admission requirements and deadlines','Prepare all required documents (transcripts, letters, financial proof)','Apply for student visa at the embassy with acceptance letter','Arrange accommodation before arrival in '+country],
+    Trader:['Identify your top 3 products to import/export with '+country,'Find a certified customs broker and freight forwarder','Register as an importer/exporter with the relevant authority','Place a sample order and inspect quality before large shipments','Build a reliable payment system using Letter of Credit or escrow'],
+    Teacher:['Prepare your teaching degree and certificates for recognition','Search for positions on TES, Search Associates, or school websites','Apply to 5-10 international schools in '+country,'Obtain work permit with employer sponsorship','Arrange accommodation and insurance before arrival'],
+    Traveler:['Check visa requirements for your passport nationality','Book flights at least 6 weeks in advance for best prices','Arrange accommodation in key areas for your itinerary','Get travel insurance and required vaccinations','Download offline maps and local transport apps before traveling']
+  };
+  return steps[typeEn]||steps['Investor'];
+}
 function fetchGemini(prompt, callback){
   fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+GEMINI_KEY,{
     method:'POST',
@@ -1064,6 +1141,7 @@ function renderOpps(continent){
     h+='<div class="opp-top"><span class="opp-tag '+o.cls+'">'+t[o.tagKey]+'</span><span class="opp-score">⭐ '+o.score+'/10</span></div>';
     h+='<div class="opp-title">'+o.title+'</div>';
     h+='<div class="opp-desc">'+o.desc+'</div>';
+    h+='<div class="opp-foot"><span class="opp-ctry">'+o.ctry+'</span><button class="opp-btn" onclick="event.stopPropagation();viewOpp('+i+',\''+continent+'\')">'+t.fullReport+'</button></div>';
     h+='<div class="opp-foot"><span class="opp-ctry">'+o.ctry+'</span><button class="opp-btn">'+t.fullReport+'</button></div>';
     h+='</div>';
   }

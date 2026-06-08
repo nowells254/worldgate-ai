@@ -1142,7 +1142,7 @@ function renderOpps(continent){
     h+='<div class="opp-title">'+o.title+'</div>';
     h+='<div class="opp-desc">'+o.desc+'</div>';
     h+='<div class="opp-foot"><span class="opp-ctry">'+o.ctry+'</span><button class="opp-btn" onclick="event.stopPropagation();viewOpp('+i+',\''+continent+'\')">'+t.fullReport+'</button></div>';
-    h+='<div class="opp-foot"><span class="opp-ctry">'+o.ctry+'</span><button class="opp-btn">'+t.fullReport+'</button></div>';
+    
     h+='</div>';
   }
   document.getElementById('oppGrid').innerHTML=h;

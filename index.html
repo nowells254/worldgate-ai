@@ -734,28 +734,7 @@ function showCountry(countryName,flag,score){
 var report = buildSmartReport(countryName, curType, langName, db);
   document.getElementById('aiReportContent').innerHTML = report;
 
-  fetchGemini(prompt, function(text){
-    if(text){
-      var formatted=text
-        .replace(/##\s*(.*)/g,'<h4>$1</h4>')
-        .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g,'<em>$1</em>')
-        .replace(/\n\n/g,'</p><p>')
-        .replace(/\n/g,'<br>');
-      document.getElementById('aiReportContent').innerHTML='<p>'+formatted+'</p>';
-    } else {
-      // Fallback in selected language
-      var fallbackPrompt='In '+langName+', write a practical guide for a '+typeEn+' interested in '+countryName+'. Include key opportunities, costs, requirements, risks, and 5 action steps. Write entirely in '+langName+'. Use emoji headers.';
-      fetchGemini(fallbackPrompt, function(text2){
-        if(text2){
-          var f2=text2.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>').replace(/\n/g,'<br>');
-          document.getElementById('aiReportContent').innerHTML='<p>'+f2+'</p>';
-        } else {
-          document.getElementById('aiReportContent').innerHTML='<p style="opacity:.8">'+t.reportFallback+'</p>';
-        }
-      });
-    }
-  });
+
 
   // Setup chatbot
   setupChatbot(countryName, typeName, langName);

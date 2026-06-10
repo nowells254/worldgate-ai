@@ -727,14 +727,9 @@ function showCountry(countryName,flag,score){
   }
   document.getElementById('sectionsGrid').innerHTML=sectHtml;
 
-  // AI Report — generate in selected language
-  document.getElementById('aiReportContent').innerHTML='<div class="loading-pulse"><div class="pulse-dots"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div><span style="margin-left:8px">'+t.generating+'</span></div>';
-
-  var aiTopic=db&&db[typeEn]&&db[typeEn].aiTopic?db[typeEn].aiTopic:'comprehensive '+typeEn.toLowerCase()+' opportunities in '+countryName;
-var report = buildSmartReport(countryName, curType, langName, db);
+  // Build comprehensive report in selected language
+  var report = buildSmartReport(countryName, curType, langName, db);
   document.getElementById('aiReportContent').innerHTML = report;
-
-
 
   // Setup chatbot
   setupChatbot(countryName, typeName, langName);

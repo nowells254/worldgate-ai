@@ -734,6 +734,93 @@ function showCountry(countryName,flag,score){
   // Setup chatbot
   setupChatbot(countryName, typeName, langName);
 }
+  function buildUniversalReport(country, typeIdx, langName){
+  var typeEn=['Investor','Student','Trader','Teacher','Traveler'][typeIdx]||'Investor';
+  var t=T[lang];
+  var typeName=t.types[typeIdx];
+  var q=encodeURIComponent(country);
+  var qt=encodeURIComponent(country+' '+typeEn);
+
+  var sections={
+    Investor:[
+      {icon:'💰',title:'Investment Climate',items:['GDP and economic growth rate','Foreign direct investment policies','Corporate tax rates and incentives','Special economic zones and free zones','Currency stability and exchange rates','Ease of doing business ranking']},
+      {icon:'🏢',title:'Business Setup',items:['Business registration process and costs','Required documents for foreign investors','Best legal entity types','Time to register a company','Banking requirements for foreigners','Local partner requirements']},
+      {icon:'🏘️',title:'Real Estate Investment',items:['Average property prices in major cities','Rental yield percentages','Foreign ownership rules','Best areas for investment','Title deed process','Property management options']},
+      {icon:'⚠️',title:'Risks & Considerations',items:['Political stability index','Currency risk assessment','Corruption perception index','Common pitfalls for foreign investors','Legal protections available','Exit strategy options']},
+      {icon:'🚀',title:'Action Plan',items:['Step 1: Research sector regulations and requirements','Step 2: Visit the country and assess firsthand','Step 3: Engage local lawyer and accountant','Step 4: Register business entity','Step 5: Open local bank account','Step 6: Begin operations with local partner']}
+    ],
+    Student:[
+      {icon:'🎓',title:'Top Universities',items:['Search QS World Rankings for '+country+' universities','Check Times Higher Education rankings','Look for English-taught programs','Compare public vs private institutions','Check accreditation and recognition','Read student reviews on international forums']},
+      {icon:'💵',title:'Education Costs',items:['Tuition fees vary by university and program','Accommodation: check university housing options','Living costs: use Numbeo.com for accurate data','Health insurance: mandatory in most countries','Transportation costs within the country','Books and materials budget']},
+      {icon:'🏆',title:'Scholarship Opportunities',items:['Government scholarships from '+country+' ministry of education','University merit-based scholarships','DAAD scholarships (German-funded globally)','Commonwealth Scholarship Programme','Fulbright Program (US-funded)','Check your home country embassy for outgoing scholarships']},
+      {icon:'📋',title:'Application Process',items:['Step 1: Research and shortlist 3-5 universities','Step 2: Check language requirements (IELTS/TOEFL/local test)','Step 3: Prepare transcripts and documents','Step 4: Submit applications before deadlines','Step 5: Get acceptance letter','Step 6: Apply for student visa at embassy']},
+      {icon:'🌍',title:'Student Life',items:['Research cost of living on Numbeo.com','Join international student Facebook groups for '+country,'Check part-time work rules on student visa','Look for student accommodation on university websites','Get travel insurance before departure','Download local transport and maps apps']}
+    ],
+    Trader:[
+      {icon:'🚢',title:'Trade Overview',items:['Check ITC Trade Map for '+country+' trade data at trademap.org','Research top export and import products','Understand trade agreements '+country+' has signed','Check WTO tariff schedules for your products','Identify main trading partners','Research seasonal demand patterns']},
+      {icon:'📦',title:'Import/Export Process',items:['Step 1: Register as importer/exporter with customs authority','Step 2: Get an HS code for your products','Step 3: Find a licensed customs broker','Step 4: Arrange freight forwarder and logistics','Step 5: Prepare all trade documents (invoice, packing list, B/L)','Step 6: Handle customs clearance and duties']},
+      {icon:'💱',title:'Finance & Payment',items:['Use Letter of Credit for first-time transactions','T/T (bank transfer) for established relationships','Use Alibaba Trade Assurance for online sourcing','Hedge currency risk with forward contracts','Check government export credit agency','Open a multi-currency business account']},
+      {icon:'🏪',title:'Finding Buyers & Sellers',items:['Use ITC Trade Map to find importers: trademap.org','Register on Alibaba, Global Sources, TradeKey','Attend trade shows: check 10times.com','Contact chamber of commerce in '+country,'Use LinkedIn to find business contacts','Hire a local trade agent or representative']},
+      {icon:'⚠️',title:'Trade Risks',items:['Always verify buyer/seller credentials','Use escrow or trade assurance for first orders','Get cargo insurance for all shipments','Check country sanctions and restrictions','Understand force majeure clauses','Have a dispute resolution plan']}
+    ],
+    Teacher:[
+      {icon:'👩‍🏫',title:'Teaching Opportunities',items:['Search international school jobs on TES.com','Check Search Associates: searchassociates.com','Look at Teach Away: teachaway.com','Research government teacher recruitment programs','Check university faculty positions','Consider online teaching platforms as backup']},
+      {icon:'💵',title:'Salary & Benefits',items:['International schools: typically $2,000-6,000/month','Research if housing allowance is included','Check if annual flights are provided','Understand health insurance coverage','Ask about professional development budget','Clarify contract renewal terms']},
+      {icon:'📋',title:'Requirements & Visa',items:['Teaching degree or equivalent required','TEFL/CELTA certificate highly valued','Criminal background check from home country','Medical certificate required in most countries','Work permit sponsored by school employer','Apostille required for most documents']},
+      {icon:'🏫',title:'Finding Teaching Jobs',items:['Apply on TES Global: tes.com','Register with Search Associates for international schools','Contact schools directly with your CV','Attend international teaching job fairs','Join expat teacher Facebook groups for '+country,'Network with teachers already in the country']},
+      {icon:'🌍',title:'Life as a Teacher',items:['Research cost of living on Numbeo.com','Join expat Facebook groups for '+country,'Learn basics of local language before arrival','Understand cultural norms and classroom expectations','Arrange health insurance before departure','Connect with expat community for support']}
+    ],
+    Traveler:[
+      {icon:'✈️',title:'Visa & Entry',items:['Check visa requirements at iata.org/travel-centre','Apply for visa at official embassy website','Research eVisa options if available','Check entry requirements: vaccinations, COVID etc.','Confirm passport validity (usually 6 months required)','Register with your home country embassy on arrival']},
+      {icon:'💰',title:'Budget Planning',items:['Check cost of living at Numbeo.com for '+country+' cities','Budget travel: research hostels on Hostelworld.com','Mid-range: check hotels on Booking.com','Activities: compare prices on GetYourGuide and Viator','Food: research local food markets vs restaurants','Transport: check local bus, taxi and ride-hailing apps']},
+      {icon:'🗺️',title:'Top Attractions',items:['Search TripAdvisor top 10 attractions for '+country,'Check Lonely Planet destination guide','Look for UNESCO World Heritage Sites','Research national parks and nature reserves','Find local festivals and cultural events','Ask in travel Facebook groups for hidden gems']},
+      {icon:'🌍',title:'Safety & Health',items:['Check travel advisories at travel.state.gov (US) or gov.uk/travel','Get required vaccinations at fitfortravel.nhs.uk','Purchase comprehensive travel insurance','Get WorldNomads insurance for adventure travel','Download offline maps before arrival','Share itinerary with family or friend at home']},
+      {icon:'📱',title:'Essential Apps & Tips',items:['Download Google Maps offline for '+country,'Get local SIM card at airport on arrival','Download local ride-hailing app','Use XE.com app for currency conversion','WhatsApp works globally for communication','Keep emergency contacts and embassy number saved']}
+    ]
+  };
+
+  var secs=sections[typeEn]||sections['Investor'];
+  var html='';
+
+  // Language notice
+  html+='<div style="background:rgba(255,255,255,.15);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:12px">';
+  html+='🌐 <strong>'+country+' — '+typeName+' Intelligence Report</strong> · '+langName+'</div>';
+
+  // Build sections
+  for(var s=0;s<secs.length;s++){
+    var sec=secs[s];
+    html+='<div style="margin-bottom:14px;background:rgba(255,255,255,.1);border-radius:10px;padding:14px">';
+    html+='<div style="font-size:13px;font-weight:700;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:6px">'+sec.icon+' '+sec.title+'</div>';
+    for(var i=0;i<sec.items.length;i++){
+      html+='<div style="padding:4px 0;font-size:12px;border-bottom:1px solid rgba(255,255,255,.06);display:flex;align-items:flex-start;gap:6px">';
+      html+='<span style="color:#a8f0d8;font-weight:700;flex-shrink:0">✓</span>';
+      html+='<span>'+sec.items[i]+'</span></div>';
+    }
+    html+='</div>';
+  }
+
+  // Resource links
+  html+='<div style="margin-bottom:14px;background:rgba(255,255,255,.1);border-radius:10px;padding:14px">';
+  html+='<div style="font-size:13px;font-weight:700;margin-bottom:10px;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:6px">🔗 Research Links for '+country+'</div>';
+  html+='<div style="display:flex;flex-wrap:wrap;gap:8px">';
+  html+='<a href="https://www.google.com/maps/place/'+q+'" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">🗺️ Google Maps</a>';
+  html+='<a href="https://en.wikipedia.org/wiki/'+q+'" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">📖 Wikipedia</a>';
+  html+='<a href="https://www.numbeo.com/cost-of-living/country_result.jsp?country='+q+'" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">💰 Cost of Living</a>';
+  html+='<a href="https://www.worldbank.org/en/country/'+country.toLowerCase().replace(/\s/g,'')+'" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">🌐 World Bank</a>';
+  html+='<a href="https://www.google.com/search?q='+qt+'+opportunities+2025" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">🔍 Latest News</a>';
+  html+='<a href="https://www.youtube.com/results?search_query='+qt+'+guide+2025" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">▶️ YouTube Guides</a>';
+  html+='<a href="https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/'+q+'.html" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">🛂 Travel Advisory</a>';
+  html+='<a href="https://www.tripadvisor.com/Search?q='+q+'" target="_blank" style="background:rgba(255,255,255,.2);color:white;padding:5px 10px;border-radius:6px;font-size:11px;text-decoration:none">⭐ TripAdvisor</a>';
+  html+='</div></div>';
+
+  // Consultation CTA
+  html+='<div style="background:rgba(255,255,255,.15);border-radius:8px;padding:12px;text-align:center;font-size:12px">';
+  html+='<strong>📞 '+t.consultBtn+'</strong><br>';
+  html+='<span style="opacity:.8;font-size:11px">'+t.currNote+'</span>';
+  html+='</div>';
+
+  return html;
+}
 function buildSmartReport(country, typeIdx, langName, db){
   var typeNames=['Investor','Student','Trader','Teacher','Traveler'];
   var typeEn=typeNames[typeIdx];
@@ -759,8 +846,8 @@ function buildSmartReport(country, typeIdx, langName, db){
   var L=labels[lang]||labels['en'];
   var html='';
 
-  if(!db||!db[typeEn]){
-    return '<p style="opacity:.8">'+T[lang].reportFallback+'</p>';
+ if(!db||!db[typeEn]){
+    return buildUniversalReport(country, typeIdx, langName);
   }
 
   var sections=db[typeEn].sections;

@@ -1,0 +1,22 @@
+{
+  "name": "WorldGate AI — 世界门",
+  "short_name": "WorldGate AI",
+  "description": "Global Opportunity Intelligence — Invest, Study, Trade, Relocate in your language",
+  "start_url": "/worldgate-ai/",
+  "display": "standalone",
+  "background_color": "#085041",
+  "theme_color": "#1D9E75",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "https://nowells254.github.io/worldgate-ai/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://nowells254.github.io/worldgate-ai/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

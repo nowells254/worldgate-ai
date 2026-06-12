@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="/worldgate-ai/manifest.json">
+<meta name="theme-color" content="#1D9E75">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="WorldGate AI">
+<meta name="mobile-web-app-capable" content="yes">
 <title>WorldGate AI — 世界门 | Global Opportunity Intelligence</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -228,7 +234,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <input type="text" id="searchInput" placeholder="Search any country..." onkeypress="if(event.key==='Enter')doSearch()"/>
     <button id="exploreBtn" onclick="doSearch()">Explore</button>
   </div>
-  <div class="owner-login"><button onclick="ownerLogin()" id="ownerLoginBtn">🔐 Owner Access</button></div>
+  <div class="owner-login" style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+  <button onclick="ownerLogin()" id="ownerLoginBtn">🔐 Owner Access</button>
+  <button id="installBtn" style="display:none;background:rgba(255,255,255,.9);color:#085041;border:none;border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;font-weight:700;align-items:center;gap:6px">📲 Install App</button>
+</div>
 </div>
 
 <div class="stats-bar">
@@ -1209,7 +1218,26 @@ function renderOpps(continent){
   document.getElementById('oppGrid').innerHTML=h;
 }
 
-window.onload=function(){applyLang('en');};
+window.onload=function(){
+  applyLang('en');
+  // Register service worker for PWA
+  if('serviceWorker' in navigator){
+    navigator.serviceWorker.register('/worldgate-ai/sw.js').catch(function(){});
+  }
+  // Show install button
+  var deferredPrompt;
+  window.addEventListener('beforeinstallprompt',function(e){
+    e.preventDefault();
+    deferredPrompt=e;
+    document.getElementById('installBtn').style.display='inline-flex';
+  });
+  document.getElementById('installBtn').addEventListener('click',function(){
+    if(deferredPrompt){
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(){deferredPrompt=null;});
+    }
+  });
+};
 </script>
 </body>
 </html>

@@ -1,19 +1,20 @@
-var CACHE = 'worldgate-ai-v1';
-var FILES = [
-  '/worldgate-ai/',
-  '/worldgate-ai/index.html',
-  '/worldgate-ai/manifest.json'
-];
-
-self.addEventListener('install', function(e){
-  e.waitUntil(caches.open(CACHE).then(function(c){return c.addAll(FILES);}));
+var CACHE='wg-v2';
+self.addEventListener('install',function(e){
+  self.skipWaiting();
+  e.waitUntil(
+    caches.open(CACHE).then(function(c){
+      return c.addAll(['/worldgate-ai/index.html','/worldgate-ai/manifest.json','/worldgate-ai/icon.svg']);
+    })
+  );
 });
-
-self.addEventListener('fetch', function(e){
+self.addEventListener('activate',function(e){
+  e.waitUntil(clients.claim());
+});
+self.addEventListener('fetch',function(e){
   e.respondWith(
-    caches.match(e.request).then(function(r){
-      return r || fetch(e.request).catch(function(){
-        return caches.match('/worldgate-ai/');
+    fetch(e.request).catch(function(){
+      return caches.match(e.request).then(function(r){
+        return r||caches.match('/worldgate-ai/index.html');
       });
     })
   );

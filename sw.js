@@ -1,4 +1,4 @@
-var CACHE='wg-v2';
+var CACHE='wg-v3';
 self.addEventListener('install',function(e){
   self.skipWaiting();
   e.waitUntil(

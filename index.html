@@ -250,6 +250,46 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="main">
   <!-- HOME -->
   <div id="homePage">
+    <!-- TAB NAVIGATION -->
+<div style="display:flex;gap:8px;margin-bottom:20px;border-bottom:2px solid #e5e5ea;padding-bottom:0">
+  <button onclick="showTab('explore')" id="tab-explore" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:700;color:#1D9E75;border-bottom:2px solid #1D9E75;cursor:pointer;margin-bottom:-2px">🌍 Explore</button>
+  <button onclick="showTab('compare')" id="tab-compare" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">⚖️ Compare</button>
+  <button onclick="showTab('saved')" id="tab-saved" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">🔖 Saved</button>
+  <button onclick="showTab('feed')" id="tab-feed" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">🔴 Live Feed</button>
+</div>
+
+<!-- COMPARE TAB -->
+<div id="compareTab" style="display:none">
+  <div style="background:white;border-radius:14px;padding:20px;border:1.5px solid #e5e5ea;margin-bottom:16px">
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px;color:#1d1d1f" id="compareTitle">Compare Two Countries</h3>
+    <p style="font-size:12px;color:#8e8e93;margin-bottom:16px" id="compareSubtitle">Select two countries to see a full side-by-side comparison</p>
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:10px;align-items:center;margin-bottom:16px">
+      <input type="text" id="compareA" placeholder="Country A e.g. Kenya" style="padding:12px;border:1.5px solid #e5e5ea;border-radius:10px;font-size:14px;outline:none;width:100%"/>
+      <span style="font-size:20px;font-weight:800;color:#1D9E75">VS</span>
+      <input type="text" id="compareB" placeholder="Country B e.g. UAE" style="padding:12px;border:1.5px solid #e5e5ea;border-radius:10px;font-size:14px;outline:none;width:100%"/>
+    </div>
+    <button onclick="runComparison()" style="width:100%;padding:12px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer" id="compareBtn">⚖️ Compare Now</button>
+  </div>
+  <div id="compareResult"></div>
+</div>
+
+<!-- SAVED TAB -->
+<div id="savedTab" style="display:none">
+  <div style="background:white;border-radius:14px;padding:20px;border:1.5px solid #e5e5ea;margin-bottom:16px">
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px" id="savedTitle">Saved Countries</h3>
+    <p style="font-size:12px;color:#8e8e93;margin-bottom:16px" id="savedSubtitle">Countries you have bookmarked for quick access</p>
+    <div id="savedList"></div>
+  </div>
+</div>
+
+<!-- LIVE FEED TAB -->
+<div id="feedTab" style="display:none">
+  <div style="background:white;border-radius:14px;padding:20px;border:1.5px solid #e5e5ea;margin-bottom:16px">
+    <h3 style="font-size:15px;font-weight:700;margin-bottom:6px" id="feedTitle">🔴 Live Opportunity Feed</h3>
+    <p style="font-size:12px;color:#8e8e93;margin-bottom:16px" id="feedSubtitle">Latest opportunities updated daily for your profile</p>
+    <div id="feedList"></div>
+  </div>
+</div>
     <div class="sec-title" id="secCont">Explore by continent</div>
     <div class="cont-grid" id="contGrid"></div>
     <div class="opp-row-header">
@@ -686,7 +726,7 @@ function showCountry(countryName,flag,score){
     '<div class="c-flag">'+actualFlag+'</div>'+
     '<div class="c-info"><h2>'+countryName+'</h2><p>'+typeName+' Intelligence Report · '+langName+'</p>'+
     '<div class="c-tags"><span class="c-tag">'+typeName+'</span>'+(db?'<span class="c-tag">'+db.capital+'</span><span class="c-tag">'+db.population+'</span>':'')+'</div></div>'+
-    '<div class="c-score"><div class="c-score-num">'+actualScore+'</div><div class="c-score-lbl">Score/10</div></div>';
+    '<div class="c-score"><div class="c-score-num">'+actualScore+'</div><div class="c-score-lbl">Score/10</div>+'<button onclick="saveCountry(\''+countryName+'\',\''+actualFlag+'\',\''+actualScore+'\')" style="margin-left:8px;padding:6px 12px;background:#E8F8F3;color:#085041;border:1.5px solid #1D9E75;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer">🔖 Save</button>'</div>';
 
   // Quick stats
   if(db){
@@ -1232,7 +1272,215 @@ function installApp(){
     alert('To install:\n📱 iPhone: Tap Share → Add to Home Screen\n🤖 Android: Tap menu → Add to Home Screen\n💻 Computer: Click install icon in address bar');
   }
 }
+function showTab(tab){
+  var tabs=['explore','compare','saved','feed'];
+  for(var i=0;i<tabs.length;i++){
+    var t=tabs[i];
+    var el=document.getElementById(t+'Tab');
+    var btn=document.getElementById('tab-'+t);
+    if(el) el.style.display=(t===tab)?'block':'none';
+    if(btn){
+      if(t===tab){
+        btn.style.color='#1D9E75';
+        btn.style.borderBottom='2px solid #1D9E75';
+        btn.style.fontWeight='700';
+        btn.style.marginBottom='-2px';
+      } else {
+        btn.style.color='#8e8e93';
+        btn.style.borderBottom='none';
+        btn.style.fontWeight='600';
+        btn.style.marginBottom='0';
+      }
+    }
+  }
+  // Show/hide explore content
+  var exploreContent=document.getElementById('oppSection');
+  var secCont=document.getElementById('secCont');
+  var contGrid=document.getElementById('contGrid');
+  if(exploreContent) exploreContent.style.display=(tab==='explore')?'block':'none';
+  if(secCont) secCont.style.display=(tab==='explore')?'block':'none';
+  if(contGrid) contGrid.style.display=(tab==='explore')?'grid':'none';
+  if(tab==='saved') loadSaved();
+  if(tab==='feed') loadFeed();
+}
 
+function runComparison(){
+  var a=document.getElementById('compareA').value.trim();
+  var b=document.getElementById('compareB').value.trim();
+  if(!a||!b){alert('Please enter both countries');return;}
+  var dbA=countryDB[a];
+  var dbB=countryDB[b];
+  var typeEn=getTypeEn(curType);
+  var t=T[lang];
+  var typeName=t.types[curType];
+
+  var metrics=[
+    {label:'GDP',ka:dbA?dbA.gdp:'—',kb:dbB?dbB.gdp:'—'},
+    {label:'Growth',ka:dbA?dbA.growth:'—',kb:dbB?dbB.growth:'—'},
+    {label:'Population',ka:dbA?dbA.population:'—',kb:dbB?dbB.population:'—'},
+    {label:'Currency',ka:dbA?dbA.currency:'—',kb:dbB?dbB.currency:'—'},
+    {label:'Language',ka:dbA?dbA.language:'—',kb:dbB?dbB.language:'—'},
+    {label:'Timezone',ka:dbA?dbA.timezone:'—',kb:dbB?dbB.timezone:'—'},
+    {label:'Climate',ka:dbA?dbA.climate:'—',kb:dbB?dbB.climate:'—'},
+    {label:'Opportunity Score',ka:dbA?dbA.score+'/10':'—',kb:dbB?dbB.score+'/10':'—'}
+  ];
+
+  // Add type-specific metrics
+  if(dbA&&dbA[typeEn]&&dbB&&dbB[typeEn]){
+    var rowsA=dbA[typeEn].sections[0].rows;
+    var rowsB=dbB[typeEn].sections[0].rows;
+    for(var i=0;i<Math.min(rowsA.length,rowsB.length);i++){
+      metrics.push({label:rowsA[i][0],ka:rowsA[i][1],kb:rowsB[i][1]});
+    }
+  }
+
+  var flagA=dbA?dbA.flag:'🌍';
+  var flagB=dbB?dbB.flag:'🌍';
+
+  var html='<div style="background:white;border-radius:14px;border:1.5px solid #e5e5ea;overflow:hidden">';
+  // Header
+  html+='<div style="display:grid;grid-template-columns:1fr 60px 1fr;background:linear-gradient(135deg,#085041,#1D9E75);color:white;padding:16px;text-align:center">';
+  html+='<div><div style="font-size:32px">'+flagA+'</div><div style="font-size:14px;font-weight:700;margin-top:4px">'+a+'</div><div style="font-size:11px;opacity:.8">'+typeName+'</div></div>';
+  html+='<div style="display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800">VS</div>';
+  html+='<div><div style="font-size:32px">'+flagB+'</div><div style="font-size:14px;font-weight:700;margin-top:4px">'+b+'</div><div style="font-size:11px;opacity:.8">'+typeName+'</div></div>';
+  html+='</div>';
+
+  // Metrics
+  for(var m=0;m<metrics.length;m++){
+    var metric=metrics[m];
+    var bg=m%2===0?'#f9f9f9':'white';
+    html+='<div style="display:grid;grid-template-columns:1fr 80px 1fr;background:'+bg+';padding:10px 14px;border-bottom:1px solid #f0f0f0">';
+    html+='<div style="font-size:12px;font-weight:600;color:#1d1d1f">'+metric.ka+'</div>';
+    html+='<div style="font-size:10px;color:#8e8e93;text-align:center;font-weight:500;display:flex;align-items:center;justify-content:center">'+metric.label+'</div>';
+    html+='<div style="font-size:12px;font-weight:600;color:#1d1d1f;text-align:right">'+metric.kb+'</div>';
+    html+='</div>';
+  }
+
+  // Winner recommendation
+  var scoreA=dbA?parseFloat(dbA.score):5;
+  var scoreB=dbB?parseFloat(dbB.score):5;
+  var winner=scoreA>=scoreB?a:b;
+  var winnerFlag=scoreA>=scoreB?flagA:flagB;
+
+  html+='<div style="padding:16px;background:#E8F8F3;text-align:center">';
+  html+='<div style="font-size:12px;color:#085041;font-weight:700;margin-bottom:4px">🏆 WorldGate AI Recommendation</div>';
+  html+='<div style="font-size:14px;font-weight:800;color:#085041">'+winnerFlag+' '+winner+' scores higher for '+typeName+'s</div>';
+  html+='<div style="font-size:11px;color:#6e6e73;margin-top:4px">Based on opportunity score, economic indicators and '+typeName.toLowerCase()+' conditions</div>';
+  html+='</div>';
+
+  // Action buttons
+  html+='<div style="padding:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px">';
+  html+='<button onclick="showCountry(\''+a+'\',\''+flagA+'\',\''+scoreA+'\')" style="padding:10px;background:#1D9E75;color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">View '+a+' Report</button>';
+  html+='<button onclick="showCountry(\''+b+'\',\''+flagB+'\',\''+scoreB+'\')" style="padding:10px;background:#085041;color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">View '+b+' Report</button>';
+  html+='</div>';
+  html+='</div>';
+
+  document.getElementById('compareResult').innerHTML=html;
+}
+
+function saveCountry(country, flag, score){
+  var saved=JSON.parse(localStorage.getItem('wg_saved')||'[]');
+  var exists=saved.find(function(s){return s.country===country;});
+  if(!exists){
+    saved.push({country:country,flag:flag,score:score,saved:new Date().toLocaleDateString()});
+    localStorage.setItem('wg_saved',JSON.stringify(saved));
+    alert('✅ '+country+' saved to your bookmarks!');
+  } else {
+    alert(country+' is already in your saved list.');
+  }
+}
+
+function loadSaved(){
+  var saved=JSON.parse(localStorage.getItem('wg_saved')||'[]');
+  var el=document.getElementById('savedList');
+  if(saved.length===0){
+    el.innerHTML='<div style="text-align:center;padding:30px;color:#8e8e93"><div style="font-size:40px;margin-bottom:10px">🔖</div><p style="font-size:13px">No saved countries yet.<br>Open any country report and tap Save.</p></div>';
+    return;
+  }
+  var html='';
+  for(var i=0;i<saved.length;i++){
+    var s=saved[i];
+    html+='<div style="display:flex;align-items:center;gap:12px;padding:12px;border-bottom:1px solid #f0f0f0">';
+    html+='<span style="font-size:28px">'+s.flag+'</span>';
+    html+='<div style="flex:1"><div style="font-size:13px;font-weight:700">'+s.country+'</div><div style="font-size:11px;color:#8e8e93">Saved on '+s.saved+'</div></div>';
+    html+='<button onclick="showCountry(\''+s.country+'\',\''+s.flag+'\',\''+s.score+'\')" style="padding:7px 14px;background:#1D9E75;color:white;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer">View</button>';
+    html+='<button onclick="removeSaved(\''+s.country+'\')" style="padding:7px 10px;background:#fee2e2;color:#dc2626;border:none;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer">✕</button>';
+    html+='</div>';
+  }
+  el.innerHTML=html;
+}
+
+function removeSaved(country){
+  var saved=JSON.parse(localStorage.getItem('wg_saved')||'[]');
+  saved=saved.filter(function(s){return s.country!==country;});
+  localStorage.setItem('wg_saved',JSON.stringify(saved));
+  loadSaved();
+}
+
+function loadFeed(){
+  var t=T[lang];
+  var typeName=t.types[curType];
+  var typeEn=getTypeEn(curType);
+  var feeds={
+    Investor:[
+      {emoji:'💰',country:'🇦🇪 UAE',title:'0% Corporate Tax Extended in Free Zones',desc:'UAE confirms 0% tax for free zone companies through 2030. Best time to set up.',hot:true},
+      {emoji:'📈',country:'🇷🇼 Rwanda',title:'Rwanda Ranked #1 African Business City 2025',desc:'Kigali tops ease of doing business for 3rd consecutive year.',hot:true},
+      {emoji:'🏘️',country:'🇰🇪 Kenya',title:'Nairobi Property Prices Rising 14%',desc:'Westlands and Kilimani seeing highest rental yields in East Africa.',hot:false},
+      {emoji:'⚡',country:'🇩🇪 Germany',title:'New Green Energy Investment Incentives',desc:'Germany offering 30% tax credit for renewable energy investments.',hot:false},
+      {emoji:'🏭',country:'🇻🇳 Vietnam',title:'Manufacturing Boom Continues',desc:'Vietnam attracting $18B in FDI in Q1 2025. Electronics sector leading.',hot:true},
+      {emoji:'💎',country:'🇶🇦 Qatar',title:'$50B Infrastructure Spending Plan',desc:'Qatar announces massive infrastructure investment program for 2025-2030.',hot:false}
+    ],
+    Student:[
+      {emoji:'🎓',country:'🇩🇪 Germany',title:'500 New DAAD Scholarships Available',desc:'Germany opens applications for fully-funded scholarships. Deadline March 31.',hot:true},
+      {emoji:'🏆',country:'🇨🇳 China',title:'CSC Scholarship 2025 Now Open',desc:'Chinese Government Scholarship accepting applications from 180 countries.',hot:true},
+      {emoji:'📚',country:'🇨🇦 Canada',title:'Canada Increases Student Visa Approvals',desc:'Study permit approval rates up 40% for qualified students.',hot:false},
+      {emoji:'🌟',country:'🇸🇬 Singapore',title:'NUS Opens 200 Full Scholarships',desc:'National University of Singapore offering full ride for international students.',hot:true},
+      {emoji:'🎯',country:'🇯🇵 Japan',title:'MEXT Scholarship Applications Open',desc:'Japanese government scholarship covering full tuition and living allowance.',hot:false},
+      {emoji:'💡',country:'🇬🇧 United Kingdom',title:'Chevening Scholarship Deadline Approaching',desc:'UK government scholarship closing soon. Apply now at chevening.org.',hot:true}
+    ],
+    Trader:[
+      {emoji:'🚢',country:'🇨🇳 China',title:'Canton Fair Opens in 3 Weeks',desc:'Register now for the world\'s largest trade fair in Guangzhou.',hot:true},
+      {emoji:'📦',country:'🌍 Africa',title:'AfCFTA Opens New Trade Corridors',desc:'New trade routes between 54 African nations reduce tariffs by up to 90%.',hot:true},
+      {emoji:'💱',country:'🇦🇪 UAE',title:'Dubai Gold Souk Records Boom',desc:'Gold trading volume up 35% in Q1 2025. DMCC attracting more traders.',hot:false},
+      {emoji:'🏭',country:'🇻🇳 Vietnam',title:'New Manufacturing Zones Open',desc:'Vietnam opens 5 new special economic zones with zero import duties.',hot:false},
+      {emoji:'🌿',country:'🇪🇹 Ethiopia',title:'Coffee Export Prices Hit 10-Year High',desc:'Ethiopian coffee commanding premium prices globally. Direct export opportunity.',hot:true},
+      {emoji:'⚓',country:'🇳🇱 Netherlands',title:'Rotterdam Port Expands Capacity',desc:'Europe\'s largest port adds new container capacity. Better rates for African traders.',hot:false}
+    ],
+    Teacher:[
+      {emoji:'👩‍🏫',country:'🇦🇪 UAE',title:'GEMS Education Hiring 500 Teachers Urgently',desc:'All subjects needed. Salary $4,000-7,000/month + housing. Apply now.',hot:true},
+      {emoji:'🏫',country:'🇨🇳 China',title:'China Offering Highest ESL Salaries in Asia',desc:'Native English teachers earning $4,000-6,000/month with free housing.',hot:true},
+      {emoji:'✈️',country:'🇯🇵 Japan',title:'JET Programme 2025 Applications Open',desc:'Japan government program placing teachers in schools nationwide.',hot:false},
+      {emoji:'💰',country:'🇸🇦 Saudi Arabia',title:'Saudi Vision 2030 Needs 10,000 Teachers',desc:'International school expansion creating massive demand. Tax-free salaries.',hot:true},
+      {emoji:'🌟',country:'🇰🇷 South Korea',title:'EPIK Program Hiring Foreign Teachers',desc:'English teachers needed for public schools. $2,000-2,800/month + apartment.',hot:false},
+      {emoji:'🎯',country:'🇩🇪 Germany',title:'Germany Desperate for STEM Teachers',desc:'Shortage of 40,000 teachers. Fast-track recognition for qualified foreigners.',hot:false}
+    ],
+    Traveler:[
+      {emoji:'🌸',country:'🇯🇵 Japan',title:'Cherry Blossom Season Peak Now',desc:'Best time to visit Japan is right now. Book accommodation immediately.',hot:true},
+      {emoji:'🦁',country:'🇰🇪 Kenya',title:'Wildebeest Migration Starting Soon',desc:'Over 1.5 million wildebeest crossing Maasai Mara. Book safari now.',hot:true},
+      {emoji:'✈️',country:'🌍 Africa',title:'Kenya Opens Visa-Free for 50 New Countries',desc:'New visa-free policy makes Kenya easiest African country to visit.',hot:false},
+      {emoji:'🏖️',country:'🇹🇭 Thailand',title:'Thailand Tourism Fully Recovered',desc:'Record visitors in 2025. Prices still 40% below pre-pandemic levels.',hot:false},
+      {emoji:'🏔️',country:'🇳🇵 Nepal',title:'Everest Base Camp Trail Reopened',desc:'Popular trekking route fully open after renovation. Limited permits available.',hot:true},
+      {emoji:'🌅',country:'🇵🇹 Portugal',title:'Portugal Named Best European Destination 2025',desc:'Algarve beaches and Lisbon culture drawing record international visitors.',hot:false}
+    ]
+  };
+
+  var items=feeds[typeEn]||feeds['Investor'];
+  var html='';
+  for(var i=0;i<items.length;i++){
+    var item=items[i];
+    html+='<div style="padding:14px;border-bottom:1px solid #f0f0f0;display:flex;gap:12px;align-items:flex-start">';
+    html+='<span style="font-size:28px;flex-shrink:0">'+item.emoji+'</span>';
+    html+='<div style="flex:1">';
+    html+='<div style="display:flex;align-items:center;gap:6px;margin-bottom:4px">';
+    html+='<span style="font-size:11px;color:#8e8e93">'+item.country+'</span>';
+    if(item.hot) html+='<span style="background:#fee2e2;color:#dc2626;font-size:10px;font-weight:700;padding:2px 6px;border-radius:10px">🔥 HOT</span>';
+    html+='</div>';
+    html+='<div style="font-size:13px;font-weight:700;color:#1d1d1f;margin-bottom:3px">'+item.title+'</div>';
+    html+='<div style="font-size:12px;color:#6e6e73;line-height:1.4">'+item.desc+'</div>';
+    html+='</div></div>';
+  }
+  document.getElementById('feedList').innerHTML=html;
+}
 window.onload=function(){
   applyLang('en');
   if('serviceWorker' in navigator){

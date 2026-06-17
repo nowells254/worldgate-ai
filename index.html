@@ -729,7 +729,8 @@ function showCountry(countryName,flag,score){
     '<div class="c-flag">'+actualFlag+'</div>'+
     '<div class="c-info"><h2>'+countryName+'</h2><p>'+typeName+' Intelligence Report · '+langName+'</p>'+
     '<div class="c-tags"><span class="c-tag">'+typeName+'</span>'+(db?'<span class="c-tag">'+db.capital+'</span><span class="c-tag">'+db.population+'</span>':'')+'</div></div>'+
-    '<div class="c-score"><div class="c-score-num">'+actualScore+'</div><div class="c-score-lbl">Score/10</div>+'<button onclick="saveCountry(\''+countryName+'\',\''+actualFlag+'\',\''+actualScore+'\')" style="margin-left:8px;padding:6px 12px;background:#E8F8F3;color:#085041;border:1.5px solid #1D9E75;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer">🔖 Save</button>'</div>';
+'<div class="c-score"><div class="c-score-num">'+actualScore+'</div><div class="c-score-lbl">Score/10</div></div>'+
+    '<button onclick="saveCountry(\''+countryName+'\',\''+actualFlag+'\',\''+actualScore+'\')" style="margin-left:8px;padding:6px 12px;background:#E8F8F3;color:#085041;border:1.5px solid #1D9E75;border-radius:8px;font-size:11px;font-weight:700;cursor:pointer">🔖 Save</button>';
 
   // Quick stats
   if(db){

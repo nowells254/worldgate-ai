@@ -183,7 +183,141 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 </style>
 </head>
 <body>
+<!-- AUTH MODAL -->
+<div class="modal-overlay" id="authModal">
+  <div class="modal" style="max-width:420px">
+    <div style="display:flex;gap:0;margin-bottom:20px;background:#f5f5f7;border-radius:10px;padding:4px">
+      <button onclick="switchAuth('login')" id="authTabLogin" style="flex:1;padding:9px;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;background:white;color:#1d1d1f">Sign In</button>
+      <button onclick="switchAuth('register')" id="authTabReg" style="flex:1;padding:9px;border:none;border-radius:transparent;font-size:13px;font-weight:600;cursor:pointer;background:transparent;color:#8e8e93">Register Free</button>
+    </div>
+    <div id="loginForm">
+      <input type="text" id="loginId" placeholder="Email / Phone / Username" style="width:100%;padding:11px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;margin-bottom:10px;outline:none"/>
+      <input type="password" id="loginPass" placeholder="Password" style="width:100%;padding:11px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;margin-bottom:14px;outline:none"/>
+      <button onclick="doLogin()" style="width:100%;padding:12px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer">Sign In</button>
+    </div>
+    <div id="registerForm" style="display:none">
+      <input type="text" id="regName" placeholder="Full Name" style="width:100%;padding:11px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;margin-bottom:10px;outline:none"/>
+      <input type="text" id="regId" placeholder="Email / Phone / ID Number" style="width:100%;padding:11px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;margin-bottom:10px;outline:none"/>
+      <input type="password" id="regPass" placeholder="Create Password" style="width:100%;padding:11px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;margin-bottom:14px;outline:none"/>
+      <button onclick="doRegister()" style="width:100%;padding:12px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer">Create Free Account</button>
+    </div>
+    <button class="modal-close" onclick="closeAuthModal()" style="margin-top:10px;width:100%">Cancel</button>
+  </div>
+</div>
 
+<!-- OWNER PANEL MODAL -->
+<div class="modal-overlay" id="ownerPanelModal">
+  <div style="background:white;border-radius:20px;width:92%;max-width:500px;max-height:85vh;overflow-y:auto">
+    <!-- Owner Panel Header -->
+    <div style="background:linear-gradient(135deg,#085041,#1D9E75);padding:20px;border-radius:20px 20px 0 0;color:white;display:flex;align-items:center;gap:12px;position:sticky;top:0">
+      <span style="font-size:32px">👑</span>
+      <div style="flex:1"><div style="font-size:16px;font-weight:800">Owner Control Panel</div><div style="font-size:11px;opacity:.8">WorldGate AI · Full System Control</div></div>
+      <button onclick="closeOwnerPanel()" style="background:rgba(255,255,255,.2);border:none;color:white;border-radius:8px;padding:6px 12px;cursor:pointer;font-size:13px">✕ Close</button>
+    </div>
+
+    <div style="padding:16px">
+
+      <!-- MEMBERS TAB -->
+      <div style="display:flex;gap:6px;margin-bottom:16px;overflow-x:auto;padding-bottom:4px">
+        <button onclick="ownerTab('members')" id="ot-members" style="padding:7px 14px;border-radius:20px;border:none;background:#1D9E75;color:white;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap">👥 Members</button>
+        <button onclick="ownerTab('messages')" id="ot-messages" style="padding:7px 14px;border-radius:20px;border:1.5px solid #e5e5ea;background:white;color:#6e6e73;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">💬 Messages</button>
+        <button onclick="ownerTab('pricing')" id="ot-pricing" style="padding:7px 14px;border-radius:20px;border:1.5px solid #e5e5ea;background:white;color:#6e6e73;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">💰 Pricing</button>
+        <button onclick="ownerTab('appearance')" id="ot-appearance" style="padding:7px 14px;border-radius:20px;border:1.5px solid #e5e5ea;background:white;color:#6e6e73;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">🎨 Appearance</button>
+        <button onclick="ownerTab('broadcast')" id="ot-broadcast" style="padding:7px 14px;border-radius:20px;border:1.5px solid #e5e5ea;background:white;color:#6e6e73;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">📢 Broadcast</button>
+        <button onclick="ownerTab('stats')" id="ot-stats" style="padding:7px 14px;border-radius:20px;border:1.5px solid #e5e5ea;background:white;color:#6e6e73;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">📊 Stats</button>
+      </div>
+
+      <!-- MEMBERS SECTION -->
+      <div id="op-members">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+          <div style="font-size:14px;font-weight:700">Registered Members</div>
+          <span id="memberCount" style="background:#E8F8F3;color:#085041;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px">0 members</span>
+        </div>
+        <div id="membersList"></div>
+      </div>
+
+      <!-- MESSAGES SECTION -->
+      <div id="op-messages" style="display:none">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px">Direct Message a Member</div>
+        <select id="msgToUser" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;margin-bottom:10px;outline:none">
+          <option value="">Select a member...</option>
+        </select>
+        <textarea id="ownerMsgText" placeholder="Type your message to this member..." style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;min-height:80px;resize:vertical;font-family:inherit;outline:none;margin-bottom:10px"></textarea>
+        <div style="display:flex;gap:8px;margin-bottom:10px">
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="radio" name="msgType" value="normal" checked/> Normal message</label>
+          <label style="display:flex;align-items:center;gap:6px;font-size:12px;cursor:pointer"><input type="radio" name="msgType" value="lock"/> Lock until payment</label>
+        </div>
+        <button onclick="sendMsgToUser()" style="width:100%;padding:11px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">💬 Send Message</button>
+        <div style="margin-top:16px;font-size:14px;font-weight:700;margin-bottom:10px">Message History</div>
+        <div id="msgHistory"></div>
+      </div>
+
+      <!-- PRICING SECTION -->
+      <div id="op-pricing" style="display:none">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px">Pricing Control</div>
+        <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Monthly Subscription ($)</label>
+        <input type="number" id="opProPrice" value="40" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;font-weight:700;outline:none;margin-bottom:12px"/>
+        <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Personal Consultation ($)</label>
+        <input type="number" id="opConsultPrice" value="80" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;font-weight:700;outline:none;margin-bottom:12px"/>
+        <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Free searches before paywall</label>
+        <input type="number" id="opFreeSearches" value="3" min="1" max="20" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;font-weight:700;outline:none;margin-bottom:14px"/>
+        <button onclick="saveOwnerPricing()" style="width:100%;padding:11px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">💾 Save Pricing</button>
+      </div>
+
+      <!-- APPEARANCE SECTION -->
+      <div id="op-appearance" style="display:none">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px">App Appearance</div>
+        <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">App Name</label>
+        <input type="text" id="opAppName" value="WorldGate AI" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;outline:none;margin-bottom:12px"/>
+        <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">App Subtitle</label>
+        <input type="text" id="opAppSub" value="世界门 · Global Opportunity Intelligence" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;outline:none;margin-bottom:12px"/>
+        <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Theme Color</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px">
+          <div onclick="applyTheme('#1D9E75','#085041')" style="width:36px;height:36px;background:#1D9E75;border-radius:8px;cursor:pointer;border:3px solid #085041" title="Green"></div>
+          <div onclick="applyTheme('#2563EB','#1D4ED8')" style="width:36px;height:36px;background:#2563EB;border-radius:8px;cursor:pointer" title="Blue"></div>
+          <div onclick="applyTheme('#7C3AED','#5B21B6')" style="width:36px;height:36px;background:#7C3AED;border-radius:8px;cursor:pointer" title="Purple"></div>
+          <div onclick="applyTheme('#DC2626','#991B1B')" style="width:36px;height:36px;background:#DC2626;border-radius:8px;cursor:pointer" title="Red"></div>
+          <div onclick="applyTheme('#D97706','#B45309')" style="width:36px;height:36px;background:#D97706;border-radius:8px;cursor:pointer" title="Gold"></div>
+          <div onclick="applyTheme('#0891B2','#0E7490')" style="width:36px;height:36px;background:#0891B2;border-radius:8px;cursor:pointer" title="Teal"></div>
+        </div>
+        <button onclick="saveOwnerAppearance()" style="width:100%;padding:11px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">💾 Save Appearance</button>
+      </div>
+
+      <!-- BROADCAST SECTION -->
+      <div id="op-broadcast" style="display:none">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px">Broadcast to All Users</div>
+        <select id="opAlertType" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;outline:none;margin-bottom:10px">
+          <option value="info">📢 General Announcement</option>
+          <option value="offer">🎁 Special Offer</option>
+          <option value="new">🆕 New Feature</option>
+          <option value="urgent">🔴 Urgent Notice</option>
+        </select>
+        <textarea id="opAlertMsg" placeholder="Write your announcement to all users..." style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;min-height:80px;resize:vertical;font-family:inherit;outline:none;margin-bottom:10px"></textarea>
+        <button onclick="sendBroadcast()" style="width:100%;padding:11px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">📢 Broadcast Now</button>
+      </div>
+
+      <!-- STATS SECTION -->
+      <div id="op-stats" style="display:none">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px">System Statistics</div>
+        <div id="opStatsContent"></div>
+        <button onclick="resetSearches()" style="width:100%;padding:10px;background:#DC2626;color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-top:12px">🔄 Reset All Search Counts</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- USER INBOX MODAL -->
+<div class="modal-overlay" id="userInboxModal">
+  <div style="background:white;border-radius:20px;width:92%;max-width:420px;max-height:80vh;overflow-y:auto">
+    <div style="background:linear-gradient(135deg,#085041,#1D9E75);padding:16px 20px;border-radius:20px 20px 0 0;color:white;display:flex;align-items:center;gap:10px">
+      <span style="font-size:20px">💬</span>
+      <div style="flex:1;font-size:14px;font-weight:700">Messages from Nowells</div>
+      <button onclick="closeUserInbox()" style="background:rgba(255,255,255,.2);border:none;color:white;border-radius:6px;padding:4px 10px;cursor:pointer;font-size:12px">✕</button>
+    </div>
+    <div id="userInboxContent" style="padding:16px"></div>
+  </div>
+</div>
 <!-- PAYMENT MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal">
@@ -201,17 +335,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <button class="modal-close" onclick="closeModal()">Cancel</button>
   </div>
 </div>
-
-<div class="header">
-  <div class="logo-wrap">
-    <div class="logo-icon">🌐</div>
+<div class="logo-wrap">
+    <div style="position:relative">
+      <div class="logo-icon" id="logoIcon">🌐</div>
+      <div id="settingsGear" onclick="openOwnerPanel()" style="display:none;position:absolute;bottom:-6px;right:-6px;width:20px;height:20px;background:#085041;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:11px;cursor:pointer;border:2px solid white;z-index:10" title="Owner Settings">⚙️</div>
+    </div>
     <div>
-      <div class="logo-text">World<span>Gate</span> AI</div>
-      <span class="logo-sub">世界门 · Global Opportunity Intelligence</span>
+      <div class="logo-text" id="appNameEl">World<span>Gate</span> AI</div>
+      <span class="logo-sub" id="appSubEl">世界门 · Global Opportunity Intelligence</span>
     </div>
   </div>
+<div class="header">
+  
   <div class="hright">
-    <span class="owner-badge" id="ownerBadge">👑 Nowells</span>
+   <span class="owner-badge" id="ownerBadge">👑 Nowells</span>
+    <button onclick="openAuthModal()" id="authBtn" style="padding:7px 14px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer">👤 Sign In</button>
+    <div id="userAvatar" style="display:none;width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#1D9E75,#085041);color:white;font-size:13px;font-weight:700;display:none;align-items:center;justify-content:center;cursor:pointer" onclick="openUserProfile()">?</div>
     <select class="lang-select" id="langSel" onchange="applyLang(this.value)">
       <option value="en">🌐 English</option>
       <option value="zh">🇨🇳 中文</option>
@@ -777,6 +916,8 @@ function ownerLogin(){
     isOwner=true;
     document.getElementById('ownerBadge').style.display='inline-flex';
     document.getElementById('tab-settings').style.display='inline-block';
+    document.getElementById('settingsGear').style.display='flex';
+    document.getElementById('authBtn').style.display='none';
     document.getElementById('ownerLoginBtn').style.display='none';
     alert('✅ Welcome Nowells! Unlimited access activated.');
   } else if(p!==null){alert('❌ Incorrect password.');}
@@ -1475,122 +1616,299 @@ function installApp(){
     alert('To install:\n📱 iPhone: Tap Share → Add to Home Screen\n🤖 Android: Tap menu → Add to Home Screen\n💻 Computer: Click install icon in address bar');
   }
 }
-  function savePricingSettings(){
-  var pro = parseInt(document.getElementById('settingProPrice').value)||40;
-  var consult = parseInt(document.getElementById('settingConsultPrice').value)||80;
-  var free = parseInt(document.getElementById('settingFreeSearches').value)||3;
-  prices.pro.usd = pro;
-  prices.consult.usd = consult;
-  localStorage.setItem('wg_settings', JSON.stringify({pro:pro,consult:consult,free:free}));
+// ===== AUTH SYSTEM =====
+var currentUser = null;
+
+function openAuthModal(){
+  document.getElementById('authModal').classList.add('active');
+}
+function closeAuthModal(){
+  document.getElementById('authModal').classList.remove('active');
+}
+function switchAuth(tab){
+  document.getElementById('loginForm').style.display = tab==='login'?'block':'none';
+  document.getElementById('registerForm').style.display = tab==='register'?'block':'none';
+  document.getElementById('authTabLogin').style.background = tab==='login'?'white':'transparent';
+  document.getElementById('authTabLogin').style.color = tab==='login'?'#1d1d1f':'#8e8e93';
+  document.getElementById('authTabReg').style.background = tab==='register'?'white':'transparent';
+  document.getElementById('authTabReg').style.color = tab==='register'?'#1d1d1f':'#8e8e93';
+}
+
+function doRegister(){
+  var name = document.getElementById('regName').value.trim();
+  var id = document.getElementById('regId').value.trim();
+  var pass = document.getElementById('regPass').value.trim();
+  if(!name||!id||!pass){alert('Please fill all fields.');return;}
+  var users = JSON.parse(localStorage.getItem('wg_users')||'[]');
+  var exists = users.find(function(u){return u.id===id;});
+  if(exists){alert('This email/phone is already registered. Please sign in.');return;}
+  var avatar = name.charAt(0).toUpperCase();
+  var user = {
+    name:name, id:id, pass:pass, avatar:avatar,
+    joined: new Date().toLocaleString(),
+    type: T[lang].types[curType]||'Explorer'
+  };
+  users.push(user);
+  localStorage.setItem('wg_users', JSON.stringify(users));
+  // Save notification for owner
+  var notifs = JSON.parse(localStorage.getItem('wg_notifs')||'[]');
+  notifs.unshift({msg:'🆕 '+name+' just joined WorldGate AI!', time:new Date().toLocaleString(), name:name, avatar:avatar});
+  localStorage.setItem('wg_notifs', JSON.stringify(notifs));
+  loginUser(user);
+  closeAuthModal();
+  alert('✅ Welcome to WorldGate AI, '+name+'! Your account is ready.');
+}
+
+function doLogin(){
+  var id = document.getElementById('loginId').value.trim();
+  var pass = document.getElementById('loginPass').value.trim();
+  if(!id||!pass){alert('Please enter your credentials.');return;}
+  var users = JSON.parse(localStorage.getItem('wg_users')||'[]');
+  var user = users.find(function(u){return u.id===id && u.pass===pass;});
+  if(!user){alert('❌ Incorrect credentials. Please try again or register.');return;}
+  loginUser(user);
+  closeAuthModal();
+  alert('✅ Welcome back, '+user.name+'!');
+}
+
+function loginUser(user){
+  currentUser = user;
+  localStorage.setItem('wg_current_user', JSON.stringify(user));
+  document.getElementById('authBtn').style.display='none';
+  var av = document.getElementById('userAvatar');
+  av.style.display='flex';
+  av.textContent=user.avatar;
+  av.title=user.name;
+  checkUserMessages(user);
+}
+
+function checkUserMessages(user){
+  var msgs = JSON.parse(localStorage.getItem('wg_user_msgs')||'[]');
+  var myMsgs = msgs.filter(function(m){return m.to===user.id && !m.read;});
+  if(myMsgs.length>0){
+    setTimeout(function(){openUserInbox(user,myMsgs);}, 1500);
+  }
+}
+
+function openUserInbox(user, msgs){
+  var lock = msgs.some(function(m){return m.lock==='lock';});
+  var html='';
+  msgs.forEach(function(m){
+    html+='<div style="background:#f9f9f9;border-radius:10px;padding:14px;margin-bottom:10px;border-left:3px solid #1D9E75">';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">';
+    html+='<span style="font-size:20px">👑</span>';
+    html+='<div><div style="font-size:12px;font-weight:700">Nowells — WorldGate AI</div><div style="font-size:10px;color:#8e8e93">'+m.time+'</div></div>';
+    html+='</div>';
+    html+='<div style="font-size:13px;color:#1d1d1f;line-height:1.5">'+m.msg+'</div>';
+    if(m.lock==='lock'){
+      html+='<button onclick="openPayment(\'pro\')" style="margin-top:8px;width:100%;padding:10px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">💳 Pay $'+prices.pro.usd+'/month — Unlock Access</button>';
+    }
+    html+='</div>';
+  });
+  document.getElementById('userInboxContent').innerHTML=html;
+  document.getElementById('userInboxModal').classList.add('active');
+  // Mark as read
+  var allMsgs = JSON.parse(localStorage.getItem('wg_user_msgs')||'[]');
+  allMsgs.forEach(function(m){if(m.to===user.id)m.read=true;});
+  localStorage.setItem('wg_user_msgs', JSON.stringify(allMsgs));
+}
+
+function closeUserInbox(){
+  document.getElementById('userInboxModal').classList.remove('active');
+}
+function openUserProfile(){
+  if(currentUser) alert('👤 '+currentUser.name+'\n📧 '+currentUser.id+'\n📅 Joined: '+currentUser.joined);
+}
+
+// ===== OWNER PANEL =====
+function openOwnerPanel(){
+  document.getElementById('ownerPanelModal').classList.add('active');
+  ownerTab('members');
+}
+function closeOwnerPanel(){
+  document.getElementById('ownerPanelModal').classList.remove('active');
+}
+
+function ownerTab(tab){
+  var tabs=['members','messages','pricing','appearance','broadcast','stats'];
+  tabs.forEach(function(t){
+    var el=document.getElementById('op-'+t);
+    var btn=document.getElementById('ot-'+t);
+    if(el) el.style.display=t===tab?'block':'none';
+    if(btn){
+      btn.style.background=t===tab?'#1D9E75':'white';
+      btn.style.color=t===tab?'white':'#6e6e73';
+      btn.style.border=t===tab?'none':'1.5px solid #e5e5ea';
+    }
+  });
+  if(tab==='members') loadOwnerMembers();
+  if(tab==='messages') loadMsgDropdown();
+  if(tab==='stats') loadOwnerStats();
+}
+
+function loadOwnerMembers(){
+  var users = JSON.parse(localStorage.getItem('wg_users')||'[]');
+  var notifs = JSON.parse(localStorage.getItem('wg_notifs')||'[]');
+  document.getElementById('memberCount').textContent = users.length+' members';
+  if(users.length===0){
+    document.getElementById('membersList').innerHTML='<div style="text-align:center;padding:20px;color:#8e8e93;font-size:12px">No members yet. Share your app link to get users!</div>';
+    return;
+  }
+  var html='';
+  // Show notifications first
+  if(notifs.length>0){
+    html+='<div style="background:#E8F8F3;border-radius:10px;padding:12px;margin-bottom:12px">';
+    html+='<div style="font-size:12px;font-weight:700;color:#085041;margin-bottom:8px">🔔 New Notifications</div>';
+    notifs.slice(0,5).forEach(function(n){
+      html+='<div style="font-size:12px;color:#3a3a3a;padding:4px 0;border-bottom:1px solid rgba(0,0,0,.06)">'+n.msg+'<span style="float:right;font-size:10px;color:#8e8e93">'+n.time+'</span></div>';
+    });
+    html+='</div>';
+  }
+  // Member list
+  users.forEach(function(u){
+    html+='<div style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #f0f0f0">';
+    html+='<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1D9E75,#085041);color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+u.avatar+'</div>';
+    html+='<div style="flex:1"><div style="font-size:13px;font-weight:700">'+u.name+'</div><div style="font-size:11px;color:#8e8e93">'+u.id+' · Joined '+u.joined+'</div></div>';
+    html+='<button onclick="quickMsgUser(\''+u.id+'\',\''+u.name+'\')" style="padding:5px 10px;background:#E8F8F3;color:#085041;border:1px solid #1D9E75;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer">💬 Message</button>';
+    html+='</div>';
+  });
+  document.getElementById('membersList').innerHTML=html;
+}
+
+function quickMsgUser(userId, userName){
+  ownerTab('messages');
+  document.getElementById('msgToUser').value=userId;
+}
+
+function loadMsgDropdown(){
+  var users = JSON.parse(localStorage.getItem('wg_users')||'[]');
+  var sel = document.getElementById('msgToUser');
+  sel.innerHTML='<option value="">Select a member...</option>';
+  users.forEach(function(u){
+    sel.innerHTML+='<option value="'+u.id+'">'+u.name+' ('+u.id+')</option>';
+  });
+  loadMsgHistory();
+}
+
+function sendMsgToUser(){
+  var to = document.getElementById('msgToUser').value;
+  var msg = document.getElementById('ownerMsgText').value.trim();
+  var type = document.querySelector('input[name="msgType"]:checked').value;
+  if(!to){alert('Please select a member.');return;}
+  if(!msg){alert('Please write a message.');return;}
+  var msgs = JSON.parse(localStorage.getItem('wg_user_msgs')||'[]');
+  msgs.push({to:to, msg:msg, lock:type, time:new Date().toLocaleString(), read:false});
+  localStorage.setItem('wg_user_msgs', JSON.stringify(msgs));
+  document.getElementById('ownerMsgText').value='';
+  loadMsgHistory();
+  alert('✅ Message sent! User will see it next time they open the app.');
+}
+
+function loadMsgHistory(){
+  var msgs = JSON.parse(localStorage.getItem('wg_user_msgs')||'[]');
+  if(msgs.length===0){document.getElementById('msgHistory').innerHTML='<div style="font-size:12px;color:#8e8e93;text-align:center;padding:12px">No messages sent yet</div>';return;}
+  var html='';
+  msgs.slice().reverse().slice(0,10).forEach(function(m){
+    html+='<div style="padding:8px;background:#f9f9f9;border-radius:8px;margin-bottom:6px;font-size:12px">';
+    html+='<div style="display:flex;justify-content:space-between;margin-bottom:3px"><span style="font-weight:700;color:#085041">To: '+m.to+'</span><span style="color:#8e8e93">'+m.time+'</span></div>';
+    html+=m.msg;
+    if(m.lock==='lock') html+=' <span style="background:#fee2e2;color:#dc2626;padding:1px 6px;border-radius:8px;font-size:10px">🔒 Locked</span>';
+    html+='<span style="float:right;color:'+( m.read?'#1D9E75':'#8e8e93')+'">'+( m.read?'✓ Read':'Unread')+'</span>';
+    html+='</div>';
+  });
+  document.getElementById('msgHistory').innerHTML=html;
+}
+
+function saveOwnerPricing(){
+  var pro=parseInt(document.getElementById('opProPrice').value)||40;
+  var consult=parseInt(document.getElementById('opConsultPrice').value)||80;
+  prices.pro.usd=pro; prices.consult.usd=consult;
+  localStorage.setItem('wg_settings',JSON.stringify({pro:pro,consult:consult}));
   alert('✅ Pricing saved! Subscription: $'+pro+'/month · Consultation: $'+consult);
 }
 
-function saveAppearance(){
-  var name = document.getElementById('settingAppName').value;
-  var sub = document.getElementById('settingAppSub').value;
-  document.querySelector('.logo-text').innerHTML = name.replace('AI','<span>AI</span>');
-  document.querySelector('.logo-sub').textContent = sub;
-  localStorage.setItem('wg_appearance', JSON.stringify({name:name,sub:sub}));
+function saveOwnerAppearance(){
+  var name=document.getElementById('opAppName').value;
+  var sub=document.getElementById('opAppSub').value;
+  document.getElementById('appNameEl').innerHTML=name.replace(' AI','<span> AI</span>');
+  document.getElementById('appSubEl').textContent=sub;
+  localStorage.setItem('wg_appearance',JSON.stringify({name:name,sub:sub}));
   alert('✅ Appearance updated!');
 }
 
-function setColor(primary, dark){
-  document.documentElement.style.setProperty('--primary', primary);
-  document.documentElement.style.setProperty('--dark', dark);
-  // Update all green elements
-  var style = document.createElement('style');
-  style.textContent = '.gbtn-green,.pesapal-btn,.chat-send,.type-btn.active{background:'+primary+'!important}'+
-    '.stat-num,.opp-score,.c-score-num{color:'+primary+'!important}'+
-    '.hero{background:linear-gradient(135deg,'+dark+' 0%,'+primary+' 100%)!important}'+
-    '.chatbot-header{background:linear-gradient(135deg,'+dark+','+primary+')!important}'+
-    '.ai-report-box{background:linear-gradient(135deg,'+dark+','+primary+')!important}';
+function applyTheme(primary,dark){
+  var style=document.createElement('style');
+  style.id='themeStyle';
+  var old=document.getElementById('themeStyle');
+  if(old) old.remove();
+  style.textContent=
+    '.gbtn-green,.pesapal-btn,.chat-send{background:'+primary+'!important}'+
+    '.stat-num,.opp-score,.c-score-num,.logo-text span{color:'+primary+'!important}'+
+    '.hero,.chatbot-header,.ai-report-box{background:linear-gradient(135deg,'+dark+','+primary+')!important}'+
+    '.cont-card.active,.free-badge{background:#E8F8F3!important;border-color:'+primary+'!important}'+
+    '.opp-card:hover,.cont-card:hover{border-color:'+primary+'!important}'+
+    '#authBtn{background:linear-gradient(135deg,'+primary+','+dark+')!important}';
   document.head.appendChild(style);
-  localStorage.setItem('wg_color', JSON.stringify({primary:primary,dark:dark}));
-  alert('✅ Color updated!');
+  localStorage.setItem('wg_color',JSON.stringify({primary:primary,dark:dark}));
+  alert('✅ Theme updated!');
 }
 
-function broadcastAlert(){
-  var msg = document.getElementById('alertMessage').value.trim();
-  var type = document.getElementById('alertType').value;
-  if(!msg){alert('Please write a message first.');return;}
-  localStorage.setItem('wg_broadcast', JSON.stringify({msg:msg,type:type,time:new Date().toLocaleString()}));
-  document.getElementById('alertMessage').value='';
-  alert('✅ Alert broadcast to all users! They will see it on next visit.');
+function sendBroadcast(){
+  var msg=document.getElementById('opAlertMsg').value.trim();
+  var type=document.getElementById('opAlertType').value;
+  if(!msg){alert('Please write a message.');return;}
+  localStorage.setItem('wg_broadcast',JSON.stringify({msg:msg,type:type,time:new Date().toLocaleString()}));
+  document.getElementById('opAlertMsg').value='';
+  alert('✅ Broadcast sent to all users!');
 }
 
-function sendOwnerMessage(){
-  var msg = document.getElementById('ownerDirectMsg').value.trim();
-  var lock = document.querySelector('input[name="lockUser"]:checked').value;
-  if(!msg){alert('Please write a message first.');return;}
-  localStorage.setItem('wg_owner_msg', JSON.stringify({msg:msg,lock:lock,time:new Date().toLocaleString()}));
-  document.getElementById('ownerDirectMsg').value='';
-  alert('✅ Message sent! Users will see it when they open the app.'+(lock==='yes'?' They will be locked until they pay.':''));
-}
-
-function resetAllSearchCounts(){
-  if(confirm('Reset all user search counts? Users will get 3 free searches again.')){
-    localStorage.removeItem('wg_searches');
-    searchCount=0;
-    alert('✅ All search counts reset.');
-  }
-}
-
-function clearAllReviews(){
-  if(confirm('Delete ALL community reviews? This cannot be undone.')){
-    localStorage.removeItem('wg_reviews');
-    alert('✅ All reviews cleared.');
-  }
-}
-
-function loadSystemStats(){
-  var searches = localStorage.getItem('wg_searches')||'0';
-  var saved = JSON.parse(localStorage.getItem('wg_saved')||'[]');
-  var reviews = JSON.parse(localStorage.getItem('wg_reviews')||'{}');
-  var totalReviews = 0;
+function loadOwnerStats(){
+  var users=JSON.parse(localStorage.getItem('wg_users')||'[]');
+  var searches=localStorage.getItem('wg_searches')||'0';
+  var saved=JSON.parse(localStorage.getItem('wg_saved')||'[]');
+  var reviews=JSON.parse(localStorage.getItem('wg_reviews')||'{}');
+  var totalReviews=0;
   Object.keys(reviews).forEach(function(k){totalReviews+=reviews[k].length;});
-  var settings = JSON.parse(localStorage.getItem('wg_settings')||'{}');
-  document.getElementById('systemStats').innerHTML =
+  document.getElementById('opStatsContent').innerHTML=
     '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">'+searches+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Total Searches</div></div>'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">'+saved.length+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Saved Countries</div></div>'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">'+totalReviews+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Community Reviews</div></div>'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">$'+(settings.pro||40)+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Current Sub Price</div></div>'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+users.length+'</div><div style="font-size:11px;color:#6e6e73">Registered Users</div></div>'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+searches+'</div><div style="font-size:11px;color:#6e6e73">Total Searches</div></div>'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+saved.length+'</div><div style="font-size:11px;color:#6e6e73">Saved Countries</div></div>'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+totalReviews+'</div><div style="font-size:11px;color:#6e6e73">Reviews Posted</div></div>'+
     '</div>';
 }
 
+function resetSearches(){
+  if(confirm('Reset all search counts?')){localStorage.removeItem('wg_searches');searchCount=0;alert('✅ Reset done.');}
+}
+
 function checkBroadcast(){
-  var broadcast = JSON.parse(localStorage.getItem('wg_broadcast')||'null');
-  var ownerMsg = JSON.parse(localStorage.getItem('wg_owner_msg')||'null');
-  var shown = localStorage.getItem('wg_broadcast_shown');
-  if(broadcast && shown !== broadcast.time){
+  var broadcast=JSON.parse(localStorage.getItem('wg_broadcast')||'null');
+  var shown=localStorage.getItem('wg_broadcast_shown');
+  if(broadcast&&shown!==broadcast.time){
     var icons={info:'📢',offer:'🎁',new:'🆕',urgent:'🔴'};
-    var icon=icons[broadcast.type]||'📢';
     setTimeout(function(){
-      var banner = document.createElement('div');
-      banner.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#085041,#1D9E75);color:white;padding:14px 20px;border-radius:12px;z-index:999;max-width:400px;width:90%;box-shadow:0 8px 24px rgba(0,0,0,.2);font-size:13px;text-align:center';
-      banner.innerHTML='<div style="font-size:16px;margin-bottom:4px">'+icon+' Message from WorldGate AI</div><div style="opacity:.9">'+broadcast.msg+'</div><button onclick="this.parentElement.remove();localStorage.setItem(\'wg_broadcast_shown\',\''+broadcast.time+'\')" style="margin-top:10px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:white;padding:5px 16px;border-radius:6px;cursor:pointer;font-size:12px">OK, Got it</button>';
-      document.body.appendChild(banner);
+      var b=document.createElement('div');
+      b.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#085041,#1D9E75);color:white;padding:14px 20px;border-radius:12px;z-index:999;max-width:400px;width:90%;box-shadow:0 8px 24px rgba(0,0,0,.2);font-size:13px;text-align:center';
+      b.innerHTML='<div style="font-size:15px;margin-bottom:4px">'+(icons[broadcast.type]||'📢')+' Message from WorldGate AI</div><div style="opacity:.9">'+broadcast.msg+'</div><button onclick="this.parentElement.remove();localStorage.setItem(\'wg_broadcast_shown\',\''+broadcast.time+'\')" style="margin-top:10px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:white;padding:5px 16px;border-radius:6px;cursor:pointer;font-size:12px">Got it</button>';
+      document.body.appendChild(b);
     },2000);
   }
-  if(ownerMsg){
-    var msgShown = localStorage.getItem('wg_owner_msg_shown');
-    if(msgShown !== ownerMsg.time){
-      setTimeout(function(){
-        var modal = document.createElement('div');
-        modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;display:flex;align-items:center;justify-content:center';
-        var lock = ownerMsg.lock==='yes';
-        modal.innerHTML='<div style="background:white;border-radius:20px;padding:28px;max-width:380px;width:90%;text-align:center">'+
-          '<div style="font-size:36px;margin-bottom:10px">👑</div>'+
-          '<div style="font-size:15px;font-weight:700;margin-bottom:8px">Message from Nowells</div>'+
-          '<div style="font-size:13px;color:#3a3a3a;line-height:1.6;margin-bottom:16px">'+ownerMsg.msg+'</div>'+
-          (lock?'<button onclick="openPayment(\'pro\')" style="width:100%;padding:12px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px">💳 Pay $'+prices.pro.usd+'/month — Unlock Access</button>':'')+''+
-          '<button onclick="localStorage.setItem(\'wg_owner_msg_shown\',\''+ownerMsg.time+'\');this.closest(\'div[style*=fixed]\').remove()" style="width:100%;padding:10px;background:#f5f5f7;border:1px solid #e5e5ea;border-radius:10px;font-size:13px;cursor:pointer;color:#6e6e73">'+(lock?'Close':'Got it')+'</button>'+
-          '</div>';
-        document.body.appendChild(modal);
-      },1500);
-    }
+  // Restore saved user session
+  var savedUser=localStorage.getItem('wg_current_user');
+  if(savedUser){
+    try{loginUser(JSON.parse(savedUser));}catch(e){}
   }
-}
+  // Apply saved theme
+  var savedColor=JSON.parse(localStorage.getItem('wg_color')||'null');
+  if(savedColor) applyTheme(savedColor.primary,savedColor.dark);
+  // Apply saved appearance
+  var savedApp=JSON.parse(localStorage.getItem('wg_appearance')||'null');
+  if(savedApp){
+    if(document.getElementById('appNameEl')) document.getElementById('appNameEl').innerHTML=savedApp.name.replace(' AI','<span> AI</span>');
+    if(document.getElementById('appSubEl')) document.getElementById('appSubEl').textContent=savedApp.sub;
+  }
+}  
 function showTab(tab){
   var tabs=['explore','compare','saved','feed'];
   for(var i=0;i<tabs.length;i++){

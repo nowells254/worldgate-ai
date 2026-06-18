@@ -207,7 +207,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 
 <!-- OWNER PANEL MODAL -->
 <div class="modal-overlay" id="ownerPanelModal">
-  <div style="background:white;border-radius:20px;width:92%;max-width:500px;max-height:85vh;overflow-y:auto">
+<div style="background:white;width:100%;height:100%;max-height:100vh;overflow-y:auto;border-radius:0">
     <!-- Owner Panel Header -->
     <div style="background:linear-gradient(135deg,#085041,#1D9E75);padding:20px;border-radius:20px 20px 0 0;color:white;display:flex;align-items:center;gap:12px;position:sticky;top:0">
       <span style="font-size:32px">👑</span>
@@ -338,7 +338,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 <div class="logo-wrap">
     <div style="position:relative">
       <div class="logo-icon" id="logoIcon">🌐</div>
-      <div id="settingsGear" onclick="openOwnerPanel()" style="display:none;position:absolute;bottom:-6px;right:-6px;width:20px;height:20px;background:#085041;border-radius:50%;display:none;align-items:center;justify-content:center;font-size:11px;cursor:pointer;border:2px solid white;z-index:10" title="Owner Settings">⚙️</div>
+<div id="settingsGear" onclick="openOwnerPanel()" style="display:none;margin-top:4px;background:#085041;border-radius:6px;padding:2px 8px;font-size:10px;font-weight:700;color:white;cursor:pointer;align-items:center;gap:4px;width:fit-content" title="Owner Settings">⚙️ Settings</div>
     </div>
     <div>
       <div class="logo-text" id="appNameEl">World<span>Gate</span> AI</div>
@@ -398,7 +398,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button onclick="showTab('compare')" id="tab-compare" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">⚖️ Compare</button>
   <button onclick="showTab('saved')" id="tab-saved" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">🔖 Saved</button>
   <button onclick="showTab('feed')" id="tab-feed" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">🔴 Live Feed</button>
-  <button onclick="showTab('settings')" id="tab-settings" style="display:none;padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">⚙️ Settings</button>
+  <button onclick="showTab('settings')" id="tab-settings" style="display:none"></button>
 </div>
 
 <!-- COMPARE TAB -->
@@ -915,9 +915,10 @@ function ownerLogin(){
   if(p===OWNER_PASS){
     isOwner=true;
     document.getElementById('ownerBadge').style.display='inline-flex';
-    document.getElementById('tab-settings').style.display='inline-block';
+    document.getElementById('tab-settings').style.display='none';
     document.getElementById('settingsGear').style.display='flex';
     document.getElementById('authBtn').style.display='none';
+    localStorage.setItem('wg_owner_session','true');
     document.getElementById('ownerLoginBtn').style.display='none';
     alert('✅ Welcome Nowells! Unlimited access activated.');
   } else if(p!==null){alert('❌ Incorrect password.');}
@@ -1257,51 +1258,56 @@ function initReviewStars(){
 }
 
 function submitReview(){
-  var text = document.getElementById('reviewText').value.trim();
-  if(!text){ alert('Please write your experience first.'); return; }
-  if(selectedStars===0){ alert('Please select a star rating.'); return; }
-
-  var reviews = JSON.parse(localStorage.getItem('wg_reviews')||'{}');
-  if(!reviews[currentCountry]) reviews[currentCountry] = [];
-  reviews[currentCountry].unshift({
-    stars: selectedStars,
-    text: text,
-    type: T[lang].types[curType],
-    date: new Date().toLocaleDateString()
+  var text=document.getElementById('reviewText').value.trim();
+  if(!text){alert('Please write your experience first.');return;}
+  if(selectedStars===0){alert('Please select a star rating.');return;}
+  var userName = currentUser?currentUser.name:'Anonymous';
+  var userAvatar = currentUser?currentUser.avatar:'?';
+  var reviews=JSON.parse(localStorage.getItem('wg_reviews_shared')||'[]');
+  reviews.unshift({
+    country:currentCountry,
+    stars:selectedStars,
+    text:text,
+    name:userName,
+    avatar:userAvatar,
+    type:T[lang].types[curType],
+    date:new Date().toLocaleDateString()
   });
-  localStorage.setItem('wg_reviews', JSON.stringify(reviews));
-
-  document.getElementById('reviewText').value = '';
-  selectedStars = 0;
-  document.querySelectorAll('.star').forEach(function(s){ s.style.opacity = '.3'; });
+  // Keep max 200 reviews total
+  if(reviews.length>200) reviews=reviews.slice(0,200);
+  localStorage.setItem('wg_reviews_shared',JSON.stringify(reviews));
+  document.getElementById('reviewText').value='';
+  selectedStars=0;
+  document.querySelectorAll('.star').forEach(function(s){s.style.opacity='.3';});
   loadReviews(currentCountry);
   alert('✅ Thank you! Your review has been posted.');
 }
-
 function loadReviews(country){
-  var reviews = JSON.parse(localStorage.getItem('wg_reviews')||'{}');
-  var list = reviews[country] || [];
-  document.getElementById('reviewsCount').textContent = list.length + ' reviews';
-
+  var allReviews=JSON.parse(localStorage.getItem('wg_reviews_shared')||'[]');
+  var list=allReviews.filter(function(r){return r.country===country;});
+  var countEl=document.getElementById('reviewsCount');
+  if(countEl) countEl.textContent=list.length+' reviews';
+  var el=document.getElementById('reviewsList');
+  if(!el) return;
   if(list.length===0){
-    document.getElementById('reviewsList').innerHTML = '<div style="text-align:center;padding:16px;color:#8e8e93;font-size:12px">No reviews yet. Be the first to share your experience with '+country+'!</div>';
+    el.innerHTML='<div style="text-align:center;padding:16px;color:#8e8e93;font-size:12px">No reviews yet. Be the first to share your experience with '+country+'!</div>';
     return;
   }
-
-  var html = '';
+  var html='';
   for(var i=0;i<list.length;i++){
-    var r = list[i];
-    var starsHtml = '';
-    for(var s=0;s<5;s++){ starsHtml += s<r.stars ? '⭐' : '☆'; }
-    html += '<div style="padding:10px 0;border-bottom:1px solid #f0f0f0">';
-    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
-    html += '<span style="font-size:13px">'+starsHtml+'</span>';
-    html += '<span style="font-size:10px;color:#8e8e93">'+r.type+' · '+r.date+'</span>';
-    html += '</div>';
-    html += '<div style="font-size:12px;color:#3a3a3a;line-height:1.5">'+r.text+'</div>';
-    html += '</div>';
+    var r=list[i];
+    var starsHtml='';
+    for(var s=0;s<5;s++){starsHtml+=s<r.stars?'⭐':'☆';}
+    html+='<div style="padding:10px 0;border-bottom:1px solid #f0f0f0">';
+    html+='<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">';
+    html+='<div style="width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#1D9E75,#085041);color:white;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+(r.avatar||'?')+'</div>';
+    html+='<div style="flex:1"><div style="font-size:12px;font-weight:700">'+(r.name||'Anonymous')+'</div><div style="font-size:10px;color:#8e8e93">'+r.type+' · '+r.date+'</div></div>';
+    html+='<span style="font-size:12px">'+starsHtml+'</span>';
+    html+='</div>';
+    html+='<div style="font-size:12px;color:#3a3a3a;line-height:1.5;padding-left:36px">'+r.text+'</div>';
+    html+='</div>';
   }
-  document.getElementById('reviewsList').innerHTML = html;
+  el.innerHTML=html;
 }
 function setupChatbot(country, typeName, langName){
   var t=T[lang];
@@ -1650,6 +1656,9 @@ function doRegister(){
   };
   users.push(user);
   localStorage.setItem('wg_users', JSON.stringify(users));
+  // Update notification badge
+  var notifCount=parseInt(localStorage.getItem('wg_notif_count')||'0')+1;
+  localStorage.setItem('wg_notif_count',notifCount);
   // Save notification for owner
   var notifs = JSON.parse(localStorage.getItem('wg_notifs')||'[]');
   notifs.unshift({msg:'🆕 '+name+' just joined WorldGate AI!', time:new Date().toLocaleString(), name:name, avatar:avatar});
@@ -1749,7 +1758,11 @@ function ownerTab(tab){
 function loadOwnerMembers(){
   var users = JSON.parse(localStorage.getItem('wg_users')||'[]');
   var notifs = JSON.parse(localStorage.getItem('wg_notifs')||'[]');
-  document.getElementById('memberCount').textContent = users.length+' members';
+document.getElementById('memberCount').textContent = users.length+' members';
+  // Clear notification badge
+  localStorage.setItem('wg_notif_count','0');
+  var gear=document.getElementById('settingsGear');
+  if(gear) gear.textContent='⚙️ Settings';
   if(users.length===0){
     document.getElementById('membersList').innerHTML='<div style="text-align:center;padding:20px;color:#8e8e93;font-size:12px">No members yet. Share your app link to get users!</div>';
     return;
@@ -1822,8 +1835,17 @@ function loadMsgHistory(){
 function saveOwnerPricing(){
   var pro=parseInt(document.getElementById('opProPrice').value)||40;
   var consult=parseInt(document.getElementById('opConsultPrice').value)||80;
-  prices.pro.usd=pro; prices.consult.usd=consult;
+  prices.pro.usd=pro;
+  prices.consult.usd=consult;
   localStorage.setItem('wg_settings',JSON.stringify({pro:pro,consult:consult}));
+  // Update all price displays immediately
+  var allAmounts=document.querySelectorAll('.p-amt');
+  document.querySelectorAll('[id="payBtn"],[id="abPayBtn"]').forEach(function(b){
+    if(b) b.textContent='💳 Subscribe — $'+pro+'/month';
+  });
+  document.querySelectorAll('[id="consultBtn"],[id="abConsultBtn"]').forEach(function(b){
+    if(b) b.textContent='📞 Book Consultation with Nowells — $'+consult;
+  });
   alert('✅ Pricing saved! Subscription: $'+pro+'/month · Consultation: $'+consult);
 }
 
@@ -1883,6 +1905,16 @@ function resetSearches(){
 }
 
 function checkBroadcast(){
+  // Check for new user notifications
+  setInterval(function(){
+    if(isOwner){
+      var count=parseInt(localStorage.getItem('wg_notif_count')||'0');
+      var gear=document.getElementById('settingsGear');
+      if(count>0&&gear){
+        gear.innerHTML='⚙️ Settings <span style="background:#dc2626;color:white;border-radius:50%;width:16px;height:16px;font-size:10px;display:inline-flex;align-items:center;justify-content:center">'+count+'</span>';
+      }
+    }
+  },3000);
   var broadcast=JSON.parse(localStorage.getItem('wg_broadcast')||'null');
   var shown=localStorage.getItem('wg_broadcast_shown');
   if(broadcast&&shown!==broadcast.time){
@@ -1895,10 +1927,25 @@ function checkBroadcast(){
     },2000);
   }
   // Restore saved user session
+ // Auto-restore owner session
+  var ownerLoggedIn=localStorage.getItem('wg_owner_session');
+  if(ownerLoggedIn==='true'){
+    isOwner=true;
+    document.getElementById('ownerBadge').style.display='inline-flex';
+    document.getElementById('ownerLoginBtn').style.display='none';
+    document.getElementById('tab-settings').style.display='none';
+    document.getElementById('settingsGear').style.display='flex';
+    document.getElementById('authBtn').style.display='none';
+  }
+  // Auto-restore user session
   var savedUser=localStorage.getItem('wg_current_user');
   if(savedUser){
     try{loginUser(JSON.parse(savedUser));}catch(e){}
   }
+  // Load saved prices
+  var savedSettings=JSON.parse(localStorage.getItem('wg_settings')||'{}');
+  if(savedSettings.pro) prices.pro.usd=savedSettings.pro;
+  if(savedSettings.consult) prices.consult.usd=savedSettings.consult;
   // Apply saved theme
   var savedColor=JSON.parse(localStorage.getItem('wg_color')||'null');
   if(savedColor) applyTheme(savedColor.primary,savedColor.dark);

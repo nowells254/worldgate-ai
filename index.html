@@ -259,6 +259,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
   <button onclick="showTab('compare')" id="tab-compare" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">⚖️ Compare</button>
   <button onclick="showTab('saved')" id="tab-saved" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">🔖 Saved</button>
   <button onclick="showTab('feed')" id="tab-feed" style="padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">🔴 Live Feed</button>
+  <button onclick="showTab('settings')" id="tab-settings" style="display:none;padding:10px 20px;border:none;background:none;font-size:13px;font-weight:600;color:#8e8e93;cursor:pointer">⚙️ Settings</button>
 </div>
 
 <!-- COMPARE TAB -->
@@ -284,7 +285,122 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div id="savedList"></div>
   </div>
 </div>
+<!-- SETTINGS TAB — OWNER ONLY -->
+<div id="settingsTab" style="display:none">
 
+  <!-- HEADER -->
+  <div style="background:linear-gradient(135deg,#085041,#1D9E75);border-radius:14px;padding:20px;color:white;margin-bottom:14px">
+    <div style="display:flex;align-items:center;gap:12px">
+      <span style="font-size:36px">⚙️</span>
+      <div>
+        <div style="font-size:16px;font-weight:800">Owner Control Panel</div>
+        <div style="font-size:12px;opacity:.8">WorldGate AI — Full System Settings</div>
+      </div>
+      <div style="margin-left:auto;background:rgba(255,255,255,.2);border-radius:8px;padding:6px 12px;font-size:11px;font-weight:700">👑 Nowells</div>
+    </div>
+  </div>
+
+  <!-- PRICING SETTINGS -->
+  <div style="background:white;border-radius:14px;padding:18px;border:1.5px solid #e5e5ea;margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:14px;color:#085041;border-bottom:2px solid #E8F8F3;padding-bottom:8px">💰 Pricing Control</h3>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Monthly Subscription Price (USD)</label>
+      <div style="display:flex;gap:8px">
+        <input type="number" id="settingProPrice" value="40" style="flex:1;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;font-weight:700;outline:none"/>
+        <span style="display:flex;align-items:center;font-size:13px;color:#6e6e73">$/month</span>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Personal Consultation Price (USD)</label>
+      <div style="display:flex;gap:8px">
+        <input type="number" id="settingConsultPrice" value="80" style="flex:1;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;font-weight:700;outline:none"/>
+        <span style="display:flex;align-items:center;font-size:13px;color:#6e6e73">$/session</span>
+      </div>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Free Searches Allowed Before Paywall</label>
+      <input type="number" id="settingFreeSearches" value="3" min="1" max="10" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;font-weight:700;outline:none"/>
+    </div>
+    <button onclick="savePricingSettings()" style="width:100%;padding:11px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">💾 Save Pricing</button>
+  </div>
+
+  <!-- APP APPEARANCE -->
+  <div style="background:white;border-radius:14px;padding:18px;border:1.5px solid #e5e5ea;margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:14px;color:#085041;border-bottom:2px solid #E8F8F3;padding-bottom:8px">🎨 App Appearance</h3>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">App Name</label>
+      <input type="text" id="settingAppName" value="WorldGate AI" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;outline:none"/>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">App Subtitle</label>
+      <input type="text" id="settingAppSub" value="世界门 · Global Opportunity Intelligence" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:14px;outline:none"/>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Primary Color</label>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <div onclick="setColor('#1D9E75','#085041')" style="width:36px;height:36px;background:#1D9E75;border-radius:8px;cursor:pointer;border:2px solid #085041"></div>
+        <div onclick="setColor('#2563EB','#1D4ED8')" style="width:36px;height:36px;background:#2563EB;border-radius:8px;cursor:pointer"></div>
+        <div onclick="setColor('#7C3AED','#5B21B6')" style="width:36px;height:36px;background:#7C3AED;border-radius:8px;cursor:pointer"></div>
+        <div onclick="setColor('#DC2626','#991B1B')" style="width:36px;height:36px;background:#DC2626;border-radius:8px;cursor:pointer"></div>
+        <div onclick="setColor('#D97706','#B45309')" style="width:36px;height:36px;background:#D97706;border-radius:8px;cursor:pointer"></div>
+        <div onclick="setColor('#0891B2','#0E7490')" style="width:36px;height:36px;background:#0891B2;border-radius:8px;cursor:pointer"></div>
+      </div>
+    </div>
+    <button onclick="saveAppearance()" style="width:100%;padding:11px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">💾 Save Appearance</button>
+  </div>
+
+  <!-- BROADCAST ALERT TO ALL USERS -->
+  <div style="background:white;border-radius:14px;padding:18px;border:1.5px solid #e5e5ea;margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:14px;color:#085041;border-bottom:2px solid #E8F8F3;padding-bottom:8px">📢 Broadcast Alert to All Users</h3>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Alert Type</label>
+      <select id="alertType" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;outline:none">
+        <option value="info">📢 General Announcement</option>
+        <option value="offer">🎁 Special Offer</option>
+        <option value="new">🆕 New Feature</option>
+        <option value="urgent">🔴 Urgent Notice</option>
+      </select>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Alert Message</label>
+      <textarea id="alertMessage" placeholder="Write your message to all users..." style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;min-height:80px;resize:vertical;font-family:inherit;outline:none"></textarea>
+    </div>
+    <button onclick="broadcastAlert()" style="width:100%;padding:11px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">📢 Broadcast Now</button>
+  </div>
+
+  <!-- DIRECT CHAT WITH USERS -->
+  <div style="background:white;border-radius:14px;padding:18px;border:1.5px solid #e5e5ea;margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:14px;color:#085041;border-bottom:2px solid #E8F8F3;padding-bottom:8px">💬 Direct Message to User</h3>
+    <p style="font-size:12px;color:#6e6e73;margin-bottom:12px">Send a direct message that appears as a notification to users when they open the app</p>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Your Message</label>
+      <textarea id="ownerDirectMsg" placeholder="Hi! I noticed you were interested in Kenya investments. I can help you get started — reply here or book a consultation for $80..." style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;min-height:80px;resize:vertical;font-family:inherit;outline:none"></textarea>
+    </div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:12px;font-weight:600;color:#6e6e73;display:block;margin-bottom:4px">Lock User Until Payment?</label>
+      <div style="display:flex;gap:8px">
+        <label style="display:flex;align-items:center;gap:6px;font-size:13px;cursor:pointer"><input type="radio" name="lockUser" value="no" checked/> No — just send message</label>
+        <label style="display:flex;align-items:center;gap=6px;font-size:13px;cursor:pointer"><input type="radio" name="lockUser" value="yes"/> Yes — lock until paid</label>
+      </div>
+    </div>
+    <button onclick="sendOwnerMessage()" style="width:100%;padding:11px;background:linear-gradient(135deg,#085041,#052e22);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">💬 Send Message</button>
+  </div>
+
+  <!-- SYSTEM STATS -->
+  <div style="background:white;border-radius:14px;padding:18px;border:1.5px solid #e5e5ea;margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:14px;color:#085041;border-bottom:2px solid #E8F8F3;padding-bottom:8px">📊 System Statistics</h3>
+    <div id="systemStats"></div>
+  </div>
+
+  <!-- RESET SYSTEM -->
+  <div style="background:#FEF2F2;border-radius:14px;padding:18px;border:1.5px solid #FECACA;margin-bottom:12px">
+    <h3 style="font-size:14px;font-weight:700;margin-bottom:8px;color:#DC2626">⚠️ Danger Zone</h3>
+    <p style="font-size:12px;color:#6e6e73;margin-bottom:12px">These actions cannot be undone</p>
+    <button onclick="resetAllSearchCounts()" style="width:100%;padding:10px;background:#DC2626;color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:8px">🔄 Reset All User Search Counts</button>
+    <button onclick="clearAllReviews()" style="width:100%;padding:10px;background:#991B1B;color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">🗑️ Clear All Reviews</button>
+  </div>
+
+</div>
 <!-- LIVE FEED TAB -->
 <div id="feedTab" style="display:none">
   <div style="background:white;border-radius:14px;padding:20px;border:1.5px solid #e5e5ea;margin-bottom:16px">
@@ -660,6 +776,7 @@ function ownerLogin(){
   if(p===OWNER_PASS){
     isOwner=true;
     document.getElementById('ownerBadge').style.display='inline-flex';
+    document.getElementById('tab-settings').style.display='inline-block';
     document.getElementById('ownerLoginBtn').style.display='none';
     alert('✅ Welcome Nowells! Unlimited access activated.');
   } else if(p!==null){alert('❌ Incorrect password.');}
@@ -1358,6 +1475,122 @@ function installApp(){
     alert('To install:\n📱 iPhone: Tap Share → Add to Home Screen\n🤖 Android: Tap menu → Add to Home Screen\n💻 Computer: Click install icon in address bar');
   }
 }
+  function savePricingSettings(){
+  var pro = parseInt(document.getElementById('settingProPrice').value)||40;
+  var consult = parseInt(document.getElementById('settingConsultPrice').value)||80;
+  var free = parseInt(document.getElementById('settingFreeSearches').value)||3;
+  prices.pro.usd = pro;
+  prices.consult.usd = consult;
+  localStorage.setItem('wg_settings', JSON.stringify({pro:pro,consult:consult,free:free}));
+  alert('✅ Pricing saved! Subscription: $'+pro+'/month · Consultation: $'+consult);
+}
+
+function saveAppearance(){
+  var name = document.getElementById('settingAppName').value;
+  var sub = document.getElementById('settingAppSub').value;
+  document.querySelector('.logo-text').innerHTML = name.replace('AI','<span>AI</span>');
+  document.querySelector('.logo-sub').textContent = sub;
+  localStorage.setItem('wg_appearance', JSON.stringify({name:name,sub:sub}));
+  alert('✅ Appearance updated!');
+}
+
+function setColor(primary, dark){
+  document.documentElement.style.setProperty('--primary', primary);
+  document.documentElement.style.setProperty('--dark', dark);
+  // Update all green elements
+  var style = document.createElement('style');
+  style.textContent = '.gbtn-green,.pesapal-btn,.chat-send,.type-btn.active{background:'+primary+'!important}'+
+    '.stat-num,.opp-score,.c-score-num{color:'+primary+'!important}'+
+    '.hero{background:linear-gradient(135deg,'+dark+' 0%,'+primary+' 100%)!important}'+
+    '.chatbot-header{background:linear-gradient(135deg,'+dark+','+primary+')!important}'+
+    '.ai-report-box{background:linear-gradient(135deg,'+dark+','+primary+')!important}';
+  document.head.appendChild(style);
+  localStorage.setItem('wg_color', JSON.stringify({primary:primary,dark:dark}));
+  alert('✅ Color updated!');
+}
+
+function broadcastAlert(){
+  var msg = document.getElementById('alertMessage').value.trim();
+  var type = document.getElementById('alertType').value;
+  if(!msg){alert('Please write a message first.');return;}
+  localStorage.setItem('wg_broadcast', JSON.stringify({msg:msg,type:type,time:new Date().toLocaleString()}));
+  document.getElementById('alertMessage').value='';
+  alert('✅ Alert broadcast to all users! They will see it on next visit.');
+}
+
+function sendOwnerMessage(){
+  var msg = document.getElementById('ownerDirectMsg').value.trim();
+  var lock = document.querySelector('input[name="lockUser"]:checked').value;
+  if(!msg){alert('Please write a message first.');return;}
+  localStorage.setItem('wg_owner_msg', JSON.stringify({msg:msg,lock:lock,time:new Date().toLocaleString()}));
+  document.getElementById('ownerDirectMsg').value='';
+  alert('✅ Message sent! Users will see it when they open the app.'+(lock==='yes'?' They will be locked until they pay.':''));
+}
+
+function resetAllSearchCounts(){
+  if(confirm('Reset all user search counts? Users will get 3 free searches again.')){
+    localStorage.removeItem('wg_searches');
+    searchCount=0;
+    alert('✅ All search counts reset.');
+  }
+}
+
+function clearAllReviews(){
+  if(confirm('Delete ALL community reviews? This cannot be undone.')){
+    localStorage.removeItem('wg_reviews');
+    alert('✅ All reviews cleared.');
+  }
+}
+
+function loadSystemStats(){
+  var searches = localStorage.getItem('wg_searches')||'0';
+  var saved = JSON.parse(localStorage.getItem('wg_saved')||'[]');
+  var reviews = JSON.parse(localStorage.getItem('wg_reviews')||'{}');
+  var totalReviews = 0;
+  Object.keys(reviews).forEach(function(k){totalReviews+=reviews[k].length;});
+  var settings = JSON.parse(localStorage.getItem('wg_settings')||'{}');
+  document.getElementById('systemStats').innerHTML =
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">'+searches+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Total Searches</div></div>'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">'+saved.length+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Saved Countries</div></div>'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">'+totalReviews+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Community Reviews</div></div>'+
+    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:22px;font-weight:800;color:#085041">$'+(settings.pro||40)+'</div><div style="font-size:11px;color:#6e6e73;margin-top:2px">Current Sub Price</div></div>'+
+    '</div>';
+}
+
+function checkBroadcast(){
+  var broadcast = JSON.parse(localStorage.getItem('wg_broadcast')||'null');
+  var ownerMsg = JSON.parse(localStorage.getItem('wg_owner_msg')||'null');
+  var shown = localStorage.getItem('wg_broadcast_shown');
+  if(broadcast && shown !== broadcast.time){
+    var icons={info:'📢',offer:'🎁',new:'🆕',urgent:'🔴'};
+    var icon=icons[broadcast.type]||'📢';
+    setTimeout(function(){
+      var banner = document.createElement('div');
+      banner.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#085041,#1D9E75);color:white;padding:14px 20px;border-radius:12px;z-index:999;max-width:400px;width:90%;box-shadow:0 8px 24px rgba(0,0,0,.2);font-size:13px;text-align:center';
+      banner.innerHTML='<div style="font-size:16px;margin-bottom:4px">'+icon+' Message from WorldGate AI</div><div style="opacity:.9">'+broadcast.msg+'</div><button onclick="this.parentElement.remove();localStorage.setItem(\'wg_broadcast_shown\',\''+broadcast.time+'\')" style="margin-top:10px;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.4);color:white;padding:5px 16px;border-radius:6px;cursor:pointer;font-size:12px">OK, Got it</button>';
+      document.body.appendChild(banner);
+    },2000);
+  }
+  if(ownerMsg){
+    var msgShown = localStorage.getItem('wg_owner_msg_shown');
+    if(msgShown !== ownerMsg.time){
+      setTimeout(function(){
+        var modal = document.createElement('div');
+        modal.style.cssText='position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);z-index:2000;display:flex;align-items:center;justify-content:center';
+        var lock = ownerMsg.lock==='yes';
+        modal.innerHTML='<div style="background:white;border-radius:20px;padding:28px;max-width:380px;width:90%;text-align:center">'+
+          '<div style="font-size:36px;margin-bottom:10px">👑</div>'+
+          '<div style="font-size:15px;font-weight:700;margin-bottom:8px">Message from Nowells</div>'+
+          '<div style="font-size:13px;color:#3a3a3a;line-height:1.6;margin-bottom:16px">'+ownerMsg.msg+'</div>'+
+          (lock?'<button onclick="openPayment(\'pro\')" style="width:100%;padding:12px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:10px;font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px">💳 Pay $'+prices.pro.usd+'/month — Unlock Access</button>':'')+''+
+          '<button onclick="localStorage.setItem(\'wg_owner_msg_shown\',\''+ownerMsg.time+'\');this.closest(\'div[style*=fixed]\').remove()" style="width:100%;padding:10px;background:#f5f5f7;border:1px solid #e5e5ea;border-radius:10px;font-size:13px;cursor:pointer;color:#6e6e73">'+(lock?'Close':'Got it')+'</button>'+
+          '</div>';
+        document.body.appendChild(modal);
+      },1500);
+    }
+  }
+}
 function showTab(tab){
   var tabs=['explore','compare','saved','feed'];
   for(var i=0;i<tabs.length;i++){
@@ -1388,6 +1621,7 @@ function showTab(tab){
   if(contGrid) contGrid.style.display=(tab==='explore')?'grid':'none';
   if(tab==='saved') loadSaved();
   if(tab==='feed') loadFeed();
+  if(tab==='settings'){ loadSystemStats(); }
 }
 
 function runComparison(){
@@ -1569,6 +1803,10 @@ function loadFeed(){
 }
 window.onload=function(){
   applyLang('en');
+  checkBroadcast();
+  var savedSettings=JSON.parse(localStorage.getItem('wg_settings')||'{}');
+  if(savedSettings.pro) prices.pro.usd=savedSettings.pro;
+  if(savedSettings.consult) prices.consult.usd=savedSettings.consult;
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('/worldgate-ai/sw.js').then(function(){
       console.log('PWA ready');

@@ -330,6 +330,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
         <div class="loading-pulse"><div class="pulse-dots"><div class="pulse-dot"></div><div class="pulse-dot"></div><div class="pulse-dot"></div></div><span>Generating report...</span></div>
       </div>
     </div>
+    <!-- COMMUNITY REVIEWS -->
+<div style="background:white;border-radius:14px;border:1.5px solid #e5e5ea;margin-bottom:12px;padding:18px">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
+    <h3 style="font-size:14px;font-weight:700;color:#1d1d1f" id="reviewsTitle">💬 Community Experiences</h3>
+    <span style="font-size:11px;color:#8e8e93" id="reviewsCount">0 reviews</span>
+  </div>
+  <div id="reviewsList" style="margin-bottom:14px"></div>
+  <div style="border-top:1px solid #f0f0f0;padding-top:14px">
+    <p style="font-size:12px;color:#6e6e73;margin-bottom:8px" id="reviewPrompt">Share your experience with this country</p>
+    <div style="display:flex;gap:6px;margin-bottom:8px" id="starRating">
+      <span class="star" data-val="1" style="font-size:22px;cursor:pointer;opacity:.3">⭐</span>
+      <span class="star" data-val="2" style="font-size:22px;cursor:pointer;opacity:.3">⭐</span>
+      <span class="star" data-val="3" style="font-size:22px;cursor:pointer;opacity:.3">⭐</span>
+      <span class="star" data-val="4" style="font-size:22px;cursor:pointer;opacity:.3">⭐</span>
+      <span class="star" data-val="5" style="font-size:22px;cursor:pointer;opacity:.3">⭐</span>
+    </div>
+    <textarea id="reviewText" placeholder="What was your experience?" style="width:100%;padding:10px;border:1.5px solid #e5e5ea;border-radius:8px;font-size:13px;resize:vertical;min-height:60px;font-family:inherit;outline:none"></textarea>
+    <button onclick="submitReview()" id="submitReviewBtn" style="margin-top:8px;width:100%;padding:10px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer">Post Review</button>
+  </div>
+</div>
     <div class="chatbot-wrap" id="chatbotWrap">
       <div class="chatbot-header" onclick="toggleChat()">
         <div class="chatbot-avatar">🤖</div>
@@ -786,6 +806,8 @@ function showCountry(countryName,flag,score){
 
   // Setup chatbot
   setupChatbot(countryName, typeName, langName);
+  loadReviews(countryName);
+  initReviewStars();
 }
   function buildUniversalReport(country, typeIdx, langName){
   var typeEn=['Investor','Student','Trader','Teacher','Traveler'][typeIdx]||'Investor';
@@ -962,7 +984,67 @@ function fetchGemini(prompt, callback){
   })
   .catch(function(){callback('');});
 }
+var selectedStars = 0;
 
+function initReviewStars(){
+  var stars = document.querySelectorAll('.star');
+  stars.forEach(function(star){
+    star.onclick = function(){
+      selectedStars = parseInt(this.getAttribute('data-val'));
+      stars.forEach(function(s){
+        s.style.opacity = parseInt(s.getAttribute('data-val')) <= selectedStars ? '1' : '.3';
+      });
+    };
+  });
+}
+
+function submitReview(){
+  var text = document.getElementById('reviewText').value.trim();
+  if(!text){ alert('Please write your experience first.'); return; }
+  if(selectedStars===0){ alert('Please select a star rating.'); return; }
+
+  var reviews = JSON.parse(localStorage.getItem('wg_reviews')||'{}');
+  if(!reviews[currentCountry]) reviews[currentCountry] = [];
+  reviews[currentCountry].unshift({
+    stars: selectedStars,
+    text: text,
+    type: T[lang].types[curType],
+    date: new Date().toLocaleDateString()
+  });
+  localStorage.setItem('wg_reviews', JSON.stringify(reviews));
+
+  document.getElementById('reviewText').value = '';
+  selectedStars = 0;
+  document.querySelectorAll('.star').forEach(function(s){ s.style.opacity = '.3'; });
+  loadReviews(currentCountry);
+  alert('✅ Thank you! Your review has been posted.');
+}
+
+function loadReviews(country){
+  var reviews = JSON.parse(localStorage.getItem('wg_reviews')||'{}');
+  var list = reviews[country] || [];
+  document.getElementById('reviewsCount').textContent = list.length + ' reviews';
+
+  if(list.length===0){
+    document.getElementById('reviewsList').innerHTML = '<div style="text-align:center;padding:16px;color:#8e8e93;font-size:12px">No reviews yet. Be the first to share your experience with '+country+'!</div>';
+    return;
+  }
+
+  var html = '';
+  for(var i=0;i<list.length;i++){
+    var r = list[i];
+    var starsHtml = '';
+    for(var s=0;s<5;s++){ starsHtml += s<r.stars ? '⭐' : '☆'; }
+    html += '<div style="padding:10px 0;border-bottom:1px solid #f0f0f0">';
+    html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">';
+    html += '<span style="font-size:13px">'+starsHtml+'</span>';
+    html += '<span style="font-size:10px;color:#8e8e93">'+r.type+' · '+r.date+'</span>';
+    html += '</div>';
+    html += '<div style="font-size:12px;color:#3a3a3a;line-height:1.5">'+r.text+'</div>';
+    html += '</div>';
+  }
+  document.getElementById('reviewsList').innerHTML = html;
+}
 function setupChatbot(country, typeName, langName){
   var t=T[lang];
   var msgs=document.getElementById('chatMessages');

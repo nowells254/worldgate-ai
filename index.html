@@ -2341,6 +2341,9 @@ function loadFeed(){
 }
 window.onload=function(){
   applyLang('en');
+  if(typeof emailjs!=='undefined'){
+    emailjs.init('8zeTS6broXgY9_JoN');
+  }
   checkBroadcast();
  
   if('serviceWorker' in navigator){

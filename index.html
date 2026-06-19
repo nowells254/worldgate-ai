@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -647,6 +648,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
 var GEMINI_KEY='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';
 var OWNER_PASS='Nowells2025';
   var JSONBIN_KEY='$2a$10$iNNvK6Yfqg9Ug7ISH8B0nOTAT91Ms9ooa3iIWL/5fTc1SZHmD5K3.';
+  var EMAILJS_PUBLIC='8zeTS6broXgY9_JoN';
+var EMAILJS_SERVICE='service_kz004fg';
+var EMAILJS_TEMPLATE='template_22iw8df';
 var USERS_BIN='6a34556dda38895dfed9aaea';
 var SETTINGS_BIN='6a34566eda38895dfed9af9c';
 var PESAPAL='https://www.pesapal.com';
@@ -1667,7 +1671,17 @@ function doRegister(){
     }).then(function(){
       loginUser(user);
       closeAuthModal();
-      alert('✅ Welcome to WorldGate AI, '+name+'! Your account is ready.');
+      // Send welcome email to self-registered user
+      if(EMAILJS_PUBLIC!=='YOUR_PUBLIC_KEY'){
+        emailjs.init(EMAILJS_PUBLIC);
+        emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+          to_email: id,
+          to_name: name,
+          user_id: id,
+          user_pass: pass
+        }).catch(function(){});
+      }
+      alert('✅ Welcome to WorldGate AI, '+name+'! Check your email for your account details.');
     });
   })
   .catch(function(){alert('Connection error. Please try again.');});
@@ -1773,6 +1787,7 @@ function ownerTab(tab){
 
 function loadOwnerMembers(){
   document.getElementById('membersList').innerHTML='<div style="text-align:center;padding:20px;color:#8e8e93;font-size:12px">Loading members...</div>';
+  document.getElementById('memberCount').textContent='Loading...';
   fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
   .then(function(r){return r.json();})
   .then(function(data){
@@ -1780,7 +1795,16 @@ function loadOwnerMembers(){
     var users=db.users||[];
     var notifs=db.notifications||[];
     document.getElementById('memberCount').textContent=users.length+' members';
-    document.getElementById('membersList').insertAdjacentHTML('beforebegin','<button onclick="addUserManually()" style="width:100%;padding:10px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px">+ Add User Manually</button>');
+    document.getElementById('memberCount').textContent=users.length+' members';
+    var addBtn=document.getElementById('addUserBtn');
+    if(!addBtn){
+      var btn=document.createElement('button');
+      btn.id='addUserBtn';
+      btn.textContent='+ Add User Manually';
+      btn.style.cssText='width:100%;padding:10px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px';
+      btn.onclick=addUserManually;
+      document.getElementById('membersList').before(btn);
+    }
     var html='';
     if(notifs.length>0){
       html+='<div style="background:#E8F8F3;border-radius:10px;padding:12px;margin-bottom:12px">';
@@ -1811,7 +1835,7 @@ function loadOwnerMembers(){
   function addUserManually(){
   var name=prompt('Enter user full name:');
   if(!name) return;
-  var id=prompt('Enter user email or phone:');
+  var id=prompt('Enter user email:');
   if(!id) return;
   var pass=prompt('Create a password for this user:');
   if(!pass) return;
@@ -1821,7 +1845,7 @@ function loadOwnerMembers(){
   .then(function(data){
     var db=data.record||{users:[],notifications:[]};
     var exists=db.users.find(function(u){return u.id===id;});
-    if(exists){alert('User with this email/phone already exists.');return;}
+    if(exists){alert('User with this email already exists.');return;}
     db.users.push(user);
     db.notifications.unshift({msg:'👑 Owner added '+name+' to WorldGate AI',time:new Date().toLocaleString(),name:name,avatar:user.avatar});
     fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{
@@ -1829,12 +1853,26 @@ function loadOwnerMembers(){
       headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
       body:JSON.stringify(db)
     }).then(function(){
-      alert('✅ User '+name+' added! Their login: '+id+' / '+pass);
+      // Send welcome email
+      if(EMAILJS_PUBLIC!=='YOUR_PUBLIC_KEY'){
+        emailjs.init(EMAILJS_PUBLIC);
+        emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
+          to_email: id,
+          to_name: name,
+          user_id: id,
+          user_pass: pass
+        }).then(function(){
+          alert('✅ User '+name+' added and welcome email sent to '+id+'!');
+        }).catch(function(){
+          alert('✅ User added! But email failed — check EmailJS settings.');
+        });
+      } else {
+        alert('✅ User '+name+' added! Login: '+id+' / '+pass+'\n\nNote: Set up EmailJS to send automatic emails.');
+      }
       loadOwnerMembers();
     });
   }).catch(function(){alert('Error. Please try again.');});
 }
-
 function removeUser(userId, userName){
   if(!confirm('Remove '+userName+' from WorldGate AI? This cannot be undone.')) return;
   fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
@@ -2292,9 +2330,7 @@ function loadFeed(){
 window.onload=function(){
   applyLang('en');
   checkBroadcast();
-  var savedSettings=JSON.parse(localStorage.getItem('wg_settings')||'{}');
-  if(savedSettings.pro) prices.pro.usd=savedSettings.pro;
-  if(savedSettings.consult) prices.consult.usd=savedSettings.consult;
+ 
   if('serviceWorker' in navigator){
     navigator.serviceWorker.register('/worldgate-ai/sw.js').then(function(){
       console.log('PWA ready');

@@ -1673,7 +1673,7 @@ function doRegister(){
       closeAuthModal();
       // Send welcome email to self-registered user
       if(EMAILJS_PUBLIC!=='YOUR_PUBLIC_KEY'){
-        emailjs.init(EMAILJS_PUBLIC);
+       
         emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
           to_email: id,
           to_name: name,
@@ -1783,6 +1783,7 @@ function ownerTab(tab){
   if(tab==='members') loadOwnerMembers();
   if(tab==='messages') loadMsgDropdown();
   if(tab==='stats') loadOwnerStats();
+  if(tab==='pricing') loadPricingFromDB();
 }
 
 function loadOwnerMembers(){
@@ -1855,7 +1856,7 @@ function loadOwnerMembers(){
     }).then(function(){
       // Send welcome email
       if(EMAILJS_PUBLIC!=='YOUR_PUBLIC_KEY'){
-        emailjs.init(EMAILJS_PUBLIC);
+       
         emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, {
           to_email: id,
           to_name: name,
@@ -1939,7 +1940,18 @@ function loadMsgHistory(){
   });
   document.getElementById('msgHistory').innerHTML=html;
 }
-
+function loadPricingFromDB(){
+  fetch('https://api.jsonbin.io/v3/b/'+SETTINGS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var s=data.record||{pro:40,consult:80,freeSearches:3};
+    document.getElementById('opProPrice').value=s.pro||40;
+    document.getElementById('opConsultPrice').value=s.consult||80;
+    document.getElementById('opFreeSearches').value=s.freeSearches||3;
+    prices.pro.usd=s.pro||40;
+    prices.consult.usd=s.consult||80;
+  }).catch(function(){});
+}
 function saveOwnerPricing(){
   var pro=parseInt(document.getElementById('opProPrice').value)||40;
   var consult=parseInt(document.getElementById('opConsultPrice').value)||80;

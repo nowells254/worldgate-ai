@@ -1734,7 +1734,15 @@ function closeUserInbox(){
   document.getElementById('userInboxModal').classList.remove('active');
 }
 function openUserProfile(){
-  if(currentUser) alert('👤 '+currentUser.name+'\n📧 '+currentUser.id+'\n📅 Joined: '+currentUser.joined);
+  if(!currentUser) return;
+  var choice=confirm('👤 '+currentUser.name+'\n📧 '+currentUser.id+'\n📅 Joined: '+currentUser.joined+'\n\nClick OK to logout, Cancel to stay.');
+  if(choice){
+    currentUser=null;
+    localStorage.removeItem('wg_current_user');
+    document.getElementById('userAvatar').style.display='none';
+    document.getElementById('authBtn').style.display='inline-block';
+    alert('✅ Logged out successfully. See you soon!');
+  }
 }
 
 // ===== OWNER PANEL =====
@@ -1772,6 +1780,7 @@ function loadOwnerMembers(){
     var users=db.users||[];
     var notifs=db.notifications||[];
     document.getElementById('memberCount').textContent=users.length+' members';
+    document.getElementById('membersList').insertAdjacentHTML('beforebegin','<button onclick="addUserManually()" style="width:100%;padding:10px;background:linear-gradient(135deg,#1D9E75,#085041);color:white;border:none;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px">+ Add User Manually</button>');
     var html='';
     if(notifs.length>0){
       html+='<div style="background:#E8F8F3;border-radius:10px;padding:12px;margin-bottom:12px">';
@@ -1788,7 +1797,8 @@ function loadOwnerMembers(){
         html+='<div style="display:flex;align-items:center;gap:10px;padding:10px;border-bottom:1px solid #f0f0f0">';
         html+='<div style="width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#1D9E75,#085041);color:white;font-size:14px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0">'+u.avatar+'</div>';
         html+='<div style="flex:1"><div style="font-size:13px;font-weight:700">'+u.name+'</div><div style="font-size:11px;color:#8e8e93">'+u.id+' · Joined '+u.joined+'</div></div>';
-        html+='<button onclick="quickMsgUser(\''+u.id+'\',\''+u.name+'\')" style="padding:5px 10px;background:#E8F8F3;color:#085041;border:1px solid #1D9E75;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer">💬 Msg</button>';
+        html+='<button onclick="quickMsgUser(\''+u.id+'\',\''+u.name+'\')" style="padding:5px 8px;background:#E8F8F3;color:#085041;border:1px solid #1D9E75;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer;margin-right:4px">💬</button>';
+        html+='<button onclick="removeUser(\''+u.id+'\',\''+u.name+'\')" style="padding:5px 8px;background:#fee2e2;color:#dc2626;border:1px solid #fca5a5;border-radius:6px;font-size:11px;font-weight:700;cursor:pointer">✕</button>';
         html+='</div>';
       });
     }
@@ -1798,19 +1808,69 @@ function loadOwnerMembers(){
     document.getElementById('membersList').innerHTML='<div style="text-align:center;padding:20px;color:#dc2626;font-size:12px">Error loading members. Check connection.</div>';
   });
 }
+  function addUserManually(){
+  var name=prompt('Enter user full name:');
+  if(!name) return;
+  var id=prompt('Enter user email or phone:');
+  if(!id) return;
+  var pass=prompt('Create a password for this user:');
+  if(!pass) return;
+  var user={name:name,id:id,pass:pass,avatar:name.charAt(0).toUpperCase(),joined:new Date().toLocaleString(),type:'Member',addedByOwner:true};
+  fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var db=data.record||{users:[],notifications:[]};
+    var exists=db.users.find(function(u){return u.id===id;});
+    if(exists){alert('User with this email/phone already exists.');return;}
+    db.users.push(user);
+    db.notifications.unshift({msg:'👑 Owner added '+name+' to WorldGate AI',time:new Date().toLocaleString(),name:name,avatar:user.avatar});
+    fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
+      body:JSON.stringify(db)
+    }).then(function(){
+      alert('✅ User '+name+' added! Their login: '+id+' / '+pass);
+      loadOwnerMembers();
+    });
+  }).catch(function(){alert('Error. Please try again.');});
+}
+
+function removeUser(userId, userName){
+  if(!confirm('Remove '+userName+' from WorldGate AI? This cannot be undone.')) return;
+  fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var db=data.record||{users:[],notifications:[]};
+    db.users=db.users.filter(function(u){return u.id!==userId;});
+    db.notifications.unshift({msg:'❌ '+userName+' was removed from WorldGate AI',time:new Date().toLocaleString()});
+    fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
+      body:JSON.stringify(db)
+    }).then(function(){
+      alert('✅ '+userName+' removed.');
+      loadOwnerMembers();
+    });
+  }).catch(function(){alert('Error. Please try again.');});
+}
 function quickMsgUser(userId, userName){
   ownerTab('messages');
   document.getElementById('msgToUser').value=userId;
 }
 
 function loadMsgDropdown(){
-  var users = JSON.parse(localStorage.getItem('wg_users')||'[]');
-  var sel = document.getElementById('msgToUser');
-  sel.innerHTML='<option value="">Select a member...</option>';
-  users.forEach(function(u){
-    sel.innerHTML+='<option value="'+u.id+'">'+u.name+' ('+u.id+')</option>';
-  });
-  loadMsgHistory();
+ fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var db=data.record||{users:[],notifications:[]};
+    var users=db.users||[];
+    var sel=document.getElementById('msgToUser');
+    sel.innerHTML='<option value="">Select a member...</option>';
+    users.forEach(function(u){
+      sel.innerHTML+='<option value="'+u.id+'">'+u.name+' ('+u.id+')</option>';
+    });
+    loadMsgHistory();
+  }).catch(function(){loadMsgHistory();});
 }
 
 function sendMsgToUser(){
@@ -1896,26 +1956,68 @@ function sendBroadcast(){
 }
 
 function loadOwnerStats(){
-  var users=JSON.parse(localStorage.getItem('wg_users')||'[]');
-  var searches=localStorage.getItem('wg_searches')||'0';
-  var saved=JSON.parse(localStorage.getItem('wg_saved')||'[]');
-  var reviews=JSON.parse(localStorage.getItem('wg_reviews')||'{}');
-  var totalReviews=0;
-  Object.keys(reviews).forEach(function(k){totalReviews+=reviews[k].length;});
-  document.getElementById('opStatsContent').innerHTML=
-    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+users.length+'</div><div style="font-size:11px;color:#6e6e73">Registered Users</div></div>'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+searches+'</div><div style="font-size:11px;color:#6e6e73">Total Searches</div></div>'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+saved.length+'</div><div style="font-size:11px;color:#6e6e73">Saved Countries</div></div>'+
-    '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+totalReviews+'</div><div style="font-size:11px;color:#6e6e73">Reviews Posted</div></div>'+
-    '</div>';
+  fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var db=data.record||{users:[],notifications:[]};
+    var users=db.users||[];
+    var searches=localStorage.getItem('wg_searches')||'0';
+    var saved=JSON.parse(localStorage.getItem('wg_saved')||'[]');
+    var reviews=JSON.parse(localStorage.getItem('wg_reviews_shared')||'[]');
+    document.getElementById('opStatsContent').innerHTML=
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">'+
+      '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+users.length+'</div><div style="font-size:11px;color:#6e6e73">Registered Users</div></div>'+
+      '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+searches+'</div><div style="font-size:11px;color:#6e6e73">Total Searches</div></div>'+
+      '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+saved.length+'</div><div style="font-size:11px;color:#6e6e73">Saved Countries</div></div>'+
+      '<div style="background:#E8F8F3;border-radius:10px;padding:14px;text-align:center"><div style="font-size:24px;font-weight:800;color:#085041">'+reviews.length+'</div><div style="font-size:11px;color:#6e6e73">Reviews Posted</div></div>'+
+      '</div>';
+  }).catch(function(){
+    document.getElementById('opStatsContent').innerHTML='<p style="color:#dc2626;font-size:12px">Error loading stats.</p>';
+  });
 }
-
 function resetSearches(){
   if(confirm('Reset all search counts?')){localStorage.removeItem('wg_searches');searchCount=0;alert('✅ Reset done.');}
 }
 
 function checkBroadcast(){
+  // Migrate any old localStorage users to JSONBin
+  var oldUsers=JSON.parse(localStorage.getItem('wg_users')||'[]');
+  if(oldUsers.length>0){
+    fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var db=data.record||{users:[],notifications:[]};
+      var changed=false;
+      oldUsers.forEach(function(ou){
+        var exists=db.users.find(function(u){return u.id===ou.id;});
+        if(!exists){
+          db.users.push(ou);
+          db.notifications.unshift({msg:'🆕 '+ou.name+' joined WorldGate AI (migrated)',time:new Date().toLocaleString(),name:ou.name,avatar:ou.avatar||'?'});
+          changed=true;
+        }
+      });
+      if(changed){
+        fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{
+          method:'PUT',
+          headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
+          body:JSON.stringify(db)
+        }).then(function(){
+          localStorage.removeItem('wg_users');
+          console.log('Users migrated to JSONBin successfully');
+        });
+      } else {
+        localStorage.removeItem('wg_users');
+      }
+    }).catch(function(){});
+  }
+
+  // Fix purple color — restore green if no saved color preference
+  var savedColor=JSON.parse(localStorage.getItem('wg_color')||'null');
+  if(!savedColor){
+    localStorage.removeItem('wg_color');
+  } else if(savedColor.primary){
+    applyTheme(savedColor.primary,savedColor.dark);
+  }
   // Load global settings from JSONBin on every page load
   fetch('https://api.jsonbin.io/v3/b/'+SETTINGS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
   .then(function(r){return r.json();})
@@ -1967,9 +2069,6 @@ function checkBroadcast(){
     try{loginUser(JSON.parse(savedUser));}catch(e){}
   }
   // Load saved prices
-  var savedSettings=JSON.parse(localStorage.getItem('wg_settings')||'{}');
-  if(savedSettings.pro) prices.pro.usd=savedSettings.pro;
-  if(savedSettings.consult) prices.consult.usd=savedSettings.consult;
   // Apply saved theme
   var savedColor=JSON.parse(localStorage.getItem('wg_color')||'null');
   if(savedColor) applyTheme(savedColor.primary,savedColor.dark);

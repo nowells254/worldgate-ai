@@ -1887,14 +1887,7 @@ function loadOwnerMembers(){
         });
       }
 
-         }).then(function(){
-          alert('✅ User '+name+' added! Welcome email sent to '+id);
-        }).catch(function(err){
-          alert('✅ User '+name+' added!\n\nEmail error: '+JSON.stringify(err)+'\n\nCheck EmailJS dashboard at emailjs.com');
-        });
-      } else {
-        alert('✅ User '+name+' added! Login: '+id+' / '+pass+'\n\nNote: Set up EmailJS to send automatic emails.');
-      }
+ alert('✅ User '+name+' added successfully!');
       loadOwnerMembers();
     });
   }).catch(function(){alert('Error. Please try again.');});

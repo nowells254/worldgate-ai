@@ -2070,61 +2070,17 @@ function resetSearches(){
 }
 
 function checkBroadcast(){
-  // Migrate any old localStorage users to JSONBin
-  var oldUsers=JSON.parse(localStorage.getItem('wg_users')||'[]');
-  if(oldUsers.length>0){
-    // Load prices from JSONBin and update all buttons
+  // 1. Load prices from JSONBin
   fetch('https://api.jsonbin.io/v3/b/'+SETTINGS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
   .then(function(r){return r.json();})
   .then(function(data){
     var s=data.record||data||{pro:40,consult:80};
-    if(s.pro){ prices.pro.usd=parseInt(s.pro); }
-    if(s.consult){ prices.consult.usd=parseInt(s.consult); }
+    if(s.pro) prices.pro.usd=parseInt(s.pro);
+    if(s.consult) prices.consult.usd=parseInt(s.consult);
     updateAllPriceButtons();
-  }).catch(function(){
-    updateAllPriceButtons();
-  });
-      oldUsers.forEach(function(ou){
-        var exists=db.users.find(function(u){return u.id===ou.id;});
-        if(!exists){
-          db.users.push(ou);
-          db.notifications.unshift({msg:'🆕 '+ou.name+' joined WorldGate AI (migrated)',time:new Date().toLocaleString(),name:ou.name,avatar:ou.avatar||'?'});
-          changed=true;
-        }
-      });
-      if(changed){
-        fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{
-          method:'PUT',
-          headers:{'Content-Type':'application/json','X-Access-Key':JSONBIN_KEY},
-          body:JSON.stringify(db)
-        }).then(function(){
-          localStorage.removeItem('wg_users');
-          console.log('Users migrated to JSONBin successfully');
-        });
-      } else {
-        localStorage.removeItem('wg_users');
-      }
-    }).catch(function(){});
-  }
+  }).catch(function(){updateAllPriceButtons();});
 
-  // Fix purple color — restore green if no saved color preference
-  var savedColor=JSON.parse(localStorage.getItem('wg_color')||'null');
-  if(!savedColor){
-    localStorage.removeItem('wg_color');
-  } else if(savedColor.primary){
-    applyTheme(savedColor.primary,savedColor.dark);
-  }
- 
-  // Check for new user notifications
-  setInterval(function(){
-    if(isOwner){
-      var count=parseInt(localStorage.getItem('wg_notif_count')||'0');
-      var gear=document.getElementById('settingsGear');
-      if(count>0&&gear){
-        gear.innerHTML='⚙️ Settings <span style="background:#dc2626;color:white;border-radius:50%;width:16px;height:16px;font-size:10px;display:inline-flex;align-items:center;justify-content:center">'+count+'</span>';
-      }
-    }
-  },3000);
+  // 2. Show broadcast alert if any
   var broadcast=JSON.parse(localStorage.getItem('wg_broadcast')||'null');
   var shown=localStorage.getItem('wg_broadcast_shown');
   if(broadcast&&shown!==broadcast.time){
@@ -2136,8 +2092,8 @@ function checkBroadcast(){
       document.body.appendChild(b);
     },2000);
   }
-  // Restore saved user session
- // Auto-restore owner session
+
+  // 3. Restore owner session
   var ownerLoggedIn=localStorage.getItem('wg_owner_session');
   if(ownerLoggedIn==='true'){
     isOwner=true;
@@ -2147,22 +2103,22 @@ function checkBroadcast(){
     document.getElementById('settingsGear').style.display='flex';
     document.getElementById('authBtn').style.display='none';
   }
-  // Auto-restore user session
+
+  // 4. Restore user session
   var savedUser=localStorage.getItem('wg_current_user');
-  if(savedUser){
-    try{loginUser(JSON.parse(savedUser));}catch(e){}
-  }
-  // Load saved prices
-  // Apply saved theme
+  if(savedUser){try{loginUser(JSON.parse(savedUser));}catch(e){}}
+
+  // 5. Apply saved theme color
   var savedColor=JSON.parse(localStorage.getItem('wg_color')||'null');
-  if(savedColor) applyTheme(savedColor.primary,savedColor.dark);
-  // Apply saved appearance
+  if(savedColor&&savedColor.primary) applyTheme(savedColor.primary,savedColor.dark);
+
+  // 6. Apply saved appearance
   var savedApp=JSON.parse(localStorage.getItem('wg_appearance')||'null');
   if(savedApp){
     if(document.getElementById('appNameEl')) document.getElementById('appNameEl').innerHTML=savedApp.name.replace(' AI','<span> AI</span>');
     if(document.getElementById('appSubEl')) document.getElementById('appSubEl').textContent=savedApp.sub;
   }
-}  
+}
 function showTab(tab){
   var tabs=['explore','compare','saved','feed'];
   for(var i=0;i<tabs.length;i++){

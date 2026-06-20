@@ -567,8 +567,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
           <div class="p-amt">$80</div><div class="p-per" id="pwPer2">per session</div><div class="p-lbl" id="pwLbl2">📞 Personal Consultation</div>
         </div>
       </div>
-      <button class="gbtn gbtn-green" onclick="openPayment('pro')" id="payBtn">💳 Subscribe — $40/month · Unlimited Access</button><br>
-      <button class="gbtn gbtn-dark" onclick="openPayment('consult')" id="consultBtn">📞 Book Consultation with Nowells — $80</button>
+     <button class="gbtn gbtn-green" onclick="openPayment('pro')" id="payBtn">💳 Subscribe — Loading...</button><br>
+      <button class="gbtn gbtn-dark" onclick="openPayment('consult')" id="consultBtn">📞 Book Consultation with Nowells — Loading...</button>
       <p class="curr-note" id="currNote">M-Pesa · Visa · Mastercard · PayPal · All world currencies · Instant access</p>
     </div>
   </div>
@@ -624,8 +624,8 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;backgrou
     <div class="action-box">
       <h3 id="abTitle">Ready to take action?</h3>
       <p id="abSub">Subscribe for unlimited country reports or book a personal consultation with Nowells in Nairobi, Kenya.</p>
-      <button class="gbtn gbtn-green" onclick="openPayment('pro')" id="abPayBtn">💳 Subscribe — $40/month</button>
-      <button class="gbtn gbtn-dark" onclick="openPayment('consult')" id="abConsultBtn">📞 Personal Consultation — $80</button>
+      <button class="gbtn gbtn-green" onclick="openPayment('pro')" id="abPayBtn">💳 Subscribe — Loading...</button>
+      <button class="gbtn gbtn-dark" onclick="openPayment('consult')" id="abConsultBtn">📞 Personal Consultation — Loading...</button>
       <p class="curr-note">M-Pesa · Visa · Mastercard · PayPal · All world currencies · Instant access after payment</p>
     </div>
     <div class="paywall" id="countryPaywall">
@@ -953,6 +953,28 @@ function showPaymentModal(type){
   document.getElementById('mAmt').innerHTML='$'+p.usd+' <small>USD</small>';
   document.getElementById('mDesc').textContent=t.currNote||'All world currencies accepted';
   document.getElementById('modalOverlay').classList.add('active');
+  // Update ALL price buttons on page
+  updateAllPriceButtons();
+}
+
+function updateAllPriceButtons(){
+  var proPrice=prices.pro.usd;
+  var consultPrice=prices.consult.usd;
+  var ids=['payBtn','abPayBtn'];
+  ids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.textContent='💳 Subscribe — $'+proPrice+'/month';
+  });
+  var cids=['consultBtn','abConsultBtn'];
+  cids.forEach(function(id){
+    var el=document.getElementById(id);
+    if(el) el.textContent='📞 Personal Consultation — $'+consultPrice;
+  });
+  // Update price cards
+  document.querySelectorAll('.p-amt').forEach(function(el,i){
+    if(i===0||i===2||i===4) el.textContent='$'+proPrice;
+    if(i===1||i===3||i===5) el.textContent='$'+consultPrice;
+  });
 }
 function closeModal(){document.getElementById('modalOverlay').classList.remove('active');}
 function goToPesapal(){
@@ -1804,7 +1826,7 @@ function loadOwnerMembers(){
   document.getElementById('memberCount').textContent='Loading...';
   document.getElementById('membersList').innerHTML='<div style="text-align:center;padding:20px;color:#8e8e93;font-size:12px">⏳ Loading members from database...</div>';
   fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{
-    headers:{'X-Access-Key':JSONBIN_KEY,'X-Bin-Meta':false}
+ headers:{'X-Access-Key':JSONBIN_KEY}
   })
   .then(function(r){
     if(!r.ok) throw new Error('HTTP '+r.status);
@@ -2051,11 +2073,17 @@ function checkBroadcast(){
   // Migrate any old localStorage users to JSONBin
   var oldUsers=JSON.parse(localStorage.getItem('wg_users')||'[]');
   if(oldUsers.length>0){
-    fetch('https://api.jsonbin.io/v3/b/'+USERS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
-    .then(function(r){return r.json();})
-    .then(function(data){
-      var db=data.record||{users:[],notifications:[]};
-      var changed=false;
+    // Load prices from JSONBin and update all buttons
+  fetch('https://api.jsonbin.io/v3/b/'+SETTINGS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    var s=data.record||data||{pro:40,consult:80};
+    if(s.pro){ prices.pro.usd=parseInt(s.pro); }
+    if(s.consult){ prices.consult.usd=parseInt(s.consult); }
+    updateAllPriceButtons();
+  }).catch(function(){
+    updateAllPriceButtons();
+  });
       oldUsers.forEach(function(ou){
         var exists=db.users.find(function(u){return u.id===ou.id;});
         if(!exists){

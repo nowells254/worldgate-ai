@@ -2114,19 +2114,7 @@ function checkBroadcast(){
   } else if(savedColor.primary){
     applyTheme(savedColor.primary,savedColor.dark);
   }
-  // Load global settings from JSONBin on every page load
-  fetch('https://api.jsonbin.io/v3/b/'+SETTINGS_BIN,{headers:{'X-Access-Key':JSONBIN_KEY}})
-  .then(function(r){return r.json();})
-  .then(function(data){
-    var s=data.record||{};
-    if(s.pro){ prices.pro.usd=s.pro; localStorage.setItem('wg_settings',JSON.stringify(s)); }
-    if(s.consult){ prices.consult.usd=s.consult; }
-  }).catch(function(){
-    // Fallback to localStorage if offline
-    var s=JSON.parse(localStorage.getItem('wg_settings')||'{}');
-    if(s.pro) prices.pro.usd=s.pro;
-    if(s.consult) prices.consult.usd=s.consult;
-  });
+ 
   // Check for new user notifications
   setInterval(function(){
     if(isOwner){
